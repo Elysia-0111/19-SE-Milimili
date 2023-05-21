@@ -177,4 +177,11 @@ input:-webkit-autofill::first-line {
     font-weight: bold;
     font-size: 17px;
 }
+
+.background {
+    width: 570px;
+    background-image: url('../assets/login.jpg');
+    background-size: cover;
+    font-family: sans-serif;
+}
 </style>
