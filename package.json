@@ -1,5 +1,7 @@
 {
   "dependencies": {
+    "element": "^0.1.4",
+    "element-plus": "^2.3.5",
     "vuex": "^4.1.0"
   }
 }
