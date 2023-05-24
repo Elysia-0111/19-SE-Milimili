@@ -72,59 +72,58 @@
                     </a>
                 </div>
                 <div class="relative-container">
-                    <a class="channel-link" href="home" style="letter-spacing: 2px;" target="_blank">
-                        <el-button size="small" type="default" class="button1" text bg>番剧</el-button>
+                    <a class="channel-link" style="letter-spacing: 2px;" target="_blank">
+                        <el-button href="home" size="small" type="default" class="button1" text bg>番剧</el-button>
                     </a>
-                    <a class="channel-link" href="home" style="letter-spacing: 2px;" target="_blank">
-                        <el-button size="small" type="default" class="button2" text bg>电影</el-button>
+                    <a class="channel-link" style="letter-spacing: 2px;" target="_blank">
+                        <el-button href="home" size="small" type="default" class="button2" text bg>电影</el-button>
                     </a>
-                    <a class="channel-link" href="home" style="letter-spacing: 2px;" target="_blank">
-                        <el-button size="small" type="default" class="button3" text bg>国创</el-button>
+                    <a class="channel-link" style="letter-spacing: 2px;" target="_blank">
+                        <el-button href="home" size="small" type="default" class="button3" text bg>国创</el-button>
                     </a>
-                    <a class="channel-link" href="home" style="letter-spacing: 2px;" target="_blank">
-                        <el-button size="small" type="default" class="button4" text bg>电视剧</el-button>
+                    <a class="channel-link" style="letter-spacing: 2px;" target="_blank">
+                        <el-button href="home" size="small" type="default" class="button4" text bg>电视剧</el-button></a>
+                    <a class="channel-link" style="letter-spacing: 2px;" target="_blank">
+                        <el-button href="home" size="small" type="default" class="button5" text bg>综艺</el-button>
                     </a>
-                    <a class="channel-link" href="home" style="letter-spacing: 2px;" target="_blank">
-                        <el-button size="small" type="default" class="button5" text bg>综艺</el-button>
+                    <a class="channel-link" style="letter-spacing: 2px;" target="_blank">
+                        <el-button href="home" size="small" type="default" class="button6" text bg>纪录片</el-button>
                     </a>
-                    <a class="channel-link" href="home" style="letter-spacing: 2px;" target="_blank">
-                        <el-button size="small" type="default" class="button6" text bg>纪录片</el-button>
+                    <a class="channel-link" style="letter-spacing: 2px;" target="_blank">
+                        <el-button href="home" size="small" type="default" class="button7" text bg>动画</el-button>
                     </a>
-                    <a class="channel-link" href="home" style="letter-spacing: 2px;" target="_blank">
-                        <el-button size="small" type="default" class="button7" text bg>动画</el-button>
+                    <a class="channel-link" style="letter-spacing: 2px;" target="_blank">
+                        <el-button href="home" size="small" type="default" class="button8" text bg>游戏</el-button>
                     </a>
-                    <a class="channel-link" href="home" style="letter-spacing: 2px;" target="_blank">
-                        <el-button size="small" type="default" class="button8" text bg>游戏</el-button>
+                    <a class="channel-link" style="letter-spacing: 2px;" target="_blank">
+                        <el-button href="home" size="small" type="default" class="button9" text bg>鬼畜</el-button>
                     </a>
-                    <a class="channel-link" href="home" style="letter-spacing: 2px;" target="_blank">
-                        <el-button size="small" type="default" class="button9" text bg>鬼畜</el-button>
+                    <a class="channel-link" style="letter-spacing: 2px;" target="_blank">
+                        <el-button href="home" size="small" type="default" class="button10" text bg>音乐</el-button>
                     </a>
-                    <a class="channel-link" href="home" style="letter-spacing: 2px;" target="_blank">
-                        <el-button size="small" type="default" class="button10" text bg>音乐</el-button>
+                    <a class="channel-link" style="letter-spacing: 2px;" target="_blank">
+                        <el-button href="home" size="small" type="default" class="button11" text bg>舞蹈</el-button>
                     </a>
-                    <a class="channel-link" href="home" style="letter-spacing: 2px;" target="_blank">
-                        <el-button size="small" type="default" class="button11" text bg>舞蹈</el-button>
+                    <a class="channel-link" style="letter-spacing: 2px;" target="_blank">
+                        <el-button href="home" size="small" type="default" class="button12" text bg>影视</el-button>
                     </a>
-                    <a class="channel-link" href="home" style="letter-spacing: 2px;" target="_blank">
-                        <el-button size="small" type="default" class="button12" text bg>影视</el-button>
+                    <a class="channel-link" style="letter-spacing: 2px;" target="_blank">
+                        <el-button href="home" size="small" type="default" class="button13" text bg>娱乐</el-button>
                     </a>
-                    <a class="channel-link" href="home" style="letter-spacing: 2px;" target="_blank">
-                        <el-button size="small" type="default" class="button13" text bg>娱乐</el-button>
+                    <a class="channel-link" style="letter-spacing: 2px;" target="_blank">
+                        <el-button href="home" size="small" type="default" class="button14" text bg>知识</el-button>
                     </a>
-                    <a class="channel-link" href="home" style="letter-spacing: 2px;" target="_blank">
-                        <el-button size="small" type="default" class="button14" text bg>知识</el-button>
+                    <a class="channel-link" style="letter-spacing: 2px;" target="_blank">
+                        <el-button href="home" size="small" type="default" class="button15" text bg>科技</el-button>
                     </a>
-                    <a class="channel-link" href="home" style="letter-spacing: 2px;" target="_blank">
-                        <el-button size="small" type="default" class="button15" text bg>科技</el-button>
+                    <a class="channel-link" style="letter-spacing: 2px;" target="_blank">
+                        <el-button href="home" size="small" type="default" class="button16" text bg>资讯</el-button>
                     </a>
-                    <a class="channel-link" href="home" style="letter-spacing: 2px;" target="_blank">
-                        <el-button size="small" type="default" class="button16" text bg>资讯</el-button>
+                    <a class="channel-link" style="letter-spacing: 2px;" target="_blank">
+                        <el-button href="home" size="small" type="default" class="button17" text bg>美食</el-button>
                     </a>
-                    <a class="channel-link" href="home" style="letter-spacing: 2px;" target="_blank">
-                        <el-button size="small" type="default" class="button17" text bg>美食</el-button>
-                    </a>
-                    <a class="channel-link" href="home" style="letter-spacing: 2px;" target="_blank">
-                        <el-button size="small" type="default" class="button18" text bg>更多</el-button>
+                    <a class="channel-link" style="letter-spacing: 2px;" target="_blank">
+                        <el-button href="home" size="small" type="default" class="button18" text bg>更多</el-button>
                     </a>
                 </div>
             </el-main>
