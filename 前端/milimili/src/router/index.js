@@ -60,6 +60,11 @@ const routes = [
     name:'myfollow',
     component: () => import('../views/person/MyFanAndFollow.vue')
   },
+  {
+    path:'/personal/personaldia',
+    name:'personaldia',
+    component: () => import('../views/person/PersonalDia.vue')
+  },
   /*{
     //path: '/newsuser/personal/:id',
     path: '/personal',

@@ -1,42 +1,11 @@
 <template>
     <div class="myart1">
-      <article-item v-for="a in allData" :key="a.id" v-bind="a"/>
           <el-empty
-          v-if="allData.length == 0"
           :image-size="250"
-          description="暂未发表任何新闻额"
+          description="你还没有发表任何视频哦"
         ></el-empty>
     </div>
   </template>
-  
-  <script>
-  /*import { myArticle } from "@/api/user.js";
-  import ArticleItem from '../../components/article/ArticleItem.vue';
-  export default {
-    components: { ArticleItem },
-    name: "MyArticle",
-    data() {
-      return {
-        allData:[]
-      };
-    },
-    mounted() {
-      this.load();
-    },
-    methods: {
-      load() {
-        myArticle(this.$route.params.id)
-          .then((res) => {
-            console.log(res);
-            this.allData=res.data
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      },
-    },
-  };*/
-  </script>
   
   <style>
     .myart1{

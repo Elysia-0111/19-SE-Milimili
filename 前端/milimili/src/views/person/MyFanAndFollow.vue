@@ -1,35 +1,29 @@
 <template>
     <div class="fanorfollow_box">
-      <div class="fanorfollow" v-for="(item, index) in allData">
+      <div class="fanorfollow">
         <div class="fanorfollow_left">
-          <img class="fanorfollow_img" v-image-preview :src="item.avatar" />
+          <img class="fanorfollow_img" src="@/assets/logo.png" />
         </div>
         <div class="fanorfollow_info">
           <div class="fanorfollow_info_top">
-            <span
-              style="color: #666; max-width: 180px"
-              @click="personal(item.id)"
-              >{{ item.nickname }}</span
-            >
+            <span style="color: #666; max-width: 180px">name</span>
           </div>
           <div class="fanorfollow_info_bottom">
-            <span @click="personal(item.id)">{{ item.design }}</span>
+            <span >123</span>
           </div>
         </div>
         <div class="fanorfollow_botton">
           <el-button
-            @click="follow(item.id)"
             type="primary"
             size="small"
             round
             icon="el-icon-check"
-            v-text="isfollowid.indexOf(item.id) > -1 ? '已关注' : '关注'"
+            v-text="1 > -1 ? '已关注' : '关注'"
           ></el-button>
         </div>
       </div>
       <div>
         <el-empty
-          v-if="allData.length == 0"
           :image-size="250"
           description="这里什么都没有哟"
         ></el-empty>
@@ -37,9 +31,7 @@
     </div>
   </template>
   
-  <script>/*
-  import { myFollow, myFan, addFollow, deleteFollow } from "@/api/follow.js";
-  
+  <script>  
   export default {
     name: "MyFanAndFollow",
     inject: ["reload"],
@@ -54,133 +46,9 @@
         isfollowid: [],
       };
     },
-    watch: {
-      $route(to, from) {
-        if (to.path == `/newsuser/personal/myfan/${this.$route.params.id}`) {
-          myFan(this.$route.params.id)
-            .then((res) => {
-              console.log(res);
-              this.allData = res.data;
-              myFollow(this.$route.params.id).then((res) => {
-                  res.data.forEach((element) => {
-                    this.isfollowid.push(element.id);
-                  });
-                });
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-        } else {
-          myFollow(this.$route.params.id)
-            .then((res) => {
-              console.log(res);
-              this.allData = res.data;
-              res.data.forEach((element) => {
-                this.isfollowid.push(element.id);
-              });
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-        }
-      },
-    },
-    mounted() {
-      this.load();
-    },
-    methods: {
-      load() {
-        if (
-          this.$route.path == `/newsuser/personal/myfan/${this.$route.params.id}`
-        ) {
-          myFan(this.$route.params.id)
-            .then((res) => {
-              console.log(res);
-              this.allData = res.data;
-                myFollow(this.$route.params.id).then((res) => {
-                  res.data.forEach((element) => {
-                    this.isfollowid.push(element.id);
-                  });
-                });
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-        } else {
-          myFollow(this.$route.params.id)
-            .then((res) => {
-              console.log(res);
-              this.allData = res.data;
-              res.data.forEach((element) => {
-                this.isfollowid.push(element.id);
-              });
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-        }
-      },
-      follow(id) {
-        if (!this.$store.state.id) {
-          this.$message({
-            showClose: true,
-            message: "请登录后再进行操作哦",
-            type: "warning",
-          });
-          return;
-        }
-        if (this.$store.state.id != this.$route.params.id) {
-          this.$message({
-            showClose: true,
-            message: "此页面不是你的个人中心哦",
-            type: "warning",
-          });
-          return;
-        }
-        this.followData.followId = id;
-        this.followData.fanId = this.$store.state.id;
-        if (this.isfollowid.indexOf(this.followData.followId) > -1) {
-          this.isfollow = true;
-        } else {
-          this.isfollow = false;
-        }
-        if (this.isfollow) {
-          deleteFollow(this.followData)
-            .then((res) => {
-              console.log(res.data);
-              this.isfollow = false;
-              this.$message({
-                showClose: true,
-                message: "已取消关注",
-                type: "success",
-              });
-              this.reload();
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-        } else if (!this.isfollow) {
-          addFollow(this.followData)
-            .then((res) => {
-              console.log(res.data);
-              this.isfollow = true;
-              this.$message({
-                showClose: true,
-                message: "已成功关注",
-                type: "success",
-              });
-              this.reload();
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-        }
-      },
-      personal(id) {
-        this.$router.push({ path: `/newsuser/personal/${id}` });
-      },
-    },
-  };*/
+
+  }
+
   </script>
   
   <style>

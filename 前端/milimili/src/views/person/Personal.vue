@@ -17,7 +17,7 @@
               <span> user_qianming </span>
             </div>
             <div class="user_anniu">
-              <el-button class="el-icon-edit" type="primary" size="medium" plain @click="edit">编辑</el-button>
+                <router-link to="/personal/personaldia"><el-button class="el-icon-edit" type="primary" size="medium">编辑</el-button></router-link>
             </div>
           </div>
           <div class="user_num">
@@ -92,19 +92,10 @@
           <router-view></router-view>
         </div>
       </div>
-      <personal-dia ref="dia" @flesh="reload" />
     </div>
   </template>
   
-  <script>/*
-  import { userInfo } from "@/api/user";
-  import {
-    myFollow,
-    addFollow,
-    deleteFollow,
-    followAndFanCount,
-  } from "@/api/follow.js";
-  import { mygoodCount } from "@/api/good";
+  <script>
   import PersonalDia from "./PersonalDia.vue";
   
   export default {
@@ -128,120 +119,7 @@
         isfollowid: [],
       };
     },
-    mounted() {
-      this.load();
-    },
-    watch: {
-      $route(to, from) {
-        if (to.path == `/newsuser/personal/${this.$store.state.id}`) {
-          this.reload();
-        } else if (to.path == `/newsuser/personal/${this.$route.params.id}`) {
-          this.reload();
-        }
-      },
-    },
-    methods: {
-      load() {
-        userInfo(this.$route.params.id)
-          .then((res) => {
-            console.log(res);
-            this.avatar = res.data.avatar;
-            this.nickname = res.data.nickname;
-            this.v = res.data.v;
-            this.design = res.data.design;
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-  
-        myFollow(this.$store.state.id)
-          .then((res) => {
-            res.data.forEach((res) => {
-              this.isfollowid.push(res.id);
-            });
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-  
-        followAndFanCount(this.$route.params.id)
-          .then((res) => {
-            this.followCounts = res.data.followCounts;
-            this.fanCounts = res.data.fanCounts;
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-  
-        mygoodCount(this.$route.params.id)
-          .then((res) => {
-            this.goodCounts = res.data.goodCounts;
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      },
-      myfan() {
-        this.$router.push({
-          path: `/newsuser/personal/myfan/${this.$route.params.id}`,
-        });
-      },
-      myfollow() {
-        this.$router.push({
-        path:`/newsuser/personal/myfollow/${this.$route.params.id}`,
-        });
-      },
-      follow() {
-        if (!this.$store.state.id) {
-          this.$message({
-            showClose: true,
-            message: "请登录后再进行操作哦",
-            type: "warning",
-          });
-        } else {
-          this.followData.followId = this.$route.params.id;
-          this.followData.fanId = this.$store.state.id;
-          if (this.isfollowid.indexOf(this.followData.followId) > -1) {
-            this.isfollow = true;
-          } else {
-            this.isfollow = false;
-          }
-          if (this.isfollow) {
-            deleteFollow(this.followData)
-              .then((res) => {
-                this.isfollow = false;
-                this.$message({
-                  showClose: true,
-                  message: "已取消关注",
-                  type: "success",
-                });
-                this.reload();
-              })
-              .catch((err) => {
-                console.log(err);
-              });
-          } else if (!this.isfollow) {
-            addFollow(this.followData)
-              .then((res) => {
-                this.isfollow = true;
-                this.$message({
-                  showClose: true,
-                  message: "已成功关注",
-                  type: "success",
-                });
-                this.reload();
-              })
-              .catch((err) => {
-                console.log(err);
-              });
-          }
-        }
-      },
-      edit() {
-        this.$refs.dia.open();
-      },
-    },
-  };*/
+  };
   </script>
   
   <style scoped>
