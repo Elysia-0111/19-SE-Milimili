@@ -19,7 +19,92 @@ const routes = [
     path: '/login',
     name: 'login',
     component: () => import(/* webpackChunkName: "login" */ '../views/LoginView.vue')
-  }
+  },
+  {
+    path: '/login2',
+    name: 'login2',
+    component: () => import(/* webpackChunkName: "login" */ '../views/Login.vue')
+  },
+  {
+    path: '/homepage',
+    name: 'homepage',
+    component: () => import(/* webpackChunkName: "login" */ '../views/HomePage.vue')
+  },
+  {
+    path: '/personal',
+    name: 'personal',
+    component: () => import('../views/person/Personal.vue')
+  },
+  {
+    path: '/personal/info',
+    name:'info',
+    component: () => import('../views/person/Info.vue')
+  },
+  {
+    path:'/personal/myarticle',
+    name:'myarticle',
+    component: () => import('../views/person/MyArticle.vue')
+  },
+  {
+    path:'/personal/mycollect',
+    name:'mycollect',
+    component: () => import('../views/person/MyCollect.vue')
+  },
+  {
+    path:'/personal/myfan',
+    name:'myfan',
+    component: () => import('../views/person/MyFanAndFollow.vue')
+  },
+  {
+    path:'/personal/myfollow',
+    name:'myfollow',
+    component: () => import('../views/person/MyFanAndFollow.vue')
+  },
+  {
+    path:'/personal/personaldia',
+    name:'personaldia',
+    component: () => import('../views/person/PersonalDia.vue')
+  },
+  /*{
+    //path: '/newsuser/personal/:id',
+    path: '/personal',
+    component: r => require.ensure([], () => r(require('@/views/person/Personal')), 'personal'),
+    //meta: {
+    //  requireLogin: true
+    //},
+    children: [
+      {
+        // path: '/personal/info/:id',
+        //path: '/newsuser/personal/info/:id',
+        path: '/personal/info',
+        name:'info',
+        component: r => require.ensure([], () => r(require('@/views/person/Info')), 'info')
+      },
+      {
+        //path:'/newsuser/personal/myarticle/:id',
+        path:'/personal/myarticle',
+        name:'myarticle',
+        component: r => require.ensure([], () => r(require('@/views/person/MyArticle')), 'myarticle')
+      },
+      {
+        //path:'/newsuser/personal/mycollect/:id',
+        path:'/personal/mycollect',
+        name:'mycollect',
+        component: r => require.ensure([], () => r(require('@/views/person/MyCollect')), 'mycollect')
+      },
+      {
+        //path:'/newsuser/personal/myfan/:id',
+        path:'/personal/myfan',
+        name:'myfan',
+        component: r => require.ensure([], () => r(require('@/views/person/MyFanAndFollow')), 'myfan')
+      },
+      {
+        path:'/personal/myfollow',
+        name:'myfollow',
+        component: r => require.ensure([], () => r(require('@/views/person/MyFanAndFollow')), 'myfollow')
+      }
+  ]
+}*/
 ]
 
 const router = createRouter({

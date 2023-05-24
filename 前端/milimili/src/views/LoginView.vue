@@ -21,7 +21,7 @@
                     </div>
 
                     <br>
-                    <el-button class="register_btn" type="success">Register</el-button>
+                    <el-button class="register_btn" type="success">注册</el-button>
                 </div>
 
                 <!-- 右侧的注册盒子 -->
@@ -33,6 +33,7 @@
         </div>
     </div>
 </template>
+
 <style>
 .loginbox {
     display: flex;

@@ -1,4 +1,4 @@
-import { createStore } from 'vuex'
+import{createStore}from'vuex'
 
 export default createStore({
   state: {
@@ -6,6 +6,12 @@ export default createStore({
   getters: {
   },
   mutations: {
+    login (state) {
+      state.isLogin = true
+    },
+    logout (state) {
+      state.isLogin = false
+    }
   },
   actions: {
   },
