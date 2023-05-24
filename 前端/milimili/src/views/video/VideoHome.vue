@@ -56,7 +56,7 @@
 
 .router-link-active {
     text-decoration: none;
-    color: white;
+    color: wheat;
     font-size: large;
 }
 
