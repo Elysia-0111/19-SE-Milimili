@@ -37,34 +37,39 @@ const routes = [
   },
   {
     path: '/personal/info',
-    name:'info',
+    name: 'info',
     component: () => import('../views/person/Info.vue')
   },
   {
-    path:'/personal/myarticle',
-    name:'myarticle',
+    path: '/personal/myarticle',
+    name: 'myarticle',
     component: () => import('../views/person/MyArticle.vue')
   },
   {
-    path:'/personal/mycollect',
-    name:'mycollect',
+    path: '/personal/mycollect',
+    name: 'mycollect',
     component: () => import('../views/person/MyCollect.vue')
   },
   {
-    path:'/personal/myfan',
-    name:'myfan',
+    path: '/personal/myfan',
+    name: 'myfan',
     component: () => import('../views/person/MyFanAndFollow.vue')
   },
   {
-    path:'/personal/myfollow',
-    name:'myfollow',
+    path: '/personal/myfollow',
+    name: 'myfollow',
     component: () => import('../views/person/MyFanAndFollow.vue')
   },
   {
-    path:'/personal/personaldia',
-    name:'personaldia',
+    path: '/personal/personaldia',
+    name: 'personaldia',
     component: () => import('../views/person/PersonalDia.vue')
   },
+  {
+    path: '/video/home',
+    name: 'videohome',
+    component: () => import('../views/video/VideoHome.vue')
+  }
   /*{
     //path: '/newsuser/personal/:id',
     path: '/personal',
