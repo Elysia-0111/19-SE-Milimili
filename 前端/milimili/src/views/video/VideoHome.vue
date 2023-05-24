@@ -3,9 +3,12 @@
         <el-container class="videohome">
             <el-header class="header">
                 <el-row>
-                    <el-col :span="1" :offset="1"><router-link to="home">首页</router-link></el-col>
-                    <el-col :span="1"><router-link to="home">热门</router-link></el-col>
-                    <el-col :span="1"><router-link to="home">频道</router-link></el-col>
+                    <el-col :span="1" :offset="1"><router-link class="linkhead" to="home"><a
+                                class="fonthead">首页</a></router-link></el-col>
+                    <el-col :span="1" class="fonthead"><router-link to="home"><a
+                                class="fonthead">热门</a></router-link></el-col>
+                    <el-col :span="1" class="fonthead"><router-link to="home"><a
+                                class="fonthead">频道</a></router-link></el-col>
                     <el-col :span="6" :offset="3">
                         <el-input v-model="searchinput" size="small" placeholder="Please input">
                             <template #append>
@@ -73,57 +76,130 @@
                 </div>
                 <div class="relative-container">
                     <a class="channel-link" style="letter-spacing: 2px;" target="_blank">
-                        <el-button href="home" size="small" type="default" class="button1" text bg>番剧</el-button>
+                        <el-button size="small" type="default" class="button1" text bg>
+                            <router-link to="home">
+                                番剧
+                            </router-link>
+                        </el-button>
                     </a>
                     <a class="channel-link" style="letter-spacing: 2px;" target="_blank">
-                        <el-button href="home" size="small" type="default" class="button2" text bg>电影</el-button>
+                        <el-button size="small" type="default" class="button2" text bg>
+                            <router-link to="../../personal">
+                                电影
+                            </router-link>
+                        </el-button>
                     </a>
                     <a class="channel-link" style="letter-spacing: 2px;" target="_blank">
-                        <el-button href="home" size="small" type="default" class="button3" text bg>国创</el-button>
+                        <el-button size="small" type="default" class="button3" text bg>
+                            <router-link to="">
+                                国创
+                            </router-link>
+                        </el-button>
                     </a>
                     <a class="channel-link" style="letter-spacing: 2px;" target="_blank">
-                        <el-button href="home" size="small" type="default" class="button4" text bg>电视剧</el-button></a>
-                    <a class="channel-link" style="letter-spacing: 2px;" target="_blank">
-                        <el-button href="home" size="small" type="default" class="button5" text bg>综艺</el-button>
+                        <el-button size="small" type="default" class="button4" text bg>
+                            <router-link to="">
+                                电视剧
+                            </router-link>
+                        </el-button>
                     </a>
                     <a class="channel-link" style="letter-spacing: 2px;" target="_blank">
-                        <el-button href="home" size="small" type="default" class="button6" text bg>纪录片</el-button>
+                        <el-button size="small" type="default" class="button5" text bg>
+                            <router-link to="">
+                                综艺
+                            </router-link>
+                        </el-button>
                     </a>
                     <a class="channel-link" style="letter-spacing: 2px;" target="_blank">
-                        <el-button href="home" size="small" type="default" class="button7" text bg>动画</el-button>
+                        <el-button size="small" type="default" class="button6" text bg>
+                            <router-link to="">
+                                纪录片
+                            </router-link>
+                        </el-button>
                     </a>
                     <a class="channel-link" style="letter-spacing: 2px;" target="_blank">
-                        <el-button href="home" size="small" type="default" class="button8" text bg>游戏</el-button>
+                        <el-button size="small" type="default" class="button7" text bg>
+                            <router-link to="">
+                                动画
+                            </router-link>
+                        </el-button>
                     </a>
                     <a class="channel-link" style="letter-spacing: 2px;" target="_blank">
-                        <el-button href="home" size="small" type="default" class="button9" text bg>鬼畜</el-button>
+                        <el-button size="small" type="default" class="button8" text bg>
+                            <router-link to="">
+                                游戏
+                            </router-link>
+                        </el-button>
                     </a>
                     <a class="channel-link" style="letter-spacing: 2px;" target="_blank">
-                        <el-button href="home" size="small" type="default" class="button10" text bg>音乐</el-button>
+                        <el-button size="small" type="default" class="button9" text bg>
+                            <router-link to="">
+                                鬼畜
+                            </router-link>
+                        </el-button>
                     </a>
                     <a class="channel-link" style="letter-spacing: 2px;" target="_blank">
-                        <el-button href="home" size="small" type="default" class="button11" text bg>舞蹈</el-button>
+                        <el-button size="small" type="default" class="button10" text bg>
+                            <router-link to="">
+                                音乐
+                            </router-link>
+                        </el-button>
                     </a>
                     <a class="channel-link" style="letter-spacing: 2px;" target="_blank">
-                        <el-button href="home" size="small" type="default" class="button12" text bg>影视</el-button>
+                        <el-button size="small" type="default" class="button11" text bg>
+                            <router-link to="">
+                                舞蹈
+                            </router-link>
+                        </el-button>
                     </a>
                     <a class="channel-link" style="letter-spacing: 2px;" target="_blank">
-                        <el-button href="home" size="small" type="default" class="button13" text bg>娱乐</el-button>
+                        <el-button size="small" type="default" class="button12" text bg>
+                            <router-link to="">
+                                影视
+                            </router-link>
+                        </el-button>
                     </a>
                     <a class="channel-link" style="letter-spacing: 2px;" target="_blank">
-                        <el-button href="home" size="small" type="default" class="button14" text bg>知识</el-button>
+                        <el-button size="small" type="default" class="button13" text bg>
+                            <router-link to="">
+                                娱乐
+                            </router-link>
+                        </el-button>
                     </a>
                     <a class="channel-link" style="letter-spacing: 2px;" target="_blank">
-                        <el-button href="home" size="small" type="default" class="button15" text bg>科技</el-button>
+                        <el-button size="small" type="default" class="button14" text bg>
+                            <router-link to="">
+                                知识
+                            </router-link>
+                        </el-button>
                     </a>
                     <a class="channel-link" style="letter-spacing: 2px;" target="_blank">
-                        <el-button href="home" size="small" type="default" class="button16" text bg>资讯</el-button>
+                        <el-button size="small" type="default" class="button15" text bg>
+                            <router-link to="">
+                                科技
+                            </router-link>
+                        </el-button>
                     </a>
                     <a class="channel-link" style="letter-spacing: 2px;" target="_blank">
-                        <el-button href="home" size="small" type="default" class="button17" text bg>美食</el-button>
+                        <el-button size="small" type="default" class="button16" text bg>
+                            <router-link to="">
+                                资讯
+                            </router-link>
+                        </el-button>
                     </a>
                     <a class="channel-link" style="letter-spacing: 2px;" target="_blank">
-                        <el-button href="home" size="small" type="default" class="button18" text bg>更多</el-button>
+                        <el-button size="small" type="default" class="button17" text bg>
+                            <router-link to="">
+                                美食
+                            </router-link>
+                        </el-button>
+                    </a>
+                    <a class="channel-link" style="letter-spacing: 2px;" target="_blank">
+                        <el-button size="small" type="default" class="button18" text bg>
+                            <router-link to="../../about">
+                                更多
+                            </router-link>
+                        </el-button>
                     </a>
                 </div>
             </el-main>
@@ -138,7 +214,7 @@
     background-image: url("../../assets/img/background.jpg");
 }
 
-.router-link-active {
+.router-link-active.linkhead {
     text-decoration: none;
     color: wheat;
     font-size: large;
@@ -147,6 +223,11 @@
 a {
     text-decoration: none;
     color: black;
+}
+
+.fonthead {
+    color: aliceblue;
+    font-size: large;
 }
 
 .el-row {
