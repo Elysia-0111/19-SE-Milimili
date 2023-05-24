@@ -1,10 +1,24 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view />
-  <router-link to="/login">Login</router-link>
+  <el-container>
+    <el-header>
+    <div v-if="this.$store.state.isLogin==false">
+      <router-link to="/">Home</router-link> |
+      <!--<router-link to="/homepage">个人中心</router-link> |-->
+      <router-link to="/personal">主页界面</router-link> |
+      <router-link to="/about">About</router-link> |
+      <router-link to="/login2">登录</router-link> |
+      <router-link to="/login">注册</router-link>
+    </div>
+    <div v-else>
+      <router-link to="/">Home</router-link> |
+      <!--<router-link to="/homepage">个人中心</router-link> |-->
+      <router-link to="/personal">主页界面</router-link> |
+      <router-link to="/about">About</router-link> |
+      <el-button type="info" @click="this.$store.commit('logout')">退出登录</el-button>
+    </div>
+    </el-header>
+  </el-container>
+  <router-view/>
 </template>
 
 <style>
