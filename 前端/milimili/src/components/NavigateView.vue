@@ -2,7 +2,7 @@
     <nav>
         <div ref="top_bar" id="top_bar">
             <div ref="nav_bar" class="nav-bar">
-                <a href="https://kotokawa-akira-mywife.site/videoStation/home">
+              <router-link to="/personal">
                     <div ref="icon" class="icon">
                         <svg style="transition:all .3s ease" ref="home_icon" xmlns="http://www.w3.org/2000/svg"
                             width="32" height="32" viewBox="0 0 24 24">
@@ -10,7 +10,7 @@
                         </svg>
                         <span>首页</span>
                     </div>
-                </a>
+                </router-link>
                 <div class="search-bar">
                     <div ref="search_container" class="search-container">
                         <input ref="search_input" type="text" v-model="search_text" autocomplete="false"
@@ -65,11 +65,11 @@
                         <template v-else #default>
                             <div class="mine-detail" style="height:unset">
                                 <div class="mine-detail-tips">登录以获取服务</div>
-                                <a href="https://kotokawa-akira-mywife.site/videoStation/login">
+                              <router-link to="/login2">
                                     <div class="mine-detail-li-login">
                                         立即登录
                                     </div>
-                                </a>
+                              </router-link>
                             </div>
                         </template>
                     </el-popover>
