@@ -202,13 +202,17 @@
                         </el-button>
                     </a>
                 </div>
-                <div>
-                    <video class="video" id="video" @mouseenter="videoPlay" @mouseleave="videoPause"
-                        @click="directToDetail(1)" muted="muted">
-                        <source type="video/mp4" src="../../assets/video/测试.mp4">
+                <div class="kuai">
+                    <div class="video1">
+                        <video class="video" id="video" @mouseenter="videoPlay" @mouseleave="videoPause"
+                            @click="directToDetail(1)" muted="muted">
+                            <source type="video/mp4" src="../../assets/video/测试.mp4">
+                        </video>
+                        <div class="videoTitle">
+                            旋转旋转旋转
+                        </div>
 
-
-                    </video>
+                    </div>
                 </div>
             </el-main>
         </el-container>
@@ -216,7 +220,7 @@
 </template>
 <style>
 .header {
-    width: auto;
+
     height: 150px;
 
     background-image: url("../../assets/img/background.jpg");
@@ -413,12 +417,33 @@ a {
     top: 35px;
 }
 
-.video {
+
+
+.video1 {
     border-radius: 20%;
     width: 320px;
-    height: 240px;
+    height: 280px;
     position: absolute;
-    top: 350px;
+    left: 850px;
+    top: 300px;
+}
+
+.video {
+    border-radius: 12%;
+    width: 320px;
+    height: 200px;
+    position: relative;
+    left: 0px;
+    top: 10px;
+}
+
+.videoTitle {
+    position: relative;
+    top: 0px;
+}
+
+.el-main {
+    height: 100%;
 }
 </style>
 
