@@ -204,7 +204,7 @@
                 </div>
                 <div>
                     <video class="video" id="video" @mouseenter="videoPlay" @mouseleave="videoPause"
-                        @click="directToDetail(1)">
+                        @click="directToDetail(1)" muted="muted">
                         <source type="video/mp4" src="../../assets/video/测试.mp4">
 
 
