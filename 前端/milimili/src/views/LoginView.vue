@@ -1,0 +1,188 @@
+<template>
+    <div class="container">
+        <div class="main">
+            <!-- 整个注册盒子 -->
+            <div class="loginbox">
+                <!-- 左侧的注册盒子 -->
+                <div class="loginbox-in">
+                    <div class="userbox">
+                        <el-avatar :size="30"> user </el-avatar>
+                        <input class="user" id="user" placeholder="用户名">
+                    </div>
+                    <br>
+                    <div class="pwdbox">
+                        <el-avatar :size="30"> pwd </el-avatar>
+                        <input class="pwd" id="password" type="password" placeholder="密码">
+                    </div>
+                    <br>
+                    <div class="pwdbox">
+                        <el-avatar :size="30"> pwd </el-avatar>
+                        <input class="pwd" id="re_password" type="password" placeholder="确认密码">
+                    </div>
+
+                    <br>
+                    <el-button class="register_btn" type="success">注册</el-button>
+                </div>
+
+                <!-- 右侧的注册盒子 -->
+                <div class="background">
+                    <div class="title">Welcome to MiLiMiLi</div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</template>
+
+<style>
+.loginbox {
+    display: flex;
+    position: absolute;
+    width: 800px;
+    height: 400px;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 #4E655D;
+}
+
+.loginbox-in {
+    background-color: #89AB9E;
+    width: 240px;
+}
+
+.userbox {
+    margin-top: 120px;
+    height: 30px;
+    width: 230px;
+    display: flex;
+    margin-left: 25px;
+}
+
+.pwdbox {
+    height: 30px;
+    width: 225px;
+    display: flex;
+    margin-left: 25px;
+}
+
+.title {
+    margin-top: 320px;
+    font-weight: bold;
+    font-size: 20px;
+    color: #4E655D;
+
+}
+
+.title:hover {
+    font-size: 21px;
+    transition: all 0.4s ease-in-out;
+    cursor: pointer;
+}
+
+.uesr-text {
+    position: left;
+}
+
+input:focus {
+    border-bottom: 2px solid #445b53;
+    background-color: transparent;
+    transition: all 0.2s ease-in;
+    font-family: sans-serif;
+    font-size: 15px;
+    color: #445b53;
+    font-weight: bold;
+
+}
+
+input:hover {
+    border-bottom: 2px solid #445b53;
+    background-color: transparent;
+    transition: all 0.2s ease-in;
+    font-family: sans-serif;
+    font-size: 15px;
+    color: #445b53;
+    font-weight: bold;
+
+}
+
+input:-webkit-autofill {
+    /* 修改默认背景框的颜色 */
+    box-shadow: 0 0 0px 1000px #89AB9E inset !important;
+    /* 修改默认字体的颜色 */
+    -webkit-text-fill-color: #445b53;
+}
+
+input:-webkit-autofill::first-line {
+    /* 修改默认字体的大小 */
+    font-size: 15px;
+    /* 修改默认字体的样式 */
+    font-weight: bold;
+}
+
+.log-box {
+    font-size: 12px;
+    display: flex;
+    justify-content: space-between;
+    width: 190px;
+    margin-left: 30px;
+    color: #4E655D;
+    margin-top: -5px;
+    align-items: center;
+
+}
+
+.log-box {
+    font-size: 12px;
+    display: flex;
+    justify-content: space-between;
+    width: 190px;
+    margin-left: 30px;
+    color: #4E655D;
+    margin-top: -5px;
+    align-items: center;
+
+}
+
+.log-box-text {
+    color: #4E655D;
+    font-size: 12px;
+    text-decoration: underline;
+}
+
+.login_btn {
+    background-color: #5f8276;
+    /* Green */
+    border: none;
+    color: #FAFAFA;
+    padding: 5px 22px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 13px;
+    border-radius: 20px;
+    outline: none;
+}
+
+.login_btn:hover {
+    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+    cursor: pointer;
+    background-color: #0b5137;
+    transition: all 0.2s ease-in;
+}
+
+.warn {
+    margin-top: 60px;
+    /* margin-right:120px; */
+    margin-left: -120px;
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-size: 17px;
+}
+
+.background {
+    width: 570px;
+    background-image: url('../assets/login.jpg');
+    background-size: cover;
+    font-family: sans-serif;
+}
+</style>
