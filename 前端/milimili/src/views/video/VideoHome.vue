@@ -203,7 +203,12 @@
                     </a>
                 </div>
                 <div>
+                    <video class="video" id="video" @mouseenter="videoPlay" @mouseleave="videoPause"
+                        @click="directToDetail(1)">
+                        <source type="video/mp4" src="../../assets/video/测试.mp4">
 
+
+                    </video>
                 </div>
             </el-main>
         </el-container>
@@ -407,7 +412,34 @@ a {
     left: -468px;
     top: 35px;
 }
+
+.video {
+    border-radius: 20%;
+    width: 320px;
+    height: 240px;
+    position: absolute;
+    top: 350px;
+}
 </style>
 
 <script>
+export default {
+    methods: {
+        videoPlay() {
+            var video = document.getElementById('video');
+            video.setAttribute("autoplay", "autoplay");
+            video.setAttribute("loop", "loop");
+            video.play();
+        },
+        videoPause() {
+            var video = document.getElementById('video');
+            video.currentTime = 0;
+            video.pause();
+        },
+        directToDetail(id) {
+            this.$router.push('../../personal');
+            // TODO
+        }
+    }
+}
 </script>
