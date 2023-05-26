@@ -1,18 +1,22 @@
 <template>
-  <div class="about">
-    <h1>This is an about page</h1>
-
-    <el-button type="primary">
-      <el-icon>
-        <edit />
-      </el-icon>
-      <span> 新增 </span>
-    </el-button>
-    <el-button type="primary" icon="Search">
-      搜索
-    </el-button>
-    <el-button type="primary" icon="Edit" circle></el-button>
-    <el-icon><goods-filled /></el-icon>
-  </div>
+  <n-grid :x-gap="12" :cols="4">
+    <n-grid-item :offset="1">
+      <div class="light-green" />
+    </n-grid-item>
+    <n-grid-item :offset="1">
+      <div class="green" />
+    </n-grid-item>
+  </n-grid>
 </template>
 
+<style scoped>
+.light-green {
+  height: 108px;
+  background-color: rgba(0, 128, 0, 0.12);
+}
+
+.green {
+  height: 108px;
+  background-color: rgba(0, 128, 0, 0.24);
+}
+</style>

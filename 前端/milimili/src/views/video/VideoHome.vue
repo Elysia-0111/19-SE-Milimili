@@ -1,463 +1,324 @@
 <template>
-    <div>
-        <el-container class="videohome">
-            <el-header class="header">
-                <el-row>
-                    <el-col :span="1" :offset="1"><router-link class="linkhead" to="home"><a
-                                class="fonthead">首页</a></router-link></el-col>
-                    <el-col :span="1" class="fonthead"><router-link to="home"><a
-                                class="fonthead">热门</a></router-link></el-col>
-                    <el-col :span="1" class="fonthead"><router-link to="home"><a
-                                class="fonthead">频道</a></router-link></el-col>
-                    <el-col :span="6" :offset="3">
-                        <el-input v-model="searchinput" size="small" placeholder="Please input">
-                            <template #append>
-                                <el-button type="primary" icon="Search" circle></el-button>
-                            </template>
-                        </el-input>
-                    </el-col>
-                    <el-col :span="3" :offset="3"><router-link to="../../personal">
-                            <img class="img1" src="../../assets/头像.jpg">
-                        </router-link>
-                    </el-col>
-                    <el-col :span="1"><router-link to="home">
-                            <el-icon color=white size="24">
-                                <ChatLineSquare />
-                            </el-icon>
-                        </router-link>
-                    </el-col>
-                    <el-col :span="1"><router-link to="../../personal/mycollect">
-                            <el-icon color=white size="24">
-                                <Collection />
-                            </el-icon>
-                        </router-link>
-                    </el-col>
-                    <el-col :span="1"><router-link to="home">
-                            <el-icon color=white size="24">
-                                <VideoPlay />
-                            </el-icon>
-                        </router-link>
-                    </el-col>
-                    <el-col :span="1"><router-link to="home">
-                            <el-icon color=white size="24">
-                                <Upload />
-                            </el-icon>
-                        </router-link>
-                    </el-col>
-                </el-row>
-
-            </el-header>
-            <el-main>
-                <div class="channel-icons">
-                    <a class="channel-icons1" href="home">
-                        <div class="icon-img">
-                            <picture class="icon-img-pic">
-                                <img class="img2" src="../../assets/img/V.png" alt="lazy">
-                            </picture>
-                        </div>
+    <div class="headerNVGT">
+        <div class="header-grid">
+            <div class="leftheader">
+                <div class="leftheader-grid">
+                    <!-- <router-link to="home"><span class="fonthead">首页</span></router-link>
+                    <router-link to="home"><a class="fonthead">热门</a></router-link>
+                    <router-link to="home"><a class="fonthead">频道</a></router-link> -->
+                    <a class="fonthead" href="home">首页</a>
+                    <a class="fonthead" href="home">热门</a>
+                    <a class="fonthead" href="home">频道</a>
+                </div>
+            </div>
+            <div class="middleheader">
+                <el-input v-model="searchinput" size="large" placeholder="Please input">
+                    <template #append>
+                        <el-button type="primary" icon="Search" circle></el-button>
+                    </template>
+                </el-input>
+            </div>
+            <div class="rightheader">
+                <div class="rightheader-grid">
+                    <router-link to="../../personal">
+                        <img class="img1" src="../../assets/头像.jpg">
+                    </router-link>
+                    <router-link to="home">
+                        <el-icon class="icon-header">
+                            <ChatLineSquare />
+                        </el-icon>
+                    </router-link>
+                    <router-link to="../../personal/mycollect">
+                        <el-icon class="icon-header">
+                            <Collection />
+                        </el-icon>
+                    </router-link><router-link to="home">
+                        <el-icon class="icon-header">
+                            <VideoPlay />
+                        </el-icon>
+                    </router-link><router-link to="home">
+                        <el-icon class="icon-header">
+                            <Upload />
+                        </el-icon>
+                    </router-link>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="partNVGT">
+        <div class="part-grid">
+            <div class="leftpart">
+                <div class="leftpart-grid">
+                    <a class="icon-img" href="home">
+                        <div><img class="img2" src="../../assets/img/V.png" alt="lazy"></div>
                         <span class="icon-title">动态</span>
                     </a>
-                    <a class="channel-icons2" href="home">
-                        <div class="icon-img">
-                            <picture class="icon-img-pic">
-                                <img class="img2" src="../../assets/img/V.png" alt="lazy">
-                            </picture>
-                        </div>
+                    <a class="icon-img" href="home">
+                        <div><img class="img2" src="../../assets/img/V.png" alt="lazy"></div>
                         <span class="icon-title">热门</span>
                     </a>
-                    <a class="channel-icons3" href="home">
-                        <div class="icon-img">
-                            <picture class="icon-img-pic">
-                                <img class="img2" src="../../assets/img/V.png" alt="lazy">
-                            </picture>
-                        </div>
+                    <a class="icon-img" href="home">
+                        <div><img class="img2" src="../../assets/img/V.png" alt="lazy"></div>
                         <span class="icon-title">频道</span>
                     </a>
                 </div>
-                <div class="relative-container">
-                    <a class="channel-link" style="letter-spacing: 2px;" target="_blank">
-                        <el-button size="small" type="default" class="button1" text bg>
-                            <router-link to="home">
-                                番剧
-                            </router-link>
-                        </el-button>
-                    </a>
-                    <a class="channel-link" style="letter-spacing: 2px;" target="_blank">
-                        <el-button size="small" type="default" class="button2" text bg>
-                            <router-link to="../../personal">
-                                电影
-                            </router-link>
-                        </el-button>
-                    </a>
-                    <a class="channel-link" style="letter-spacing: 2px;" target="_blank">
-                        <el-button size="small" type="default" class="button3" text bg>
-                            <router-link to="">
-                                国创
-                            </router-link>
-                        </el-button>
-                    </a>
-                    <a class="channel-link" style="letter-spacing: 2px;" target="_blank">
-                        <el-button size="small" type="default" class="button4" text bg>
-                            <router-link to="">
-                                电视剧
-                            </router-link>
-                        </el-button>
-                    </a>
-                    <a class="channel-link" style="letter-spacing: 2px;" target="_blank">
-                        <el-button size="small" type="default" class="button5" text bg>
-                            <router-link to="">
-                                综艺
-                            </router-link>
-                        </el-button>
-                    </a>
-                    <a class="channel-link" style="letter-spacing: 2px;" target="_blank">
-                        <el-button size="small" type="default" class="button6" text bg>
-                            <router-link to="">
-                                纪录片
-                            </router-link>
-                        </el-button>
-                    </a>
-                    <a class="channel-link" style="letter-spacing: 2px;" target="_blank">
-                        <el-button size="small" type="default" class="button7" text bg>
-                            <router-link to="">
-                                动画
-                            </router-link>
-                        </el-button>
-                    </a>
-                    <a class="channel-link" style="letter-spacing: 2px;" target="_blank">
-                        <el-button size="small" type="default" class="button8" text bg>
-                            <router-link to="">
-                                游戏
-                            </router-link>
-                        </el-button>
-                    </a>
-                    <a class="channel-link" style="letter-spacing: 2px;" target="_blank">
-                        <el-button size="small" type="default" class="button9" text bg>
-                            <router-link to="">
-                                鬼畜
-                            </router-link>
-                        </el-button>
-                    </a>
-                    <a class="channel-link" style="letter-spacing: 2px;" target="_blank">
-                        <el-button size="small" type="default" class="button10" text bg>
-                            <router-link to="">
-                                音乐
-                            </router-link>
-                        </el-button>
-                    </a>
-                    <a class="channel-link" style="letter-spacing: 2px;" target="_blank">
-                        <el-button size="small" type="default" class="button11" text bg>
-                            <router-link to="">
-                                舞蹈
-                            </router-link>
-                        </el-button>
-                    </a>
-                    <a class="channel-link" style="letter-spacing: 2px;" target="_blank">
-                        <el-button size="small" type="default" class="button12" text bg>
-                            <router-link to="">
-                                影视
-                            </router-link>
-                        </el-button>
-                    </a>
-                    <a class="channel-link" style="letter-spacing: 2px;" target="_blank">
-                        <el-button size="small" type="default" class="button13" text bg>
-                            <router-link to="">
-                                娱乐
-                            </router-link>
-                        </el-button>
-                    </a>
-                    <a class="channel-link" style="letter-spacing: 2px;" target="_blank">
-                        <el-button size="small" type="default" class="button14" text bg>
-                            <router-link to="">
-                                知识
-                            </router-link>
-                        </el-button>
-                    </a>
-                    <a class="channel-link" style="letter-spacing: 2px;" target="_blank">
-                        <el-button size="small" type="default" class="button15" text bg>
-                            <router-link to="">
-                                科技
-                            </router-link>
-                        </el-button>
-                    </a>
-                    <a class="channel-link" style="letter-spacing: 2px;" target="_blank">
-                        <el-button size="small" type="default" class="button16" text bg>
-                            <router-link to="">
-                                资讯
-                            </router-link>
-                        </el-button>
-                    </a>
-                    <a class="channel-link" style="letter-spacing: 2px;" target="_blank">
-                        <el-button size="small" type="default" class="button17" text bg>
-                            <router-link to="">
-                                美食
-                            </router-link>
-                        </el-button>
-                    </a>
-                    <a class="channel-link" style="letter-spacing: 2px;" target="_blank">
-                        <el-button size="small" type="default" class="button18" text bg>
-                            <router-link to="../../about">
-                                更多
-                            </router-link>
-                        </el-button>
-                    </a>
+            </div>
+            <div class="middlepart">
+                <div class="middlepart-grid">
+                    <a href="home"><el-button size="middle" type="default" class="button" text bg>番剧</el-button></a>
+                    <a href="home"><el-button size="middle" type="default" class="button" text bg>国创</el-button></a>
+                    <a href="home"><el-button size="middle" type="default" class="button" text bg>综艺</el-button></a>
+                    <a href="home"><el-button size="middle" type="default" class="button" text bg>动画</el-button></a>
+                    <a href="home"><el-button size="middle" type="default" class="button" text bg>鬼畜</el-button></a>
+                    <a href="home"><el-button size="middle" type="default" class="button" text bg>舞蹈</el-button></a>
+                    <a href="home"><el-button size="middle" type="default" class="button" text bg>娱乐</el-button></a>
+                    <a href="home"><el-button size="middle" type="default" class="button" text bg>科技</el-button></a>
+                    <a href="home"><el-button size="middle" type="default" class="button" text bg>美食</el-button></a>
+                    <a href="home"><el-button size="middle" type="default" class="button" text bg>电影</el-button></a>
+                    <a href="home"><el-button size="middle" type="default" class="button" text bg>电视剧</el-button></a>
+                    <a href="home"><el-button size="middle" type="default" class="button" text bg>纪录片</el-button></a>
+                    <a href="home"><el-button size="middle" type="default" class="button" text bg>游戏</el-button></a>
+                    <a href="home"><el-button size="middle" type="default" class="button" text bg>音乐</el-button></a>
+                    <a href="home"><el-button size="middle" type="default" class="button" text bg>影视</el-button></a>
+                    <a href="home"><el-button size="middle" type="default" class="button" text bg>知识</el-button></a>
+                    <a href="home"><el-button size="middle" type="default" class="button" text bg>资讯</el-button></a>
+                    <a href="../../personal"><el-button size="middle" type="default" class="button" text
+                            bg>更多</el-button></a>
                 </div>
-                <div class="kuai">
-                    <div class="video1">
-                        <video class="video" id="video" @mouseenter="videoPlay" @mouseleave="videoPause"
-                            @click="directToDetail(1)" muted="muted">
+            </div>
+            <div class="rightpart">
+                here is something else
+            </div>
+        </div>
+    </div>
+    <div class="videoNVGT1">
+        <div class="video-grid1">
+            <div class="leftvideo">
+                <img class="img3" src="../../assets/img/V.png">
+            </div>
+            <div class="rightvideo">
+                <div class="rightvideo-grid">
+                    <div class="rightvideo-container">
+                        <video class="video" id="video1" @mouseenter="videoPlay('video1')"
+                            @mouseleave="videoPause('video1')" @click="directToDetail(1)" muted="muted">
                             <source type="video/mp4" src="../../assets/video/测试.mp4">
                         </video>
                         <div class="videoTitle">
                             旋转旋转旋转
                         </div>
-
+                    </div>
+                    <div class="rightvideo-container">
+                        <video class="video" id="video2" @mouseenter="videoPlay('video2')"
+                            @mouseleave="videoPause('video2')" @click="directToDetail(1)" muted="muted">
+                            <source type="video/mp4" src="../../assets/video/测试.mp4">
+                        </video>
+                        <div class="videoTitle">
+                            旋转旋转旋转
+                        </div>
+                    </div>
+                    <div class="rightvideo-container">
+                        <video class="video" id="video3" @mouseenter="videoPlay('video3')"
+                            @mouseleave="videoPause('video3')" @click="directToDetail(1)" muted="muted">
+                            <source type="video/mp4" src="../../assets/video/测试.mp4">
+                        </video>
+                        <div class="videoTitle">
+                            旋转旋转旋转
+                        </div>
+                    </div>
+                    <div class="rightvideo-container">
+                        <video class="video" id="video4" @mouseenter="videoPlay('video4')"
+                            @mouseleave="videoPause('video4')" @click="directToDetail(1)" muted="muted">
+                            <source type="video/mp4" src="../../assets/video/测试.mp4">
+                        </video>
+                        <div class="videoTitle">
+                            旋转旋转旋转
+                        </div>
+                    </div>
+                    <div class="rightvideo-container">
+                        <video class="video" id="video5" @mouseenter="videoPlay('video5')"
+                            @mouseleave="videoPause('video5')" @click="directToDetail(1)" muted="muted">
+                            <source type="video/mp4" src="../../assets/video/测试.mp4">
+                        </video>
+                        <div class="videoTitle">
+                            旋转旋转旋转
+                        </div>
+                    </div>
+                    <div class="rightvideo-container">
+                        <video class="video" id="video6" @mouseenter="videoPlay('video6')"
+                            @mouseleave="videoPause('video6')" @click="directToDetail(1)" muted="muted">
+                            <source type="video/mp4" src="../../assets/video/测试.mp4">
+                        </video>
+                        <div class="videoTitle">
+                            旋转旋转旋转
+                        </div>
                     </div>
                 </div>
-            </el-main>
-        </el-container>
+            </div>
+        </div>
     </div>
 </template>
+
 <style>
-.header {
-
-    height: 150px;
-
-    background-image: url("../../assets/img/background.jpg");
-}
-
-.router-link-active.linkhead {
-    text-decoration: none;
-    color: wheat;
-    font-size: large;
-}
-
 a {
     text-decoration: none;
     color: black;
 }
 
-.fonthead {
-    color: aliceblue;
+.headerNVGT {
+    height: 150px;
+    background-image: url("../../assets/img/background.jpg");
+}
+
+.header-grid {
+    display: grid;
+    grid-template-columns: 2fr 3fr 3fr;
+    grid-gap: 150px 150px;
+
+    padding: 10px;
+    transform: translateY(20%);
+}
+
+.leftheader-grid {
+    display: grid;
+    grid-template-columns: auto auto auto;
     font-size: large;
 }
 
-.el-row {
-    transform: translateY(50%);
+.leftheader {
+    transform: translateY(8%);
+    color: white;
+}
+
+.fonthead {
+    text-decoration: none;
+    color: white;
+}
+
+.fonthead:hover {
+    text-decoration: underline;
+}
+
+.rightheader-grid {
+    display: grid;
+    grid-template-columns: auto auto auto auto auto;
 }
 
 .img1 {
-    transform: translateY(-30%);
+    transform: translateY(-10%);
     width: 50px;
     height: 50px;
 
     border-radius: 50%;
 }
 
-.channel-icons1 {
-    position: absolute;
-    left: 3.5%;
-    top: 250px;
-    display: block;
+.icon-header {
+    color: white;
+    font-size: 24px;
 }
 
-.channel-icons2 {
-    position: absolute;
-    left: 8.5%;
-    display: block;
-    top: 250px;
+.icon-header:hover {
+    color: wheat;
 }
 
-.channel-icons3 {
-    position: absolute;
-    left: 13.5%;
-    top: 250px;
+.partNVGT {
+    height: 100px;
+    transform: translateY(20%);
+}
+
+.part-grid {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    margin-left: 4%;
+}
+
+
+.leftpart-grid {
+    display: grid;
+    grid-template-columns: auto auto auto;
+
 }
 
 .img2 {
-    transform: translateY(-15%);
-    width: 37px;
-    height: 37px;
+    /* transform: translateY(-15%); */
+    width: 50px;
+    height: 50px;
 
     border-radius: 50%;
 }
 
-.relative-container {
-
-    position: absolute;
-    left: 18.5%;
-    top: 245px;
-    height: 70px;
-    width: max-content;
+.middlepart-grid {
+    display: grid;
+    grid-template-columns: auto auto auto auto auto auto auto auto auto;
+    grid-row-gap: 10px;
 }
 
-.button1 {
+.button {
     width: 68px;
-    position: relative;
-    left: 0;
-    top: 0;
+    font-size: 18px;
 }
 
-.button2 {
-    width: 68px;
-    position: relative;
-    left: -68px;
-    top: 35px;
+.videoNVGT1 {
+    height: 400px;
+    transform: translateY(50px);
 }
 
-.button3 {
-    width: 68px;
-    position: relative;
-    left: -50px;
-    top: 0;
+.video-grid1 {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-gap: 40px;
 }
 
-.button4 {
-    width: 68px;
-    position: relative;
-    left: -118px;
-    top: 35px;
+.img3 {
+    width: 640px;
+    height: 480px;
 }
 
-.button5 {
-    width: 68px;
-    position: relative;
-    left: -100px;
-    top: 0;
+.rightvideo-grid {
+    display: grid;
+    grid-template-columns: auto auto auto;
+
 }
 
-.button6 {
-    width: 68px;
-    position: relative;
-    left: -168px;
-    top: 35px;
-}
-
-.button7 {
-    width: 68px;
-    position: relative;
-    left: -150px;
-    top: 0;
-}
-
-.button8 {
-    width: 68px;
-    position: relative;
-    left: -218px;
-    top: 35px;
-}
-
-.button9 {
-    width: 68px;
-    position: relative;
-    left: -200px;
-    top: 0;
-}
-
-.button10 {
-    width: 68px;
-    position: relative;
-    left: -268px;
-    top: 35px;
-}
-
-.button11 {
-    width: 68px;
-    position: relative;
-    left: -250px;
-    top: 0;
-}
-
-.button12 {
-    width: 68px;
-    position: relative;
-    left: -318px;
-    top: 35px;
-}
-
-.button13 {
-    width: 68px;
-    position: relative;
-    left: -300px;
-    top: 0;
-}
-
-.button14 {
-    width: 68px;
-    position: relative;
-    left: -368px;
-    top: 35px;
-}
-
-.button15 {
-    width: 68px;
-    position: relative;
-    left: -350px;
-    top: 0;
-}
-
-.button16 {
-    width: 68px;
-    position: relative;
-    left: -418px;
-    top: 35px;
-}
-
-.button17 {
-    width: 68px;
-    position: relative;
-    left: -400px;
-    top: 0;
-}
-
-.button18 {
-    width: 68px;
-    position: relative;
-    left: -468px;
-    top: 35px;
-}
-
-
-
-.video1 {
+.rightvideo-container {
     border-radius: 20%;
-    width: 320px;
+    width: 360px;
     height: 280px;
-    position: absolute;
-    left: 850px;
-    top: 300px;
 }
 
 .video {
     border-radius: 12%;
     width: 320px;
     height: 200px;
-    position: relative;
-    left: 0px;
-    top: 10px;
-}
 
-.videoTitle {
-    position: relative;
-    top: 0px;
-}
-
-.el-main {
-    height: 100%;
 }
 </style>
-
 <script>
 export default {
     methods: {
-        videoPlay() {
-            var video = document.getElementById('video');
+        videoPlay(id) {
+            console.log(id);
+            var video = document.getElementById(id);
             video.setAttribute("autoplay", "autoplay");
             video.setAttribute("loop", "loop");
-            video.play();
+            var play;
+            play = video.play();
+            if (play) {
+                play.then(() => {
+                    // 视频频加载成功
+                    // 视频频的播放需要耗时
+                    setTimeout(() => {
+                        // 后续操作
+                        console.log("done.");
+                    }, video[0].duration * 1000); // video[0].duration 为视频频的时长，单位为秒
+
+
+                }).catch((e) => {
+                    // 视频频加载失败
+                })
+            }
         },
-        videoPause() {
-            var video = document.getElementById('video');
+        videoPause(id) {
+            var video = document.getElementById(id);
             video.currentTime = 0;
             video.pause();
         },
