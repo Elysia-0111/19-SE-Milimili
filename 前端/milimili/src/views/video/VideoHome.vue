@@ -142,6 +142,8 @@ a {
 
     padding: 10px;
     transform: translateY(20%);
+    margin-left: 2%;
+    margin-right: 2%;
 }
 
 .leftheader-grid {
