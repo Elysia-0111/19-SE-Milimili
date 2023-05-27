@@ -94,62 +94,28 @@
     <div class="videoNVGT1">
         <div class="video-grid1">
             <div class="leftvideo">
-                <img class="img3" src="../../assets/img/V.png">
+                <el-carousel class="video-el-carousel" height="480px">
+                    <el-carousel-item v-for="item in imgs">
+                        <router-link :to="item.href"><img class="img3" :src="item.src"></router-link>
+                    </el-carousel-item>
+                </el-carousel>
             </div>
             <div class="rightvideo">
                 <div class="rightvideo-grid">
-                    <div class="rightvideo-container">
-                        <video class="video" id="video1" @mouseenter="videoPlay('video1')"
-                            @mouseleave="videoPause('video1')" @click="directToDetail(1)" muted="muted">
-                            <source type="video/mp4" src="../../assets/video/测试.mp4">
+                    <div v-for="video in  videos " class="rightvideo-container">
+                        <video class="video" :id="video.id" @mouseenter="videoPlay(video.id)"
+                            @mouseleave="videoPause(video.id)" @click="directToDetail(video.id)" muted="muted">
+                            <source type="video/mp4" v-bind:src="video.src">
                         </video>
                         <div class="videoTitle">
-                            旋转旋转旋转
+                            <a class="videoTitlefond" :href="video.src">
+                                {{ video.title }}
+                            </a>
                         </div>
-                    </div>
-                    <div class="rightvideo-container">
-                        <video class="video" id="video2" @mouseenter="videoPlay('video2')"
-                            @mouseleave="videoPause('video2')" @click="directToDetail(1)" muted="muted">
-                            <source type="video/mp4" src="../../assets/video/测试.mp4">
-                        </video>
-                        <div class="videoTitle">
-                            旋转旋转旋转
-                        </div>
-                    </div>
-                    <div class="rightvideo-container">
-                        <video class="video" id="video3" @mouseenter="videoPlay('video3')"
-                            @mouseleave="videoPause('video3')" @click="directToDetail(1)" muted="muted">
-                            <source type="video/mp4" src="../../assets/video/测试.mp4">
-                        </video>
-                        <div class="videoTitle">
-                            旋转旋转旋转
-                        </div>
-                    </div>
-                    <div class="rightvideo-container">
-                        <video class="video" id="video4" @mouseenter="videoPlay('video4')"
-                            @mouseleave="videoPause('video4')" @click="directToDetail(1)" muted="muted">
-                            <source type="video/mp4" src="../../assets/video/测试.mp4">
-                        </video>
-                        <div class="videoTitle">
-                            旋转旋转旋转
-                        </div>
-                    </div>
-                    <div class="rightvideo-container">
-                        <video class="video" id="video5" @mouseenter="videoPlay('video5')"
-                            @mouseleave="videoPause('video5')" @click="directToDetail(1)" muted="muted">
-                            <source type="video/mp4" src="../../assets/video/测试.mp4">
-                        </video>
-                        <div class="videoTitle">
-                            旋转旋转旋转
-                        </div>
-                    </div>
-                    <div class="rightvideo-container">
-                        <video class="video" id="video6" @mouseenter="videoPlay('video6')"
-                            @mouseleave="videoPause('video6')" @click="directToDetail(1)" muted="muted">
-                            <source type="video/mp4" src="../../assets/video/测试.mp4">
-                        </video>
-                        <div class="videoTitle">
-                            旋转旋转旋转
+                        <div class="videoAuthor">
+                            <a class="videoAuthorfond" :href="video.src">
+                                {{ video.author }}
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -221,7 +187,7 @@ a {
 }
 
 .partNVGT {
-    height: 100px;
+    height: 80px;
     transform: translateY(20%);
 }
 
@@ -265,17 +231,29 @@ a {
 .video-grid1 {
     display: grid;
     grid-template-columns: auto auto;
-    grid-gap: 40px;
+
+    margin-left: 6%;
+    margin-right: 6%;
+}
+
+.leftvideo {
+    height: 480px;
+    width: 800px;
+}
+
+.video-el-carousel {
+    border-radius: 4%;
 }
 
 .img3 {
-    width: 640px;
+    width: 800px;
     height: 480px;
+    border-radius: 4%;
 }
 
 .rightvideo-grid {
     display: grid;
-    grid-template-columns: auto auto auto;
+    grid-template-columns: auto auto auto auto;
 
 }
 
@@ -291,12 +269,117 @@ a {
     height: 200px;
 
 }
+
+.videoTitle {
+    width: 320px;
+    margin-left: 20px;
+    text-align: left;
+    height: 48px;
+
+}
+
+.videoAuthor {
+    width: 320px;
+    margin-left: 20px;
+    text-align: left;
+
+}
+
+.videoTitlefond {
+    font-size: 18px;
+}
+
+.videoTitlefond:hover {
+    color: rgb(49, 117, 196);
+}
+
+.videoAuthorfond:hover {
+    color: rgb(49, 117, 196);
+}
 </style>
 <script>
 export default {
+    data() {
+        return {
+            videos: [
+                {
+                    id: 'video1',
+                    src: require('../../assets/video/test.mp4'),
+                    title: '旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转',
+                    author: '123'
+                },
+                {
+                    id: 'video2',
+                    src: require('../../assets/video/test.mp4'),
+                    title: '旋转旋转旋转',
+                    author: '123'
+                },
+                {
+                    id: 'video3',
+                    src: require('../../assets/video/test.mp4'),
+                    title: '旋转旋转旋转',
+                    author: '123'
+                },
+                {
+                    id: 'video4',
+                    src: require('../../assets/video/test.mp4'),
+                    title: '旋转旋转旋转',
+                    author: '123'
+                },
+                {
+                    id: 'video5',
+                    src: require('../../assets/video/test.mp4'),
+                    title: '旋转旋转旋转',
+                    author: '123'
+                },
+                {
+                    id: 'video6',
+                    src: require('../../assets/video/test.mp4'),
+                    title: '旋转旋转旋转',
+                    author: '123'
+                },
+                {
+                    id: 'video7',
+                    src: require('../../assets/video/test.mp4'),
+                    title: '旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转',
+                    author: '123'
+                },
+                {
+                    id: 'video8',
+                    src: require('../../assets/video/test.mp4'),
+                    title: '旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转',
+                    author: '123'
+                }
+            ],
+            imgs: [
+                {
+                    id: 'leftimg1',
+                    src: require('../../assets/img/V.png'),
+                    href: 'home'
+                },
+                {
+                    id: 'leftimg2',
+                    src: require('../../assets/login.jpg'),
+                    href: '../../personal'
+                },
+                {
+                    id: 'leftimg3',
+                    src: require('../../assets/img/V.png'),
+                    href: '../../about'
+                }
+
+            ]
+        }
+    },
     methods: {
         videoPlay(id) {
             console.log(id);
+            for (var i = 0; i < this.videos.length; i++) {
+                if (id == this.videos[i].id) {
+                    console.log(this.videos[i].src);
+                }
+            }
+
             var video = document.getElementById(id);
             video.setAttribute("autoplay", "autoplay");
             video.setAttribute("loop", "loop");
