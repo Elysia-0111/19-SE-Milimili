@@ -79,7 +79,8 @@ const routes = [
     path: '/video/home',
     name: 'videohome',
     component: () => import('../views/video/VideoHome.vue')
-  }
+  },
+
   /*{
     //path: '/newsuser/personal/:id',
     path: '/personal',
