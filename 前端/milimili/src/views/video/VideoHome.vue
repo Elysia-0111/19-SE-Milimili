@@ -102,7 +102,7 @@
             </div>
             <div class="rightvideo">
                 <div class="rightvideo-grid">
-                    <div v-for="video in  videos " class="rightvideo-container">
+                    <div v-for="video in  videos1 " class="rightvideo-container">
                         <video class="video" :id="video.id" @mouseenter="videoPlay(video.id)"
                             @mouseleave="videoPause(video.id)" @click="directToDetail(video.id)" muted="muted">
                             <source type="video/mp4" v-bind:src="video.src">
@@ -118,6 +118,26 @@
                             </a>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="videoNVGT2">
+        <div class="video-grid2">
+            <div v-for="video in  videos2 " class="rightvideo-container">
+                <video class="video" :id="video.id" @mouseenter="videoPlay(video.id)" @mouseleave="videoPause(video.id)"
+                    @click="directToDetail(video.id)" muted="muted">
+                    <source type="video/mp4" v-bind:src="video.src">
+                </video>
+                <div class="videoTitle">
+                    <a class="videoTitlefond" :href="video.src">
+                        {{ video.title }}
+                    </a>
+                </div>
+                <div class="videoAuthor">
+                    <a class="videoAuthorfond" :href="video.src">
+                        {{ video.author }}
+                    </a>
                 </div>
             </div>
         </div>
@@ -226,14 +246,13 @@ a {
 }
 
 .videoNVGT1 {
-    height: 400px;
+    height: 650px;
     transform: translateY(50px);
 }
 
 .video-grid1 {
     display: grid;
     grid-template-columns: auto auto;
-
     margin-left: 6%;
     margin-right: 6%;
 }
@@ -298,56 +317,69 @@ a {
 .videoAuthorfond:hover {
     color: rgb(49, 117, 196);
 }
+
+.videoNVGT2 {
+    height: 800px;
+
+}
+
+.video-grid2 {
+    display: grid;
+    grid-template-columns: auto auto auto auto auto auto;
+
+    margin-left: 5%;
+    margin-right: 5%;
+}
 </style>
 <script>
 export default {
     data() {
         return {
-            videos: [
+            videos1: [
                 {
-                    id: 'video1',
+                    id: 'video1-1',
                     src: require('../../assets/video/test.mp4'),
                     title: '旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转',
                     author: '123'
                 },
                 {
-                    id: 'video2',
+                    id: 'video1-2',
                     src: require('../../assets/video/test.mp4'),
                     title: '旋转旋转旋转',
                     author: '123'
                 },
                 {
-                    id: 'video3',
+                    id: 'video1-3',
                     src: require('../../assets/video/test.mp4'),
                     title: '旋转旋转旋转',
                     author: '123'
                 },
                 {
-                    id: 'video4',
+                    id: 'video1-4',
                     src: require('../../assets/video/test.mp4'),
                     title: '旋转旋转旋转',
                     author: '123'
                 },
                 {
-                    id: 'video5',
+                    id: 'video1-5',
                     src: require('../../assets/video/test.mp4'),
                     title: '旋转旋转旋转',
                     author: '123'
                 },
                 {
-                    id: 'video6',
+                    id: 'video1-6',
                     src: require('../../assets/video/test.mp4'),
                     title: '旋转旋转旋转',
                     author: '123'
                 },
                 {
-                    id: 'video7',
+                    id: 'video1-7',
                     src: require('../../assets/video/test.mp4'),
                     title: '旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转',
                     author: '123'
                 },
                 {
-                    id: 'video8',
+                    id: 'video1-8',
                     src: require('../../assets/video/test.mp4'),
                     title: '旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转',
                     author: '123'
@@ -370,17 +402,56 @@ export default {
                     href: '../../about'
                 }
 
+            ],
+            videos2: [
+                {
+                    id: 'video2-1',
+                    src: require('../../assets/video/test.mp4'),
+                    title: '旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转',
+                    author: '123'
+                },
+                {
+                    id: 'video2-2',
+                    src: require('../../assets/video/test.mp4'),
+                    title: '旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转',
+                    author: '123'
+                },
+                {
+                    id: 'video2-3',
+                    src: require('../../assets/video/test.mp4'),
+                    title: '旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转',
+                    author: '123'
+                },
+                {
+                    id: 'video2-4',
+                    src: require('../../assets/video/test.mp4'),
+                    title: '旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转',
+                    author: '123'
+                },
+                {
+                    id: 'video2-5',
+                    src: require('../../assets/video/test.mp4'),
+                    title: '旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转',
+                    author: '123'
+                },
+                {
+                    id: 'video2-6',
+                    src: require('../../assets/video/test.mp4'),
+                    title: '旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转',
+                    author: '123'
+                },
+
             ]
         }
     },
     methods: {
         videoPlay(id) {
             console.log(id);
-            for (var i = 0; i < this.videos.length; i++) {
-                if (id == this.videos[i].id) {
-                    console.log(this.videos[i].src);
-                }
-            }
+            // for (var i = 0; i < this.videos.length; i++) {
+            //     if (id == this.videos[i].id) {
+            //         console.log(this.videos[i].src);
+            //     }
+            // }
 
             var video = document.getElementById(id);
             video.setAttribute("autoplay", "autoplay");
