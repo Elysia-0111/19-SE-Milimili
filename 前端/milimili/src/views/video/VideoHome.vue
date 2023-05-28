@@ -36,7 +36,7 @@
                         <el-icon class="icon-header">
                             <VideoPlay />
                         </el-icon>
-                    </router-link><router-link to="home">
+                    </router-link><router-link to="../../personal/upload">
                         <el-icon class="icon-header">
                             <Upload />
                         </el-icon>
