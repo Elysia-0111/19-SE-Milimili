@@ -1,5 +1,54 @@
 <template>
-    <div>
+    <div class="personal">
+        <el-container >
+            <el-header class="header2">
+                <el-row>
+                    <el-col :span="1" :offset="1"><router-link class="linkhead" to="../../video/home"><a
+                                class="fonthead">首页</a></router-link></el-col>
+                    <el-col :span="1" class="fonthead"><router-link to="../../video/home"><a
+                                class="fonthead">热门</a></router-link></el-col>
+                    <el-col :span="1" class="fonthead"><router-link to="../../video/home"><a
+                                class="fonthead">频道</a></router-link></el-col>
+                    <el-col :span="6" :offset="3">
+                        <el-input v-model="searchinput" size="small" placeholder="Please input">
+                            <template #append>
+                                <el-button type="primary" icon="Search" circle></el-button>
+                            </template>
+                        </el-input>
+                    </el-col>
+                    <el-col :span="3" :offset="3"><router-link to="/personal">
+                            <img class="img1" src="../../assets/img/V.png">
+                        </router-link>
+                    </el-col>
+                    <el-col :span="1"><router-link to="../../personal">
+                            <el-icon size="24">
+                                <ChatLineSquare />
+                            </el-icon>
+                        </router-link>
+                    </el-col>
+                    <el-col :span="1"><router-link to="../../personal/mycollect">
+                            <el-icon size="24">
+                                <Collection />
+                            </el-icon>
+                        </router-link>
+                    </el-col>
+                    <el-col :span="1"><router-link to="../../home">
+                            <el-icon size="24">
+                                <VideoPlay />
+                            </el-icon>
+                        </router-link>
+                    </el-col>
+                    
+
+                    <el-col :span="1"><router-link to="../../personal/upload">
+                            <el-icon size="24">
+                                <Upload />
+                            </el-icon>
+                        </router-link>
+                    </el-col>
+                </el-row>
+            </el-header>
+        </el-container>
       <div class="PersonTop">
         <div class="PersonTop_img">
           <img src="@/assets/img/V.png" />
@@ -20,6 +69,7 @@
                 <router-link to="/personal/personaldia"><el-button class="el-icon-edit" type="primary" size="medium">编辑</el-button></router-link>
             </div>
           </div>
+          <el-col :span="14"></el-col>
           <div class="user_num">
             <div style="cursor: pointer" @click="myfan">
               <div class="num_number"> 11 </div>
@@ -93,58 +143,97 @@
         </div>
       </div>
     </div>
+    <el-backtop></el-backtop>
   </template>
   
+
+    
+
   <script>
-  import PersonalDia from "./PersonalDia.vue";
-  
-  export default {
-    components: { PersonalDia },
-    name: "Personal",
-    inject: ["reload"],
-    data() {
-      return {
-        avatar: "",
-        nickname: "",
-        v: 1,
-        design: "",
-        followCounts: "",
-        fanCounts: "",
-        goodCounts: "",
-        isfollow: true,
-        followData: {
-          fanId: "",
-          followId: "",
-        },
-        isfollowid: [],
-      };
+import PersonalDia from "./PersonalDia.vue";
+        
+export default {
+  components: { PersonalDia },
+  name: "Personal",
+  inject: ["reload"],
+  data() {
+    return {
+      avatar: "",
+      nickname: "",
+      v: 1,
+      design: "",
+      followCounts: "",
+      fanCounts: "",
+      goodCounts: "",
+      isfollow: true,
+      followData: {
+        fanId: "",
+        followId: "",
+      },
+      isfollowid: [],
+    };
+  },
+  mounted() {
+  },
+  watch: {
+    $route() {
+        //this.$emit("flesh");
     },
-  };
-  </script>
-  
+  },
+  methods: {
+    edit() {
+    },
+  },
+};
+</script>
+
   <style scoped>
-  .me-video-player {
-    background-color: transparent;
+  dq{
     width: 100%;
     height: 100%;
-    object-fit: fill;
-    display: block;
-    position: fixed;
-    left: 0;
-    z-index: 0;
-    top: 0;
+    background-color: #c8c8c8;
+}
+  .header2{
+    width: auto;
+    height: 75px;
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+    background-color: rgb(255, 255, 255);
   }
+  .linkhead {
+    text-decoration: none;
+    color: wheat;
+    font-size: large;
+  }
+
+  a {
+    text-decoration: none;
+    color: black;
+  }
+
+  .fonthead {
+    color: rgb(0, 0, 0);
+    font-size: large;
+  }
+
+  .img1 {
+    transform: translateY(-30%);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+  }
+
   .PersonTop {
     width: 1000px;
     height: 140px;
     padding-top: 20px;
-    background-color: white;
+    background-color: rgb(255, 255, 255);
     margin-top: 30px;
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
-    border-radius: 5px;
+    border-radius: 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
   }
   
   .PersonTop_img {
@@ -170,7 +259,7 @@
   }
   
   .user_text {
-    width: 60%;
+    width: 20%;
     height: 100%;
     line-height: 30px;
   }
@@ -195,7 +284,7 @@
   }
   
   .user_num {
-    width: 40%;
+    width: 80%;
     height: 100%;
     display: flex;
     align-items: center;
