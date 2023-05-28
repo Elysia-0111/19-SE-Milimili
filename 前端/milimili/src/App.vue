@@ -11,7 +11,7 @@
         <router-link to="/login">注册</router-link>
       </div>
       <div v-else>
-        <router-link to="/video">VideoView</router-link>
+        <router-link to="/video">VideoView</router-link> |
         <router-link to="/video/home">VideoHome</router-link> |
         <router-link to="/">Home</router-link> |
         <!--<router-link to="/homepage">个人中心</router-link> |-->

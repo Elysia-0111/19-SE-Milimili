@@ -38,7 +38,7 @@
                             </el-icon>
                         </router-link>
                     </el-col>
-                    <el-col :span="1"><router-link to="home">
+                    <el-col :span="1"><router-link to="../../personal/upload">
                             <el-icon color=white size="24">
                                 <Upload />
                             </el-icon>
