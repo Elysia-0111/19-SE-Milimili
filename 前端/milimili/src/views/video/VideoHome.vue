@@ -174,7 +174,6 @@ a {
 
 .leftheader {
     transform: translateY(8%);
-    color: white;
 }
 
 .fonthead {
@@ -192,7 +191,7 @@ a {
 }
 
 .img1 {
-    transform: translateY(-10%);
+    transform: translateY(-20%);
     width: 50px;
     height: 50px;
 
@@ -441,7 +440,8 @@ export default {
                     author: '123'
                 },
 
-            ]
+            ],
+            searchinput: null,
         }
     },
     methods: {

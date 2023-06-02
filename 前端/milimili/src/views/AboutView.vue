@@ -15,6 +15,7 @@
       </el-carousel-item>
     </el-carousel>
   </div>
+  <el-button type="primary">Primary</el-button>
 </template>
 
 <style scoped>

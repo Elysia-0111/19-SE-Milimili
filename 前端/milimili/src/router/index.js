@@ -80,7 +80,11 @@ const routes = [
     name: 'videohome',
     component: () => import('../views/video/VideoHome.vue')
   },
-
+  {
+    path: '/video/search',
+    name: 'videosearch',
+    component: () => import('../views/video/VideoSearch.vue')
+  }
   /*{
     //path: '/newsuser/personal/:id',
     path: '/personal',
