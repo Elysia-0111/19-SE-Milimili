@@ -16,6 +16,9 @@
     </el-carousel>
   </div>
   <el-button type="primary">Primary</el-button>
+  <div>
+    <input type="text" style="height:80px" />
+  </div>
 </template>
 
 <style scoped>

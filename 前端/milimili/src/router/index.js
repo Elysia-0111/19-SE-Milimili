@@ -76,14 +76,26 @@ const routes = [
     component: () => import('../views/person/UpLoad.vue')
   },
   {
-    path: '/video/home',
+    path: '/home',
     name: 'videohome',
     component: () => import('../views/video/VideoHome.vue')
   },
+
   {
-    path: '/video/search',
+    path: '/search',
+    name: 'search',
+    component: () => import('../views/video/Search.vue')
+  },
+  {
+    path: '/search/video',
     name: 'videosearch',
+    // component: () => import('../views/video/Search.vue'),
     component: () => import('../views/video/VideoSearch.vue')
+  },
+  {
+    path: '/search/all',
+    name: 'allsearch',
+    component: () => import('../views/video/AllSearch.vue')
   }
   /*{
     //path: '/newsuser/personal/:id',

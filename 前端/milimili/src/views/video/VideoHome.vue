@@ -181,9 +181,9 @@ a {
     color: white;
 }
 
-.fonthead:hover {
+/* .fonthead:hover {
     text-decoration: underline;
-}
+} */
 
 .rightheader-grid {
     display: grid;
