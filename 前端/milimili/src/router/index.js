@@ -84,19 +84,35 @@ const routes = [
   {
     path: '/search',
     name: 'search',
-    component: () => import('../views/video/Search.vue')
+    component: () => import('../views/video/search/SearchComponent.vue')
   },
   {
     path: '/search/video',
     name: 'videosearch',
     // component: () => import('../views/video/Search.vue'),
-    component: () => import('../views/video/VideoSearch.vue')
+    component: () => import('../views/video/search/VideoSearch/VideoSearch.vue')
   },
   {
     path: '/search/all',
     name: 'allsearch',
-    component: () => import('../views/video/AllSearch.vue')
+    component: () => import('../views/video/search/AllSearch/AllSearch.vue')
+  },
+  {
+    path: '/search/all/all',
+    name: 'allsearchall',
+    component: () => import('../views/video/search/AllSearch/AllSearchAll.vue')
+  },
+  {
+    path: '/search/all/maxclick',
+    name: 'allsearchmaxclick',
+    component: () => import('../views/video/search/AllSearch/AllSearchMaxclick.vue')
+  },
+  {
+    path: '/search/all/newest',
+    name: 'allsearchnewest',
+    component: () => import('../views/video/search/AllSearch/AllSearchNewest.vue')
   }
+
   /*{
     //path: '/newsuser/personal/:id',
     path: '/personal',

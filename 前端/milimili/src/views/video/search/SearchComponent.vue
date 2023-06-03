@@ -14,7 +14,7 @@
             <div class="rightheader">
                 <div class="rightheader-grid">
                     <router-link to="../../personal">
-                        <img class="img1" src="../../assets/头像.jpg">
+                        <img class="img1" src="../../../assets/头像.jpg">
                     </router-link>
                     <router-link to="home">
                         <el-icon class="icon-header">
@@ -53,7 +53,7 @@
     </div>
     <div class="classification">
         <div class="class-grid">
-            <div><a class="classfont allfont" href="/search/all">综合</a></div>
+            <div><a class="classfont allfont" href="/search/all/all">综合</a></div>
             <div><a class="classfont videofont" href="/search/video">视频</a></div>
             <div><a class="classfont userfont" href="/search/user">用户</a></div>
         </div>

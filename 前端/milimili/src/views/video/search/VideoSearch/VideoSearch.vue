@@ -15,7 +15,7 @@
 }
 </style>
 <script>
-import Search from './Search.vue'
+import Search from '../SearchComponent.vue'
 export default {
     components: {
         Search
