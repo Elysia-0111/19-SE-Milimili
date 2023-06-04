@@ -136,7 +136,7 @@
     height: 50px;
     margin-left: 30%;
     margin-right: 30%;
-    margin-top: 3%;
+    margin-top: 1%;
 }
 
 .search-grid {
