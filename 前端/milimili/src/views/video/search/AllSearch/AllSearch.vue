@@ -24,7 +24,7 @@
 }
 
 .allclass {
-    height: 400px;
+    height: 80px;
 }
 
 .allclass-grid {

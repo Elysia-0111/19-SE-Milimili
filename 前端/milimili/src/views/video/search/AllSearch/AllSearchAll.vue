@@ -1,5 +1,6 @@
 <template>
     <AllSearch></AllSearch>
+    <VideoComponent></VideoComponent>
 </template>
 <style>
 .zongheclass {
@@ -14,9 +15,11 @@
 </style>
 <script>
 import AllSearch from './AllSearch.vue'
+import VideoComponent from '../VideoComponent.vue';
 export default {
     components: {
-        AllSearch
+        AllSearch,
+        VideoComponent
     }
 }
 </script >

@@ -1,5 +1,4 @@
 <template>
-    <AllSearch></AllSearch>
     <div class="videoclass">
         <div class="videoclass-grid">
             <div v-for="video in videos" class="videocontainer">
@@ -30,16 +29,6 @@
     </div>
 </template>
 <style>
-.maxclickclass {
-    background-color: rgb(228, 245, 255);
-    border-radius: 8%;
-}
-
-.maxclickfond {
-    color: deepskyblue;
-    text-decoration: none;
-}
-
 .videoclass {
     display: flex;
     margin-left: 4%;
@@ -90,6 +79,7 @@
     width: 95%;
     height: 95%;
     object-fit: cover;
+    border-radius: 4%;
 }
 
 .title-grid {
@@ -127,53 +117,46 @@
 }
 </style>
 <script>
-import { onMounted, ref } from 'vue';
-import AllSearch from './AllSearch.vue'
 export default {
-    components: {
-        AllSearch
-    },
     data() {
         return {
             videos: [
                 {
-                    src: require('../../../../assets/video/test.mp4'),
+                    src: require('../../../assets/video/test.mp4'),
                     title: '旋转旋转旋转旋转旋转',
                     author: '123',
                     id: 'video1'
                 },
                 {
-                    src: require('../../../../assets/video/test.mp4'),
+                    src: require('../../../assets/video/test.mp4'),
                     title: '旋转旋转旋转旋转旋转',
                     author: '123',
                     id: 'video2'
-                }, {
-                    src: require('../../../../assets/video/test.mp4'),
+                },
+                {
+                    src: require('../../../assets/video/test.mp4'),
                     title: '旋转旋转旋转旋转旋转',
                     author: '123',
                     id: 'video3'
-                }, {
-                    src: require('../../../../assets/video/test.mp4'),
+                },
+                {
+                    src: require('../../../assets/video/test.mp4'),
                     title: '旋转旋转旋转旋转旋转',
                     author: '123',
                     id: 'video4'
-                }, {
-                    src: require('../../../../assets/video/test.mp4'),
+                },
+                {
+                    src: require('../../../assets/video/test.mp4'),
                     title: '旋转旋转旋转旋转旋转',
                     author: '123',
                     id: 'video5'
-                }, {
-                    src: require('../../../../assets/video/test.mp4'),
+                },
+                {
+                    src: require('../../../assets/video/test.mp4'),
                     title: '旋转旋转旋转旋转旋转',
                     author: '123',
                     id: 'video6'
-                }, {
-                    src: require('../../../../assets/video/test.mp4'),
-                    title: '旋转旋转旋转旋转旋转',
-                    author: '123',
-                    id: 'video7'
                 },
-
 
             ]
         }
