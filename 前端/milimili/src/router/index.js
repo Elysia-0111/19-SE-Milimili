@@ -111,7 +111,22 @@ const routes = [
     path: '/search/all/newest',
     name: 'allsearchnewest',
     component: () => import('../views/video/search/AllSearch/AllSearchNewest.vue')
-  }
+  },
+  {
+    path: '/search/video/all',
+    name: 'videosearchall',
+    component: () => import('../views/video/search/VideoSearch/VideoSearchAll.vue')
+  },
+  {
+    path: '/search/video/maxclick',
+    name: 'videosearchmaxclick',
+    component: () => import('../views/video/search/VideoSearch/VideoSearchMaxclick.vue')
+  },
+  {
+    path: '/search/video/newest',
+    name: 'videosearchnewest',
+    component: () => import('../views/video/search/VideoSearch/VideoSearchNewest.vue')
+  },
 
   /*{
     //path: '/newsuser/personal/:id',
