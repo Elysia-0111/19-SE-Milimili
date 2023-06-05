@@ -20,9 +20,12 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "Elysia",
+    "git-widget-placeholder": "Elysia__01",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "vue.rearranger.settings.migration": "true"
   }
@@ -36,6 +39,7 @@
       <option name="presentableId" value="Default" />
       <updated>1684983461063</updated>
       <workItem from="1684983462375" duration="125000" />
+      <workItem from="1685970628001" duration="61000" />
     </task>
     <servers />
   </component>
