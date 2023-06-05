@@ -27,7 +27,7 @@
                 </div>
             </div>
             <div class="video-info-uper">
-                <a href="https://www.bilibili.com/" target="_blank">
+                <a href="http://localhost:8080/personal" target="_blank">
                     <el-image fit="cover" draggable="false"
                         src="../assets/logo.png" alt="">
                         <template #error>
@@ -36,7 +36,7 @@
                         </template>
                     </el-image>
                 </a>
-                <a href="https://www.bilibili.com/" target="_blank">
+                <a href="http://localhost:8080/personal" target="_blank">
                     <div class="video-info-uper-name">
                         测试UP主
                     </div>

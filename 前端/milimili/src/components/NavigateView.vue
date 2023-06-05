@@ -34,10 +34,10 @@
                     <el-popover placement="bottom" :width="130" trigger="hover">
                         <template #reference>
                             <div style="color:#fff;height:100%;width:100%;background-color:var(--ava);font-size:20px;display:flex;align-items: center;justify-content: center;"
-                                v-if="!isLogin">登录</div>
+                                v-if="!this.$store.state.isLogin">登录</div>
                             <img draggable="false" v-else class="img_profile" :src="profile" alt="">
                         </template>
-                        <template v-if="isLogin" #default>
+                        <template v-if="!this.$store.state.isLogin" #default>
                             <div class="mine-detail-name">
                                 {{ user.name }}
                             </div>
@@ -191,7 +191,7 @@ export default {
     },
     logout () {
       const uid = this.getCookie('uid')
-      fetch('http://kotokawa-akira-mywife.site/web/api/account/logout/' + uid, { method: 'get' })
+      this.$store.commit('logout');
       this.deleteCookie('uid')
       this.deleteCookie('token')
       window.location.reload()
@@ -235,7 +235,7 @@ export default {
       window.open('https://kotokawa-akira-mywife.site/videoStation/search?keywords=' + this.search_text)
     },
     goMine () {
-      window.open('https://kotokawa-akira-mywife.site/web/Mine/' + this.user.id)
+      window.open('http://localhost:8080/personal')
     }
   },
   mounted () {
