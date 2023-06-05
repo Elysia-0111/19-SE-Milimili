@@ -5,8 +5,8 @@
             <div class="VideoClass zongheclass">
                 <a class="Videoclassfond zonghefond" href="/search/video/all">综合排序</a>
             </div>
-            <div class="VideoClass maxclickclass">
-                <a class="Videoclassfond maxclickfond" href="/search/video/maxclick">最多点击</a>
+            <div class="VideoClass maxlikeclass">
+                <a class="Videoclassfond maxlikefond" href="/search/video/maxlike">最多点赞</a>
             </div>
             <div class="VideoClass newestclass">
                 <a class="Videoclassfond newestfond" href="/search/video/newest">最新发布</a>
@@ -26,6 +26,7 @@
 
 .Videoclass {
     height: 80px;
+    margin-left: 2%;
 }
 
 .Videoclass-grid {

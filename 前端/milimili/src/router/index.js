@@ -118,9 +118,9 @@ const routes = [
     component: () => import('../views/video/search/VideoSearch/VideoSearchAll.vue')
   },
   {
-    path: '/search/video/maxclick',
-    name: 'videosearchmaxclick',
-    component: () => import('../views/video/search/VideoSearch/VideoSearchMaxclick.vue')
+    path: '/search/video/maxlike',
+    name: 'videosearchmaxlike',
+    component: () => import('../views/video/search/VideoSearch/VideoSearchMaxlike.vue')
   },
   {
     path: '/search/video/newest',

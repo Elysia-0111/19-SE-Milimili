@@ -53,7 +53,7 @@
     </div>
     <div class="classification">
         <div class="class-grid">
-            <div><a class="classfont allfont" href="/search/all/all">综合</a></div>
+            <!-- <div><a class="classfont allfont" href="/search/all/all">综合</a></div> -->
             <div><a class="classfont videofont" href="/search/video/all">视频</a></div>
             <div><a class="classfont userfont" href="/search/user/default">用户</a></div>
         </div>
@@ -152,7 +152,7 @@
 
 .class-grid {
     display: grid;
-    grid-template-columns: auto auto auto;
+    grid-template-columns: auto auto;
     margin-right: 60%;
     font-size: 25px;
 }
