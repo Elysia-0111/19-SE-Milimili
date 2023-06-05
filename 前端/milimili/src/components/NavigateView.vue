@@ -2,7 +2,7 @@
     <nav>
         <div ref="top_bar" id="top_bar">
             <div ref="nav_bar" class="nav-bar">
-              <router-link to="/personal">
+              <router-link to="/home">
                     <div ref="icon" class="icon">
                         <svg style="transition:all .3s ease" ref="home_icon" xmlns="http://www.w3.org/2000/svg"
                             width="32" height="32" viewBox="0 0 24 24">
@@ -10,7 +10,7 @@
                         </svg>
                         <span>首页</span>
                     </div>
-                </router-link>
+              </router-link>
                 <div class="search-bar">
                     <div ref="search_container" class="search-container">
                         <input ref="search_input" type="text" v-model="search_text" autocomplete="false"
@@ -90,7 +90,7 @@ export default {
       scroll_top: 0,
       user: {},
       isLogin: false,
-      profile: 'https://kotokawa-akira-mywife.site/web/api/account/getProfile/000'
+      profile: './assets/video/logo.png'
     }
   },
   watch: {
@@ -239,9 +239,9 @@ export default {
     }
   },
   mounted () {
-    this.search_adel()
-    this.scroll_adel()
-    this.getLoginInfo()
+    //this.search_adel()
+    //this.scroll_adel()
+    //this.getLoginInfo()
 
     const keywords = this.getParams('keywords')
     this.search_text = keywords

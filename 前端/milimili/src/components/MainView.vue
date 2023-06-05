@@ -214,7 +214,6 @@
                         <li style="margin:30px 0 10px 0;width: 100%;text-align: center;display: block;">没有更多评论了~</li>
                     </ul>
                 </div>
-
             </div>
             <div class="lower-more" ref="lower_more">
                 <div class="video-change">
