@@ -127,7 +127,26 @@ const routes = [
     name: 'videosearchnewest',
     component: () => import('../views/video/search/VideoSearch/VideoSearchNewest.vue')
   },
-
+  {
+    path: '/search/user',
+    name: 'usersearch',
+    component: () => import('../views/video/search/UserSearch/UserSearch.vue')
+  },
+  {
+    path: '/search/user/default',
+    name: 'usersearchdefault',
+    component: () => import('../views/video/search/UserSearch/UserSearchDefault.vue')
+  },
+  {
+    path: '/search/user/down',
+    name: 'usersearchdown',
+    component: () => import('../views/video/search/UserSearch/UserSearchDown.vue')
+  },
+  {
+    path: '/search/user/up',
+    name: 'usersearchup',
+    component: () => import('../views/video/search/UserSearch/UserSearchUp.vue')
+  }
   /*{
     //path: '/newsuser/personal/:id',
     path: '/personal',

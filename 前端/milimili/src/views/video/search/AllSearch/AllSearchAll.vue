@@ -1,6 +1,9 @@
 <template>
     <AllSearch></AllSearch>
-    <VideoComponent></VideoComponent>
+
+    <VideoComponent v-if="this.videos != 0"></VideoComponent>
+
+    <el-empty v-else :image-size="250" description="这里空空如也哦"></el-empty>
 </template>
 <style>
 .zongheclass {
@@ -20,6 +23,14 @@ export default {
     components: {
         AllSearch,
         VideoComponent
+    },
+    data() {
+        return {
+            videos: []
+        }
+    },
+    mounted() {
+        this.videos = VideoComponent.videos
     }
 }
 </script >

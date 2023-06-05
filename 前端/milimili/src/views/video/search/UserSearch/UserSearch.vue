@@ -1,34 +1,33 @@
 <template>
-    <Search></Search>
-    <div class="Videoclass">
-        <div class="Videoclass-grid">
-            <div class="VideoClass zongheclass">
-                <a class="Videoclassfond zonghefond" href="/search/video/all">综合排序</a>
+    <search></search>
+    <div class="Userclass">
+        <div class="Userclass-grid">
+            <div class="UserClass defaultclass">
+                <a class="Userclassfond defaultfond" href="/search/user/default">默认排序</a>
             </div>
-            <div class="VideoClass maxclickclass">
-                <a class="Videoclassfond maxclickfond" href="/search/video/maxclick">最多点击</a>
+            <div class="UserClass downclass">
+                <a class="Userclassfond downfond" href="/search/user/down">粉丝数由高到低</a>
             </div>
-            <div class="VideoClass newestclass">
-                <a class="Videoclassfond newestfond" href="/search/video/newest">最新发布</a>
+            <div class="UserClass upclass">
+                <a class="Userclassfond upfond" href="/search/user/up">粉丝数由低到高</a>
             </div>
         </div>
     </div>
 </template>
 <style>
-.videofont {
+.userfont {
     color: deepskyblue;
     text-decoration: underline;
     text-decoration-color: deepskyblue;
     text-decoration-thickness: 5px;
     text-underline-offset: 20px;
-
 }
 
-.Videoclass {
+.Userclass {
     height: 80px;
 }
 
-.Videoclass-grid {
+.Userclass-grid {
     display: grid;
     grid-template-columns: auto auto auto;
     margin-left: 2%;
@@ -37,12 +36,12 @@
     width: 700px;
 }
 
-.Videoclassfond {
+.Userclassfond {
     text-decoration: none;
     color: #606266;
 }
 
-.VideoClass {
+.UserClass {
     margin-left: 15%;
     margin-right: 15%;
     height: 50px;
@@ -52,7 +51,7 @@
 }
 </style>
 <script>
-import Search from '../SearchComponent.vue'
+import Search from "../SearchComponent.vue"
 export default {
     components: {
         Search

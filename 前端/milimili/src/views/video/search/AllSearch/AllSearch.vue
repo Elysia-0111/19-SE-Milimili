@@ -30,9 +30,10 @@
 .allclass-grid {
     display: grid;
     grid-template-columns: auto auto auto;
-    margin-right: 60%;
+    margin-left: 2%;
     margin-top: 1%;
-    font-size: larger;
+    font-size: 20px;
+    width: 700px;
 }
 
 .allclassfond {
@@ -41,8 +42,8 @@
 }
 
 .allClass {
-    margin-left: 30%;
-    margin-right: 30%;
+    margin-left: 15%;
+    margin-right: 15%;
     height: 50px;
     display: flex;
     align-items: center;
