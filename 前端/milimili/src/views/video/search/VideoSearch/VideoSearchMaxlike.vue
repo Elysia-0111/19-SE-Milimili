@@ -5,12 +5,12 @@
     <el-empty v-else :image-size="250" description="这里空空如也哦"></el-empty>
 </template>
 <style>
-.maxclickclass {
+.maxlikeclass {
     background-color: rgb(228, 245, 255);
     border-radius: 8%;
 }
 
-.maxclickfond {
+.maxlikefond {
     color: deepskyblue;
     text-decoration: none;
 }
