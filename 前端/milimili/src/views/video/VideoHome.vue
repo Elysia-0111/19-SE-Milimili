@@ -14,7 +14,7 @@
             <div class="middleheader">
                 <el-input v-model="searchinput" size="large" placeholder="Please input">
                     <template #append>
-                        <el-button type="primary" icon="Search" circle></el-button>
+                        <el-button type="primary" icon="Search" circle @click="search"></el-button>
                     </template>
                 </el-input>
             </div>
@@ -332,8 +332,17 @@ a {
 </style>
 <script>
 export default {
+    created() {
+        if (!localStorage.getItem('isPageRefreshed')) {
+            localStorage.setItem('isPageRefreshed', true);
+            location.reload();
+        } else {
+            localStorage.removeItem('isPageRefreshed');
+        }
+    },
     data() {
         return {
+
             videos1: [
                 {
                     id: 'video1-1',
@@ -441,7 +450,7 @@ export default {
                 },
 
             ],
-            searchinput: null,
+            searchinput: '',
         }
     },
     methods: {
@@ -481,7 +490,14 @@ export default {
         directToDetail(id) {
             this.$router.push('../../personal');
             // TODO
-        }
+        },
+        search() {
+            if (this.searchinput.trim() != '') {
+                const query = { input: this.searchinput };
+                this.$router.push({ path: '/search/video/all', query });
+            }
+        },
+
     }
 }
 </script>

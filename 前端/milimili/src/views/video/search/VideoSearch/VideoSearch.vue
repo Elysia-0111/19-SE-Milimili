@@ -57,6 +57,6 @@ import Search from '../SearchComponent.vue'
 export default {
     components: {
         Search
-    }
+    },
 }
 </script>

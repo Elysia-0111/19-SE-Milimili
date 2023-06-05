@@ -19,6 +19,14 @@
 import VideoSearch from './VideoSearch.vue';
 import VideoComponent from '../VideoComponent.vue';
 export default {
+    created() {
+        if (!localStorage.getItem('isPageRefreshed')) {
+            localStorage.setItem('isPageRefreshed', true);
+            location.reload();
+        } else {
+            localStorage.removeItem('isPageRefreshed');
+        }
+    },
     components: {
         VideoSearch,
         VideoComponent

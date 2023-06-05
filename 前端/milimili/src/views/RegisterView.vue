@@ -7,21 +7,21 @@
                 <div class="loginbox-in">
                     <div class="userbox">
                         <el-avatar :size="30"> user </el-avatar>
-                        <input class="user" id="user" placeholder="用户名">
+                        <input v-model="username" class="user" id="user" placeholder="用户名" />
                     </div>
                     <br>
                     <div class="pwdbox">
                         <el-avatar :size="30"> pwd </el-avatar>
-                        <input class="pwd" id="password" type="password" placeholder="密码">
+                        <input v-model="password" class="pwd" id="password" type="password" placeholder="密码">
                     </div>
                     <br>
                     <div class="pwdbox">
                         <el-avatar :size="30"> pwd </el-avatar>
-                        <input class="pwd" id="re_password" type="password" placeholder="确认密码">
+                        <input v-model="repassword" class="pwd" id="re_password" type="password" placeholder="确认密码">
                     </div>
 
                     <br>
-                    <el-button class="register_btn" type="success">注册</el-button>
+                    <el-button class="register_btn" type="success" @click="registerUser">注册</el-button>
                 </div>
 
                 <!-- 右侧的注册盒子 -->
@@ -186,3 +186,40 @@ input:-webkit-autofill::first-line {
     font-family: sans-serif;
 }
 </style>
+<script>
+import axios from 'axios';
+export default {
+    data() {
+        return {
+            username: '',
+            password: '',
+            repassword: ''
+        }
+    },
+    methods: {
+        showInputText() {
+            console.log(this.username); // 在控制台中打印输入内容
+        },
+        registerUser() {
+            if (this.password === this.repassword) {
+                axios.post('/register', {
+                    username: this.username,
+                    password: this.password,
+                    re_password: this.repassword
+                })
+                    .then(response => {
+                        // 注册成功后的处理逻辑
+                        console.log('Registration successful');
+                        this.$router.push('/login');
+                    })
+                    .catch(error => {
+                        // 注册失败后的处理逻辑
+                        console.error('Registration failed', error);
+                    });
+            } else {
+                console.error('Passwords do not match');
+            }
+        }
+    }
+}
+</script>

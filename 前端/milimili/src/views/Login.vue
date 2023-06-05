@@ -1,6 +1,6 @@
 <template>
-    <div class="login2">
-        <div v-if="this.$store.state.isLogin==false">
+    <div class="login">
+        <div v-if="this.$store.state.isLogin == false">
             <div class="container">
                 <div class="main">
                     <!-- 整个注册盒子 -->
@@ -18,9 +18,10 @@
                             </div>
                             <br>
                             <el-button type="primary" @click="this.$store.commit('login')">登录</el-button> |
-                            <router-link to="/login"><el-button class="register_btn" type="success">注册</el-button></router-link>
+                            <router-link to="/register"><el-button class="register_btn"
+                                    type="success">注册</el-button></router-link>
                         </div>
-                <!-- 右侧的注册盒子 -->
+                        <!-- 右侧的注册盒子 -->
                         <div class="background">
                             <div class="title">Welcome to MiLiMiLi</div>
                         </div>
