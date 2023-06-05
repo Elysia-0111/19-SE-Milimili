@@ -54,7 +54,7 @@
     <div class="classification">
         <div class="class-grid">
             <!-- <div><a class="classfont allfont" href="/search/all/all">综合</a></div> -->
-            <div><a class="classfont videofont" href="generateHref">视频</a></div>
+            <div><a class="classfont videofont" href="/search/video/all">视频</a></div>
             <div><a class="classfont userfont" href="/search/user/default">用户</a></div>
         </div>
     </div>
