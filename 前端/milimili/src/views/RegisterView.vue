@@ -202,11 +202,9 @@ export default {
         },
         registerUser() {
             if (this.password === this.repassword) {
-                axios.post('http://localhost:8000/register/', {
-                    username: this.username,
-                    password: this.password,
-                    repassword: this.repassword
-                })
+                let data = new FormData();
+                data.append("username", this.username)
+                axios.post('http://127.0.0.1:8000/api/register/', data)
                     .then(response => {
                         // 注册成功后的处理逻辑
                         console.log('Registration successful');
