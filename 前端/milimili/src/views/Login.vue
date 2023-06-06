@@ -18,7 +18,7 @@
                             </div>
                             <br>
                             <el-button type="primary" @click="this.$store.commit('login')">登录</el-button> |
-                            <router-link to="/login"><el-button class="register_btn"
+                            <router-link to="/register"><el-button class="register_btn"
                                     type="success">注册</el-button></router-link>
                         </div>
                         <!-- 右侧的注册盒子 -->
