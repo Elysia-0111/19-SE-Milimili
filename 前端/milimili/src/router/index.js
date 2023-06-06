@@ -70,14 +70,14 @@ const routes = [
       name: 'personaldia',
       component: () => import('../views/person/PersonalDia.vue')
     },
-    {
+    
+    ]
+  },
+  {
       path: '/personal/upload',
       name: 'personaldia',
       component: () => import('../views/person/UpLoad.vue')
     },
-    ]
-  },
-  
   {
     path: '/home',
     name: 'videohome',

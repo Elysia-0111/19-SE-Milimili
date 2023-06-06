@@ -151,7 +151,7 @@
               :route="{ name: 'myarticle'}"
             >
               <i class="el-icon-edit-outline"></i>
-              <span slot="title">发帖</span>
+              <span slot="title">动态</span>
             </el-menu-item>
             <el-menu-item
               index="mycollect"
@@ -185,8 +185,6 @@
   </div>
   <el-backtop></el-backtop>
 </template>
-  
-
     
 
 <script>
