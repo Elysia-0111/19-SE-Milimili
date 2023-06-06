@@ -56,32 +56,41 @@
       <div class="PersonTop_text">
         <div class="user_text">
           <div class="user_name">
-            <span> user_name </span>
+            <span> {{ nickname }} </span>
           </div>
-          <div class="user-v">
+          <div class="user-v" v-if="v === 3">
             <img src="@/assets/logo.png" class="user-v-img" />
             <span class="user-v-font">大会员</span>
           </div>
           <div class="user_qianming">
-            <span> user_qianming </span>
+            <span> {{ design }} </span>
           </div>
           <div class="user_anniu">
-            <router-link to="/personal/personaldia"><el-button class="el-icon-edit" type="primary"
-                size="medium">编辑</el-button></router-link>
+            <el-button
+              class="el-icon-edit"
+              v-if="this.$route.params.id === this.$store.state.id"
+              type="primary"
+              size="medium"
+              plain
+              @click="edit"
+              >编辑</el-button
+            >
+            <!--<router-link to="../../personal/personaldia"><el-button class="el-icon-edit" type="primary"
+                size="medium">编辑</el-button></router-link>-->
           </div>
         </div>
         <el-col :span="14"></el-col>
         <div class="user_num">
           <div style="cursor: pointer" @click="myfan">
-            <div class="num_number"> 11 </div>
+            <div class="num_number"> {{ fanCounts }} </div>
             <span class="num_text">粉丝</span>
           </div>
           <div style="cursor: pointer" @click="myfollow">
-            <div class="num_number"> 2 </div>
+            <div class="num_number"> {{ followCounts }} </div>
             <span class="num_text">关注</span>
           </div>
           <div>
-            <div class="num_number"> 20 </div>
+            <div class="num_number"> {{ goodCounts }} </div>
             <span class="num_text">获赞</span>
           </div>
         </div>
@@ -102,6 +111,7 @@
                 item.label
               }}</router-link>
             </div> -->
+            <!--
           <el-menu router active-text-color="#00c3ff" class="el-menu-vertical-demo">
             <el-menu-item index="info" :route="{ name: 'info' }">
               <i class="el-icon-user"></i>
@@ -123,6 +133,47 @@
               <i class="el-icon-circle-plus-outline"></i>
               <span slot="title">关注</span>
             </el-menu-item>
+          </el-menu>-->
+          <el-menu
+            router
+            active-text-color="#00c3ff"
+            class="el-menu-vertical-demo"
+          >
+            <el-menu-item
+              index="info"
+              :route="{ name: 'info'}"
+            >
+              <i class="el-icon-user"></i>
+              <span slot="title">个人简介</span>
+            </el-menu-item>
+            <el-menu-item
+              index="myarticle"
+              :route="{ name: 'myarticle'}"
+            >
+              <i class="el-icon-edit-outline"></i>
+              <span slot="title">发帖</span>
+            </el-menu-item>
+            <el-menu-item
+              index="mycollect"
+              :route="{ name: 'mycollect'}"
+            >
+              <i class="el-icon-document"></i>
+              <span slot="title">收藏</span>
+            </el-menu-item>
+            <el-menu-item
+              index="myfan"
+              :route="{ name: 'myfan'}"
+            >
+              <i class="el-icon-tableware"></i>
+              <span slot="title">粉丝</span>
+            </el-menu-item>
+            <el-menu-item
+              index="myfollow"
+              :route="{ name: 'myfollow'}"
+            >
+              <i class="el-icon-circle-plus-outline"></i>
+              <span slot="title">关注</span>
+            </el-menu-item>
           </el-menu>
         </el-card>
       </div>
@@ -130,6 +181,7 @@
         <router-view></router-view>
       </div>
     </div>
+    <div v-if="x === 1"><personal-dia ref="dia" @flesh="reload" /></div>
   </div>
   <el-backtop></el-backtop>
 </template>
@@ -147,12 +199,13 @@ export default {
   data() {
     return {
       avatar: "",
-      nickname: "",
+      nickname: "lulu",
       v: 1,
-      design: "",
-      followCounts: "",
-      fanCounts: "",
-      goodCounts: "",
+      x:0,
+      design: "这里是个性签名",
+      followCounts: "5",
+      fanCounts: "7",
+      goodCounts: "11",
       isfollow: true,
       followData: {
         fanId: "",
@@ -162,15 +215,29 @@ export default {
     };
   },
   mounted() {
+    this.load();
   },
   watch: {
-    $route() {
-      //this.$emit("flesh");
+    $route(to, from) {
+        
     },
   },
   methods: {
-    edit() {
+    load() {
+
     },
+    edit() {
+      this.$router.push({ path: `/personal/personaldia` })
+    },
+    toInfo(){
+      this.$router.push({ path: `/personal/info` })
+    },
+    toMyArticle(){
+      this.$router.push({path:`/personal/myarticle`})
+    },
+    toMyCollect(){
+      this.$router.push({path:`/personal/mycollect`})
+    }
   },
 };
 </script>

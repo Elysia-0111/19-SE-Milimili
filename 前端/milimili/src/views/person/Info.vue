@@ -97,7 +97,7 @@
   </template>
 
   <script>
-  /*import { userInfo } from "@/api/user.js";
+  //import { userInfo } from "@/api/user.js";
   export default {
     name: "Info",
     data() {
@@ -117,7 +117,7 @@
       };
     },
     mounted() {
-      this.load();
+      //this.load();
     },
     methods: {
       load() {
@@ -141,7 +141,7 @@
           });
       },
     },
-  };*/
+  };
   </script>
   
   <style scoped>
