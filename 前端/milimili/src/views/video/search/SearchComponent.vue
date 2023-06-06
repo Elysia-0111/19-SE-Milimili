@@ -6,7 +6,7 @@
                     <!-- <router-link to="home"><span class="fonthead">首页</span></router-link>
                     <router-link to="home"><a class="fonthead">热门</a></router-link>
                     <router-link to="home"><a class="fonthead">频道</a></router-link> -->
-                    <a class="fonthead" href="home">首页</a>
+                    <a class="fonthead" href="/home">首页</a>
                     <a class="fonthead" href="home">热门</a>
                     <a class="fonthead" href="home">频道</a>
                 </div>
@@ -40,22 +40,23 @@
     </div>
     <div class="search">
         <div class="search-grid">
-            <el-input v-model="searchinput" size="large" placeholder="Please input" clearable>
+            <el-input v-model="input" size="large" :placeholder="placeholder" clearable @keyup.enter="submitData"
+                @input="handleInput(input)">
                 <template #prefix>
                     <el-icon class="el-input__icon" style="color: rgb(35, 130, 204);">
                         <search />
                     </el-icon>
                 </template>
             </el-input>
-            <el-button type="primary" size="large">搜索</el-button>
+            <el-button type="primary" size="large" @click="submitData">搜索</el-button>
         </div>
-        <div>{{ searchinput }}</div>
+        <!-- <div>{{ $route.query.input }}</div> -->
     </div>
     <div class="classification">
         <div class="class-grid">
             <!-- <div><a class="classfont allfont" href="/search/all/all">综合</a></div> -->
-            <div><a class="classfont videofont" href="/search/video/all">视频</a></div>
-            <div><a class="classfont userfont" href="/search/user/default">用户</a></div>
+            <div><a class="classfont videofont" :href="getVideoHref">视频</a></div>
+            <div><a class="classfont userfont" :href="getUserHref">用户</a></div>
         </div>
     </div>
 </template>
@@ -168,11 +169,52 @@
 </style>
 
 <script>
+import { mapActions, mapState } from 'vuex';
 export default {
     data() {
         return {
-            searchinput: null
+            input: null
         }
+    },
+    computed: {
+        ...mapState(['searchinput']),
+
+        getVideoHref() {
+            const query = { input: this.input };
+            const route = {
+                path: '/search/video/all',
+                query
+            }
+            return this.$router.resolve(route).href;
+        },
+        getUserHref() {
+            const query = { input: this.input };
+            const route = {
+                path: '/search/user/default',
+                query
+            }
+            return this.$router.resolve(route).href;
+        },
+    },
+    methods: {
+        ...mapActions(['updateSearchInput']),
+        submitData() {
+            this.updateSearchInput(this.input);
+            // console.log(this.input);
+            // console.log(this.searchinput)
+            if (this.input.trim() !== '') {
+                this.$router.push({ path: this.$route.path, query: { input: this.input } })
+            }
+
+        },
+        handleInput(value) {
+            this.updateSearchInput(value);
+            //console.log(this.searchinput)
+        }
+    },
+    created() {
+        this.input = this.$route.query.input || '';
     }
+
 }
 </script>

@@ -7,8 +7,8 @@
         <!--<router-link to="/homepage">个人中心</router-link> |-->
         <router-link to="/personal">主页界面</router-link> |
         <router-link to="/about">About</router-link> |
-        <router-link to="/login2">登录</router-link> |
-        <router-link to="/login">注册</router-link>
+        <router-link to="/login">登录</router-link> |
+        <router-link to="/register">注册</router-link>
       </div>
       <div v-else>
         <router-link to="/video/1">VideoView</router-link> |

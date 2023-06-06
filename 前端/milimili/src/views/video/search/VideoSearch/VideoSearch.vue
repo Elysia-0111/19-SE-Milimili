@@ -3,13 +3,13 @@
     <div class="Videoclass">
         <div class="Videoclass-grid">
             <div class="VideoClass zongheclass">
-                <a class="Videoclassfond zonghefond" href="/search/video/all">综合排序</a>
+                <a class="Videoclassfond zonghefond" :href="getAllHref">综合排序</a>
             </div>
             <div class="VideoClass maxlikeclass">
-                <a class="Videoclassfond maxlikefond" href="/search/video/maxlike">最多点赞</a>
+                <a class="Videoclassfond maxlikefond" :href="getMaxHref">最多点赞</a>
             </div>
             <div class="VideoClass newestclass">
-                <a class="Videoclassfond newestfond" href="/search/video/newest">最新发布</a>
+                <a class="Videoclassfond newestfond" :href="getNewHref">最新发布</a>
             </div>
         </div>
     </div>
@@ -54,9 +54,58 @@
 </style>
 <script>
 import Search from '../SearchComponent.vue'
+import { mapState, mapActions } from 'vuex';
 export default {
     components: {
         Search
+    },
+    computed: {
+        ...mapState(['searchinput']),
+        getAllHref() {
+            let query = {};
+            if (this.searchinput !== this.input) {
+                query = { input: this.searchinput };
+            } else {
+                query = { input: this.input };
+            }
+
+            const route = {
+                path: '/search/video/all',
+                query
+            }
+            console.log(this.$router.resolve(route).href)
+            return this.$router.resolve(route).href;
+        },
+        getMaxHref() {
+            //console.log(this.input)
+            let query = {};
+            if (this.searchinput !== this.input) {
+                query = { input: this.searchinput };
+            } else {
+                query = { input: this.input };
+            }
+            const route = {
+                path: '/search/video/maxlike',
+                query
+            }
+            return this.$router.resolve(route).href;
+        },
+        getNewHref() {
+            //console.log(this.input)
+            const query = { input: this.searchinput };
+            const route = {
+                path: '/search/video/newest',
+                query
+            }
+            return this.$router.resolve(route).href;
+        }
+    },
+    created() {
+        this.updateSearchInput(this.$route.query.input || '');
+    },
+    methods: {
+        ...mapActions(['updateSearchInput'])
     }
+
 }
 </script>

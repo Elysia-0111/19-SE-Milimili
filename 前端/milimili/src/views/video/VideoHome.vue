@@ -12,9 +12,9 @@
                 </div>
             </div>
             <div class="middleheader">
-                <el-input v-model="searchinput" size="large" placeholder="Please input">
+                <el-input v-model="input" size="large" placeholder="Please input" @keyup.enter="submitData">
                     <template #append>
-                        <el-button type="primary" icon="Search" circle></el-button>
+                        <el-button type="primary" icon="Search" circle @click="submitData"></el-button>
                     </template>
                 </el-input>
             </div>
@@ -331,6 +331,7 @@ a {
 }
 </style>
 <script>
+import { mapActions, mapState } from "vuex";
 export default {
     data() {
         return {
@@ -441,7 +442,7 @@ export default {
                 },
 
             ],
-            searchinput: null,
+            input: '',
         }
     },
     methods: {
@@ -481,7 +482,22 @@ export default {
         directToDetail(id) {
             this.$router.push('../../personal');
             // TODO
+        },
+        ...mapActions(['updateSearchInput']),
+        submitData() {
+            this.updateSearchInput(this.input);
+            console.log(this.input);
+            console.log(this.searchinput);
+            if (this.input.trim() !== '') {
+                this.$router.push({ path: '/search/video/all', query: { input: this.input } })
+
+            }
+
         }
+    },
+    computed: {
+        ...mapState(['searchinput'])
     }
+
 }
 </script>

@@ -16,9 +16,9 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
   },
   {
-    path: '/login',
-    name: 'login',
-    component: () => import(/* webpackChunkName: "login" */ '../views/LoginView.vue')
+    path: '/register',
+    name: 'register',
+    component: () => import(/* webpackChunkName: "login" */ '../views/RegisterView.vue')
   },
   {
     path: '/video/:Id',
@@ -26,8 +26,8 @@ const routes = [
     component: () => import(/* webpackChunkName: "login" */ '../views/VideoView.vue')
   },
   {
-    path: '/login2',
-    name: 'login2',
+    path: '/login',
+    name: 'login',
     component: () => import(/* webpackChunkName: "login" */ '../views/Login.vue')
   },
   {

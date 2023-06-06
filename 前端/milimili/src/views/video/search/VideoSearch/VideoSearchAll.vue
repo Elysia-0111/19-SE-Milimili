@@ -29,7 +29,14 @@ export default {
         }
     },
     mounted() {
-        this.videos = VideoComponent.videos
+        this.videos = VideoComponent.videos;
+        if (!sessionStorage.getItem('pageRefreshed')) {
+            sessionStorage.setItem('pageRefreshed', 'true');
+            window.history.replaceState({}, '', window.location.href); // 替换当前页面 URL
+            location.reload(); // 刷新页面
+        } else {
+            sessionStorage.removeItem('pageRefreshed');
+        }
     }
 }
 </script >
