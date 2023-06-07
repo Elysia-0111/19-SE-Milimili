@@ -18,7 +18,7 @@
         <div class="upload-btn" @click="submit">提交</div>
       </div>
     </div>
-    <el-dialog v-model="dialogVisible" title="上传" width="350px">
+    <el-dialog v-model="dialogVisible" title="上传" width="350px" :before-close="handleClose">
       <div class="progress-outer">
         <div style="margin-bottom:15px">{{ progress }}%</div>
         <div class="progress-inner" ref="progress_inner"></div>
@@ -42,6 +42,7 @@ export default {
       dialogVisible: false,
       progress: 0,
       loader: {},
+      upload_id: '',
       user: {}
     }
   },
@@ -54,13 +55,19 @@ export default {
         this.$refs.video_name.title = value.name;
         this.$refs.video_name.innerText = value.name;
       }
-      this.btnAvailable = this.title_text !== "" && this.video !== "" && this.summary_text !== "";
+      if (this.title_text !== "" && this.video !== "" && this.summary_text !== "")
+        this.btnAvailable = true;
+      else this.btnAvailable = false;
     },
     title_text() {
-      this.btnAvailable = this.title_text !== "" && this.video !== "" && this.summary_text !== "";
+      if (this.title_text !== "" && this.video !== "" && this.summary_text !== "")
+        this.btnAvailable = true;
+      else this.btnAvailable = false;
     },
     summary_text() {
-      this.btnAvailable = this.title_text !== "" && this.video !== "" && this.summary_text !== "";
+      if (this.title_text !== "" && this.video !== "" && this.summary_text !== "")
+        this.btnAvailable = true;
+      else this.btnAvailable = false;
     },
     progress(value) {
       this.$refs.progress_inner.style.width = value + "%";
@@ -88,14 +95,24 @@ export default {
       this.title_text = "";
       this.summary_text = "";
       this.video = "";
+      this.img = "";
     },
-    uploadVideo() {
+    submit() {
       this.dialogVisible = true;
       const xhr = new XMLHttpRequest();
       this.loader = xhr;
-      xhr.open('post', '/api/upload_video');
+      xhr.open('post', 'http://127.0.0.1:8000/api/upload_video');
       const data = new FormData();
-      data.append("video", this.video);
+      data.append("avatar", this.video);
+      data.append("title", this.title_text);
+      data.append("description", this.summary_text);
+      data.append("user_id", this.user.id);
+      data.append("zone", this.title_text);
+      data.append("tag1", this.title_text);
+      data.append("tag2", this.title_text);
+      data.append("tag3", this.title_text);
+      data.append("tag4", this.title_text);
+      data.append("tag5", this.title_text);
       xhr.upload.addEventListener("progress", (e) => {
         let num = e.loaded * 100 / e.total;
         this.progress = num.toFixed(2);
@@ -116,34 +133,15 @@ export default {
       xhr.send(data);
     },
     beforeVideoUpload(rawFile) {
-      if (rawFile.type !== 'video/mp4') {
-        ElMessageBox.alert('只能上传 <b style="color:var(--ava)">mp4</b> 格式的视频', '提示', { dangerouslyUseHTMLString: true, confirmButtonText: "确定" });
+      if (rawFile.type !== 'video/mp4' && rawFile.type !== 'video/ogg') {
+        ElMessageBox.alert('只能上传 <b style="color:var(--ava)">mp4、ogg</b> 格式的视频', '提示', { dangerouslyUseHTMLString: true, confirmButtonText: "确定" });
         return false;
-      } else if (rawFile.size / 1024 / 1024 > 100) {
+      } else if (rawFile.size / 1024 / 1024 > 500) {
         ElMessageBox.alert('视频大小不能超过 <b style="color:var(--ava)">500MB</b> ', '提示', { dangerouslyUseHTMLString: true, confirmButtonText: "确定" });
         return false
       }
       return true
     },
-    submit() {
-      if (this.btnAvailable) {
-        this.btnAvailable = false;
-        fetch('/api/upload_video', {
-          method: "post",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({ title: this.title_text, description: this.summary_text, user_id: this.user.id, zone: '旋转', tag1: '旋转' , tag2: '旋转' , tag3: '旋转', tag4: '旋转', tag5: '旋转'}),
-          credentials: "include"
-        }).then(res => {
-          return res.json();
-        }).then(data => {
-          if (data.result === "1") {
-          }
-        })
-      } else ElMessageBox.alert("请填写信息！", "提示", { confirmButtonText: '确定' });
-
-    }
   },
   created() {
     this.initFiles();

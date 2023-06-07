@@ -2,8 +2,8 @@
     <main class="view-main">
         <section class="video-header">
             <div class="video-info">
-                <div class="video-info-title" :title="video.title">
-                  {{ video.title }}
+                <div class="video-info-title" :title="测试">
+                  测试
                 </div>
                 <div class="video-info-detail">
                     <div class="video-info-time">
@@ -334,8 +334,6 @@ export default {
   watch: {
     video (value) {
       document.title = value.title
-      this.getUper(value.up)
-      this.getVideoList()
       this.getComments(value.id)
       this.getProfile()
       this.$nextTick(() => {
@@ -402,7 +400,6 @@ export default {
     selectFile () {
       this.file.click()
     },
-
     ajax (options, success, failure) {
       const defaultOptions = {
         url: '',
@@ -447,62 +444,22 @@ export default {
       return sps[sps.length - 1]
     },
     getVideoInfo () {
-      fetch('http://127.0.0.1:8000/api/video/' + this.getVideoId(), {
-        method: 'get'
+      fetch('http://127.0.0.1:8000/api/detail/' + this.getVideoId(), {
+        method: 'post'
       }).then(res => {
-        return res.json()
-      }).then(data => {
-        this.video = data
+        this.video = res.data
       })
     },
-    getUper (id) {
-      fetch('http://127.0.0.1:8000/api/account/selectOneById/' + id, {
-        method: 'get'
-      }).then(res => {
-        return res.json()
-      }).then(data => {
-        this.uper = data
-        if (this.video.up === this.user.id) {
-          this.isUp = true
-        }
-      })
-    },
-    getVideoList () {
-      fetch('http://127.0.0.1:8000/api/video/videoList/' + this.getVideoId(), {
-        method: 'get',
-        headers: {
-          Origin: 'https://kotokawa-akira-mywife.site'
-        }
-      }).then(res => {
-        return res.json()
-      }).then(data => {
-        this.videoList = data
-        this.$nextTick(() => {
-          this.player.video.src = 'http://127.0.0.1:8000/api/video/' + this.video.id + '/' + data[0]
-          this.now = 0
-          const list = document.querySelectorAll('.video-change-li')
-          list[0].style.color = 'var(--ava)'
-        })
-      })
-    },
-    changeVideo (file, index) {
-      this.now = index
-      this.player.video.src = 'http://127.0.0.1:8000/api/video/' + this.video.id + '/' + file
-      this.player.video.play()
-      const list = document.querySelectorAll('.video-change-li')
-      list.forEach(element => {
-        element.style.color = 'unset'
-      })
-      list[index].style.color = 'var(--ava)'
-    },
-    getComments (id) {
-      fetch('http://127.0.0.1:8000/api/comments/getComments/' + id, { method: 'get' })
-        .then(res => {
-          return res.json()
-        }).then(data => {
-          this.comments = data
-        })
-    },
+//    changeVideo (file, index) {
+//      this.now = index
+//      this.player.video.src = 'http://127.0.0.1:8000/api/video/' + this.video.id + '/' + file
+//      this.player.video.play()
+//     const list = document.querySelectorAll('.video-change-li')
+//     list.forEach(element => {
+//        element.style.color = 'unset'
+//      })
+//      list[index].style.color = 'var(--ava)'
+//    },
     currentChange (index, value) {
       this.currentPages[index] = value
       this.$nextTick(() => {
@@ -707,14 +664,6 @@ export default {
       if (document.documentElement.scrollTop > 380) {
         this.reply_show = true
       } else this.reply_show = false
-    })
-
-    this.file.addEventListener('change', () => {
-      const can = this.beforeVideoUpload(this.file.files[0])
-      if (can) {
-        this.video_file = this.file.files[0]
-        this.uploadVideo(this.video.id)
-      }
     })
   }
 }
