@@ -29,7 +29,6 @@
 <script>
 import { ElMessageBox, ElDialog, ElButton, ElNotification } from 'element-plus';
 export default {
-  props: ['user'],
   components: {
     ElDialog, ElButton
   },
@@ -43,6 +42,7 @@ export default {
       dialogVisible: false,
       progress: 0,
       loader: {},
+      user: {}
     }
   },
   watch: {
@@ -75,7 +75,6 @@ export default {
         this.dialogVisible = false;
         this.progress = 0;
         this.loader.abort();
-        this.deleteVideo(this.upload_id);
       }).catch(() => { });
     },
     initFiles() {
@@ -94,7 +93,7 @@ export default {
       this.dialogVisible = true;
       const xhr = new XMLHttpRequest();
       this.loader = xhr;
-      xhr.open('post', 'http://127.0.0.1:8000/api/upload_video');
+      xhr.open('post', '/api/upload_video');
       const data = new FormData();
       data.append("video", this.video);
       xhr.upload.addEventListener("progress", (e) => {
@@ -129,7 +128,7 @@ export default {
     submit() {
       if (this.btnAvailable) {
         this.btnAvailable = false;
-        fetch('http://127.0.0.1:8000/api/upload_video', {
+        fetch('/api/upload_video', {
           method: "post",
           headers: {
             "Content-Type": "application/json"
