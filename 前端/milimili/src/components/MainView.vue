@@ -76,17 +76,17 @@
                         </div>
                     </div>
                     <div class="options-info">
-                        <a :href="'https://kotokawa-akira-mywife.site/web/Mine/' + video.up" target="_blank">
+                        <a :href="'' + video.up" target="_blank">
                             <el-image fit="cover" draggable="false"
-                                :src="'https://kotokawa-akira-mywife.site/web/api/account/getProfile/' + video.up"
+                                :src="'' + video.up"
                                 alt="">
                                 <template #error>
                                     <img style="width: 100%;height: 100%;object-fit: cover;"
-                                        src="https://kotokawa-akira-mywife.site/web/api/account/getProfile/000" alt="">
+                                        src="" alt="">
                                 </template>
                             </el-image>
                         </a>
-                        <a :href="'https://kotokawa-akira-mywife.site/web/Mine/' + video.up" target="_blank">
+                        <a :href="'' + video.up" target="_blank">
                             <div class="options-img-name">{{ uper.name }}</div>
                         </a>
                     </div>
@@ -107,20 +107,20 @@
                     <ul>
                         <li class="lower-comments-li" v-for="(item, index) in comments" :key="item.time">
                             <div class="lower-comments-li-header">
-                                <a :href="'https://kotokawa-akira-mywife.site/web/Mine/' + item.uid">
+                                <a :href="'' + item.uid">
                                     <div class="lower-comments-li-img-container">
                                         <el-image fit="cover" draggable="false"
-                                            :src="'https://kotokawa-akira-mywife.site/web/api/account/getProfile/' + item.uid"
+                                            :src="'' + item.uid"
                                             alt="">
                                             <template #error>
                                                 <img style="width: 100%;height: 100%;object-fit: cover;"
-                                                    src="https://kotokawa-akira-mywife.site/web/api/account/getProfile/000"
+                                                    src=""
                                                     alt="">
                                             </template>
                                         </el-image>
                                     </div>
                                 </a>
-                                <a :href="'https://kotokawa-akira-mywife.site/web/Mine/' + item.uid">
+                                <a :href="'' + item.uid">
                                     <div class="lower-comments-li-header-name">
                                         {{ item.userName }}
                                     </div>
@@ -148,19 +148,19 @@
                                     <div class="lower-comments-li-header">
                                         <div style="width:40px;height:40px;border-radius: 20px;overflow: hidden;"
                                             class="lower-comments-li-img-container">
-                                            <a :href="'https://kotokawa-akira-mywife.site/web/Mine/' + reply.uid">
+                                            <a :href="'' + reply.uid">
                                                 <el-image style="width:40px;height:40px;" fit="cover" draggable="false"
-                                                    :src="'https://kotokawa-akira-mywife.site/web/api/account/getProfile/' + reply.uid"
+                                                    :src="'' + reply.uid"
                                                     alt="">
                                                     <template #error>
                                                         <img style="width: 40px;height: 40px;object-fit: cover;"
-                                                            src="https://kotokawa-akira-mywife.site/web/api/account/getProfile/000"
+                                                            src=""
                                                             alt="">
                                                     </template>
                                                 </el-image>
                                             </a>
                                         </div>
-                                        <a :href="'https://kotokawa-akira-mywife.site/web/Mine/' + reply.uid">
+                                        <a :href="'' + reply.uid">
                                             <div style="font-size:18px" class="lower-comments-li-header-name">
                                                 {{ reply.userName }}
                                             </div>
@@ -193,10 +193,10 @@
                                 <div style="display:flex;justify-content:space-between;align-items: flex-start;">
                                     <div class="lower-reply-img-container">
                                         <el-image fit="cover" draggable="false"
-                                            :src="'https://kotokawa-akira-mywife.site/web/api/account/getProfile/' + user.id"
+                                            :src="'' + user.id"
                                             alt="">
                                             <template #error>
-                                                <img src="https://kotokawa-akira-mywife.site/web/api/account/getProfile/000"
+                                                <img src=""
                                                     alt="">
                                             </template>
                                         </el-image>
@@ -290,7 +290,7 @@
     </div>
 </template>
 <script>
-import Dplayer from 'dplayer'
+import  Dplayer from 'dplayer'
 import { ElPagination, ElMessageBox, ElImage, ElNotification } from 'element-plus'
 import BackTop from './BackTop.vue'
 export default {
@@ -302,15 +302,6 @@ export default {
   },
   data () {
     return {
-      video1:
-        {
-          id: 'video1-1',
-          src: require('../assets/video/test.mp4'),
-          title: '旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转',
-          author: '123',
-          time: '2023-6-6',
-          play: '1000'
-        },
       video: {},
       uper: {},
       player: {},
@@ -411,43 +402,6 @@ export default {
     selectFile () {
       this.file.click()
     },
-    beforeVideoUpload (rawFile) {
-      if (rawFile.type !== 'video/mp4' && rawFile.type !== 'video/ogg') {
-        ElMessageBox.alert('只能上传 <b style="color:var(--ava)">mp4、ogg</b> 格式的视频', '提示', { dangerouslyUseHTMLString: true, confirmButtonText: '确定' })
-        return false
-      } else if (rawFile.size / 1024 / 1024 > 500) {
-        ElMessageBox.alert('视频大小不能超过 <b style="color:var(--ava)">500MB</b> ', '提示', { dangerouslyUseHTMLString: true, confirmButtonText: '确定' })
-        return false
-      }
-      return true
-    },
-    uploadVideo (id) {
-      this.showUpLoad = true
-      const xhr = new XMLHttpRequest()
-      this.loader = xhr
-      xhr.open('post', 'https://kotokawa-akira-mywife.site/web/api/video/uploadVideo/' + id)
-      const data = new FormData()
-      data.append('video', this.video_file)
-      xhr.upload.addEventListener('progress', (e) => {
-        const num = e.loaded * 100 / e.total
-        this.progress = num.toFixed(2)
-      })
-      xhr.addEventListener('readystatechange', () => {
-        if (xhr.readyState === xhr.DONE && xhr.status === 200) {
-          this.upload_id = ''
-          ElNotification({
-            title: '上传完毕',
-            message: '上传完毕',
-            duration: 0,
-            dangerouslyUseHTMLString: true
-          })
-          this.showUpLoad = false
-          this.progress = 0
-          this.clear()
-        }
-      })
-      xhr.send(data)
-    },
 
     ajax (options, success, failure) {
       const defaultOptions = {
@@ -480,7 +434,7 @@ export default {
     getProfile () {
       this.ajax({
         method: 'get',
-        url: 'https://kotokawa-akira-mywife.site/web/api/account/getProfile/' + this.video.up,
+        url: '' + this.video.up,
         responseType: 'blob'
       }, (res) => {
         if (res.type !== 'image/png') return
@@ -493,7 +447,7 @@ export default {
       return sps[sps.length - 1]
     },
     getVideoInfo () {
-      fetch('https://kotokawa-akira-mywife.site/web/api/video/information/' + this.getVideoId(), {
+      fetch('http://127.0.0.1:8000/api/video/' + this.getVideoId(), {
         method: 'get'
       }).then(res => {
         return res.json()
@@ -502,7 +456,7 @@ export default {
       })
     },
     getUper (id) {
-      fetch('https://kotokawa-akira-mywife.site/web/api/account/selectOneById/' + id, {
+      fetch('http://127.0.0.1:8000/api/account/selectOneById/' + id, {
         method: 'get'
       }).then(res => {
         return res.json()
@@ -514,7 +468,7 @@ export default {
       })
     },
     getVideoList () {
-      fetch('https://kotokawa-akira-mywife.site/web/api/video/videoList/' + this.getVideoId(), {
+      fetch('http://127.0.0.1:8000/api/video/videoList/' + this.getVideoId(), {
         method: 'get',
         headers: {
           Origin: 'https://kotokawa-akira-mywife.site'
@@ -524,7 +478,7 @@ export default {
       }).then(data => {
         this.videoList = data
         this.$nextTick(() => {
-          this.player.video.src = 'https://kotokawa-akira-mywife.site/web/api/video/' + this.video.id + '/' + data[0]
+          this.player.video.src = 'http://127.0.0.1:8000/api/video/' + this.video.id + '/' + data[0]
           this.now = 0
           const list = document.querySelectorAll('.video-change-li')
           list[0].style.color = 'var(--ava)'
@@ -533,7 +487,7 @@ export default {
     },
     changeVideo (file, index) {
       this.now = index
-      this.player.video.src = 'https://kotokawa-akira-mywife.site/web/api/video/' + this.video.id + '/' + file
+      this.player.video.src = 'http://127.0.0.1:8000/api/video/' + this.video.id + '/' + file
       this.player.video.play()
       const list = document.querySelectorAll('.video-change-li')
       list.forEach(element => {
@@ -542,7 +496,7 @@ export default {
       list[index].style.color = 'var(--ava)'
     },
     getComments (id) {
-      fetch('https://kotokawa-akira-mywife.site/web/api/comments/getComments/' + id, { method: 'get' })
+      fetch('http://127.0.0.1:8000/api/comments/getComments/' + id, { method: 'get' })
         .then(res => {
           return res.json()
         }).then(data => {
@@ -607,28 +561,23 @@ export default {
       this.reply_list[index] = ''
     },
     addComment (forid, uId, userName, text) {
-      fetch('https://kotokawa-akira-mywife.site/web/api/comments/addComment', {
+      fetch('http://127.0.0.1:8000/api/add-comment', {
         method: 'post',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          forId: forid,
-          uid: uId,
-          text: text,
+          video_id: forid,
+          user_id: uId,
+          content: text,
           userName: userName
         }),
         credentials: 'include'
       }).then(res => {
         return res.json()
       }).then(data => {
-        if (data.success === 'true') {
+        if (data.result === '1') {
           ElMessageBox.alert('发布成功!')
-          this.getComments(this.video.id)
-        } else if (data.reason === 'WordsForbidden') {
-          ElMessageBox.alert('评论包含敏感词汇!', '提示', {
-            confirmButtonText: '确定'
-          })
         }
       })
     },
@@ -646,7 +595,7 @@ export default {
     btnLikeClick (isLiked) {
       let path = 'addLike'
       if (!isLiked) path = 'disLike'
-      fetch('https://kotokawa-akira-mywife.site/web/api/video/' + path + '/' + this.video.id, { method: 'get' })
+      fetch('http://127.0.0.1:8000/api/video/' + path + '/' + this.video.id, { method: 'get' })
         .then(res => {
           return res.json()
         }).then(data => {
@@ -669,7 +618,7 @@ export default {
             return video.id === this.video.id
           })
         })
-        fetch('https://kotokawa-akira-mywife.site/web/api/collection/removeFromCollection', {
+        fetch('http://127.0.0.1:8000/api/collection/removeFromCollection', {
           method: 'post',
           headers: {
             'Content-Type': 'application/json'
@@ -687,7 +636,7 @@ export default {
       } else this.dialogVisible = true
     },
     addCollection (Name) {
-      fetch('https://kotokawa-akira-mywife.site/web/api/collection/addToCollection', {
+      fetch('http://127.0.0.1:8000/api/collection/addToCollection', {
         method: 'post',
         headers: {
           'Content-Type': 'application/json'
