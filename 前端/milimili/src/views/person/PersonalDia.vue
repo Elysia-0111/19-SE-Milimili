@@ -1,13 +1,18 @@
 <template>
   <span>修改个人信息</span>
   <!-- Form -->
+  <el-dialog
+  title="修改个人信息"
+  :visible.sync="dialogVisible"
+  width="60%"
+  :before-close="handleClose">
   <el-form :model="form" :rules="rules" ref="form" label-width="150px">
       <div class="updateinfo">
   <div class="left">
       <el-form-item label="头像" prop="avatar">
               <img style="width:150px;height:110px" src="form.avatar"/>
           </el-form-item>
-                    <el-form-item label="账号密码" prop="password">
+            <el-form-item label="账号密码" prop="password">
             <el-input v-model="form.password"></el-input>
           </el-form-item>
           <el-form-item label="昵称" prop="nickname">
@@ -62,6 +67,7 @@
       <el-button @click="dialogVisible = false">取 消</el-button>
       <el-button type="primary" @click="dialogVisible = false">提 交</el-button>
   </span>
+</el-dialog>
 </template>
 
 <script>
@@ -94,6 +100,18 @@ export default {
       },
     };
   },
+  mounted() {
+    this.load();
+  },
+  methods: {
+    open() {
+      this.dialogVisible = true;
+    },
+    load() {
+    },
+    submit() {
+  },
+},
 };
 </script>
 

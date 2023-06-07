@@ -38,37 +38,40 @@ const routes = [
   {
     path: '/personal',
     name: 'personal',
-    component: () => import('../views/person/Personal.vue')
-  },
-  {
-    path: '/personal/info',
-    name: 'info',
-    component: () => import('../views/person/Info.vue')
-  },
-  {
-    path: '/personal/myarticle',
-    name: 'myarticle',
-    component: () => import('../views/person/MyArticle.vue')
-  },
-  {
-    path: '/personal/mycollect',
-    name: 'mycollect',
-    component: () => import('../views/person/MyCollect.vue')
-  },
-  {
-    path: '/personal/myfan',
-    name: 'myfan',
-    component: () => import('../views/person/MyFanAndFollow.vue')
-  },
-  {
-    path: '/personal/myfollow',
-    name: 'myfollow',
-    component: () => import('../views/person/MyFanAndFollow.vue')
-  },
-  {
-    path: '/personal/personaldia',
-    name: 'personaldia',
-    component: () => import('../views/person/PersonalDia.vue')
+    component: () => import('../views/person/Personal.vue'),
+    children: [
+      {
+      path: '/personal/info',
+      name: 'info',
+      component: () => import('../views/person/Info.vue')
+    },
+    {
+      path: '/personal/myarticle',
+      name: 'myarticle',
+      component: () => import('../views/person/MyArticle.vue')
+    },
+    {
+      path: '/personal/mycollect',
+      name: 'mycollect',
+      component: () => import('../views/person/MyCollect.vue')
+    },
+    {
+      path: '/personal/myfan',
+      name: 'myfan',
+      component: () => import('../views/person/MyFanAndFollow.vue')
+    },
+    {
+      path: '/personal/myfollow',
+      name: 'myfollow',
+      component: () => import('../views/person/MyFanAndFollow.vue')
+    },
+    {
+      path: '/personal/personaldia',
+      name: 'personaldia',
+      component: () => import('../views/person/PersonalDia.vue')
+    },
+    
+    ]
   },
   {
     path: '/personal/upload',

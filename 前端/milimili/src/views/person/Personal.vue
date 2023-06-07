@@ -66,8 +66,16 @@
             <span> user_qianming </span>
           </div>
           <div class="user_anniu">
-            <router-link to="/personal/personaldia"><el-button class="el-icon-edit" type="primary"
-                size="medium">编辑</el-button></router-link>
+            <!--<router-link to="/personal/personaldia"><el-button class="el-icon-edit" type="primary"
+                size="medium">编辑</el-button></router-link>-->
+                <el-button
+              class="el-icon-edit"
+              type="primary"
+              size="medium"
+              plain
+              @click="edit"
+              >编辑</el-button
+            >
           </div>
         </div>
         <el-col :span="14"></el-col>
@@ -130,6 +138,7 @@
         <router-view></router-view>
       </div>
     </div>
+    <personal-dia ref="dia" @flesh="reload" />
   </div>
   <el-backtop></el-backtop>
 </template>
@@ -170,6 +179,7 @@ export default {
   },
   methods: {
     edit() {
+      this.$refs.dia.open();
     },
   },
 };
