@@ -168,7 +168,7 @@ import axios from 'axios';
       load() {
         let x = new FormData();
       x.append("up_user_id", this.$route.params.id)
-      axios.post('/api/up_all_list', x).then(res => {
+      axios.post('http://127.0.0.1:8000/api/up_all_list/', x).then(res => {
             this.avatar = res.data.avatar_url;
             this.id = res.data.id;
             this.birthday = res.data.birthday;

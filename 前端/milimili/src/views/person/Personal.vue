@@ -151,8 +151,8 @@
       </div>
     </div>
     <PersonalDia ref="dia" v-if="openDialog" />
-  </div>
   <el-backtop></el-backtop>
+  </div>
 </template>
   
 
@@ -200,7 +200,7 @@ export default {
     load() {
       let data = new FormData();
       data.append("up_user_id", this.$route.params.id)
-      axios.post('/api/up_all_list', data).then(res => {
+      axios.post('http://127.0.0.1:8000/api/up_all_list/', data).then(res => {
       })
         .catch((err) => {
           console.log(err);
@@ -232,7 +232,7 @@ export default {
           this.isfollow = false;
         }
         if (this.isfollow) {
-          axios.post('/api/unfollow',this.followData)
+          axios.post('http://127.0.0.1:8000/api/unfollow/',this.followData)
             .then((res) => {
               this.isfollow = false;
               this.$message({
@@ -246,7 +246,7 @@ export default {
               console.log(err);
             });
         } else if (!this.isfollow) {
-          axios.post('/api/follow',this.followData)
+          axios.post('http://127.0.0.1:8000/api/follow/',this.followData)
             .then((res) => {
               this.isfollow = true;
               this.$message({

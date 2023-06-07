@@ -60,10 +60,10 @@ export default {
       if (to.path == `/personal/myfan/${this.$route.params.id}`) {
         let x = new FormData();
         x.append("up_user_id", this.$route.params.id)
-        axios.post('/api/up_fan_list', x).then(res => {
+        axios.post('http://127.0.0.1:8000/api/up_fan_list/', x).then(res => {
           console.log(res);
             this.allData = res.data;
-            axios.post('/api/up_all_list', x).then(res => {
+            axios.post('http://127.0.0.1:8000/api/up_all_list/', x).then(res => {
                 res.data.forEach((element) => {
                   this.isfollowid.push(element.id);
                 });
@@ -75,7 +75,7 @@ export default {
       } else {
         let x = new FormData();
         x.append("up_user_id", this.$route.params.id)
-        axios.post('/api/up_follow_list', x).then(res => {
+        axios.post('http://127.0.0.1:8000/api/up_follow_list/', x).then(res => {
             console.log(res);
             this.allData = res.data;
             res.data.forEach((element) => {
@@ -96,10 +96,10 @@ export default {
       if (this.$route.path == `/personal/myfan/${this.$route.params.id}`) {
         let x = new FormData();
         x.append("up_user_id", this.$route.params.id)
-        axios.post('/api/up_fan_list', x).then(res => {
+        axios.post('http://127.0.0.1:8000/api/up_fan_list/', x).then(res => {
           console.log(res);
             this.allData = res.data;
-            axios.post('/api/up_all_list', x).then(res => {
+            axios.post('http://127.0.0.1:8000/api/up_all_list/', x).then(res => {
                 res.data.forEach((element) => {
                   this.isfollowid.push(element.id);
                 });
@@ -111,7 +111,7 @@ export default {
       } else {
         let x = new FormData();
         x.append("up_user_id", this.$route.params.id)
-        axios.post('/api/up_follow_list', x).then(res => {
+        axios.post('http://127.0.0.1:8000/api/up_follow_list/', x).then(res => {
             console.log(res);
             this.allData = res.data;
             res.data.forEach((element) => {
@@ -148,7 +148,7 @@ export default {
         this.isfollow = false;
       }
       if (this.isfollow) {
-        axios.post('/api/unfollow',this.followData)
+        axios.post('http://127.0.0.1:8000/api/unfollow/',this.followData)
             .then((res) => {
             console.log(res.data);
             this.isfollow = false;
@@ -163,7 +163,7 @@ export default {
             console.log(err);
           });
       } else if (!this.isfollow) {
-        axios.post('/api/follow',this.followData)
+        axios.post('http://127.0.0.1:8000/api/follow/',this.followData)
             .then((res) => {
             console.log(res.data);
             this.isfollow = true;

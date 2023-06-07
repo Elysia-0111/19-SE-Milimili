@@ -112,7 +112,7 @@ export default {
     load() {
       let x = new FormData();
       x.append("up_user_id", this.$route.params.id)
-      axios.post('/api/up_all_list', x).then(res => {
+      axios.post('http://127.0.0.1:8000/api/up_all_list/', x).then(res => {
           console.log(res);
           Object.assign(this.form, res.data);
         })
@@ -121,7 +121,7 @@ export default {
         });
     },
     submit() {
-      axios.post('/api/change_file', this.form).then(res => {
+      axios.post('http://127.0.0.1:8000/api/change_file/', this.form).then(res => {
           console.log(res);
           this.dialogVisible = false;
           this.$emit("flesh");
