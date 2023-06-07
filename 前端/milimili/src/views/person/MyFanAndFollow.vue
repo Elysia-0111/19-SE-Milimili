@@ -1,55 +1,190 @@
 <template>
-    <div class="fanorfollow_box">
-      <div class="fanorfollow">
-        <div class="fanorfollow_left">
-          <img class="fanorfollow_img" src="@/assets/logo.png" />
+  <div class="fanorfollow_box">
+    <div class="fanorfollow" v-for="(item, index) in allData">
+      <div class="fanorfollow_left">
+        <img class="fanorfollow_img" v-image-preview :src="item.avatar" />
+      </div>
+      <div class="fanorfollow_info">
+        <div class="fanorfollow_info_top">
+          <span
+            style="color: #666; max-width: 180px"
+            @click="personal(item.id)"
+            >{{ item.nickname }}</span
+          >
         </div>
-        <div class="fanorfollow_info">
-          <div class="fanorfollow_info_top">
-            <span style="color: #666; max-width: 180px">name</span>
-          </div>
-          <div class="fanorfollow_info_bottom">
-            <span >123</span>
-          </div>
-        </div>
-        <div class="fanorfollow_botton">
-          <el-button
-            type="primary"
-            size="small"
-            round
-            icon="el-icon-check"
-            v-text="1 > -1 ? '已关注' : '关注'"
-          ></el-button>
+        <div class="fanorfollow_info_bottom">
+          <span @click="personal(item.id)">{{ item.design }}</span>
         </div>
       </div>
-      <div>
-        <el-empty
-          :image-size="250"
-          description="这里什么都没有哟"
-        ></el-empty>
+      <div class="fanorfollow_botton">
+        <el-button
+          @click="ynfollow(item.id)"
+          type="primary"
+          size="small"
+          round
+          icon="el-icon-check"
+          v-text="isfollowid.indexOf(item.id) > -1 ? '已关注' : '关注'"
+        ></el-button>
       </div>
     </div>
-  </template>
+    <div>
+      <el-empty
+        v-if="allData.length == 0"
+        :image-size="250"
+        description="这里什么都没有哟"
+      ></el-empty>
+    </div>
+  </div>
+</template>
   
-  <script>  
-  export default {
-    name: "MyFanAndFollow",
-    inject: ["reload"],
-    data() {
-      return {
-        allData: [],
-        isfollow: true,
-        followData: {
-          fanId: "",
-          followId: "",
-        },
-        isfollowid: [],
-      };
+
+<script>
+import axios from 'axios';
+
+export default {
+  name: "MyFanAndFollow",
+  inject: ["reload"],
+  data() {
+    return {
+      allData: [],
+      isfollow: true,
+      followData: {
+        fanId: "",
+        followId: "",
+      },
+      isfollowid: [],
+    };
+  },
+  watch: {
+    $route(to, from) {
+      if (to.path == `/personal/myfan/${this.$route.params.id}`) {
+        let x = new FormData();
+        x.append("up_user_id", this.$route.params.id)
+        axios.post('/api/up_fan_list', x).then(res => {
+          console.log(res);
+            this.allData = res.data;
+            axios.post('/api/up_all_list', x).then(res => {
+                res.data.forEach((element) => {
+                  this.isfollowid.push(element.id);
+                });
+              });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      } else {
+        let x = new FormData();
+        x.append("up_user_id", this.$route.params.id)
+        axios.post('/api/up_follow_list', x).then(res => {
+            console.log(res);
+            this.allData = res.data;
+            res.data.forEach((element) => {
+              this.isfollowid.push(element.id);
+            });
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
     },
-
-  }
-
-  </script>
+  },
+  mounted() {
+    this.load();
+  },
+  methods: {
+    load() {
+      if (this.$route.path == `/personal/myfan/${this.$route.params.id}`) {
+        let x = new FormData();
+        x.append("up_user_id", this.$route.params.id)
+        axios.post('/api/up_fan_list', x).then(res => {
+          console.log(res);
+            this.allData = res.data;
+            axios.post('/api/up_all_list', x).then(res => {
+                res.data.forEach((element) => {
+                  this.isfollowid.push(element.id);
+                });
+              });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      } else {
+        let x = new FormData();
+        x.append("up_user_id", this.$route.params.id)
+        axios.post('/api/up_follow_list', x).then(res => {
+            console.log(res);
+            this.allData = res.data;
+            res.data.forEach((element) => {
+              this.isfollowid.push(element.id);
+            });
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    },
+    ynfollow(id) {
+      if (!this.$store.state.id) {
+        this.$message({
+          showClose: true,
+          message: "请登录后再进行操作哦",
+          type: "warning",
+        });
+        return;
+      }
+      if (this.$store.state.id != this.$route.params.id) {
+        this.$message({
+          showClose: true,
+          message: "此页面不是你的个人中心哦",
+          type: "warning",
+        });
+        return;
+      }
+      this.followData.followId = id;
+      this.followData.fanId = this.$store.state.id;
+      if (this.isfollowid.indexOf(this.followData.followId) > -1) {
+        this.isfollow = true;
+      } else {
+        this.isfollow = false;
+      }
+      if (this.isfollow) {
+        axios.post('/api/unfollow',this.followData)
+            .then((res) => {
+            console.log(res.data);
+            this.isfollow = false;
+            this.$message({
+              showClose: true,
+              message: "已取消关注",
+              type: "success",
+            });
+            this.reload();
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      } else if (!this.isfollow) {
+        axios.post('/api/follow',this.followData)
+            .then((res) => {
+            console.log(res.data);
+            this.isfollow = true;
+            this.$message({
+              showClose: true,
+              message: "已成功关注",
+              type: "success",
+            });
+            this.reload();
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    },
+    personal(id) {
+      this.$router.push({ path: `/personal/${id}` });
+    },
+  },
+};
+</script>
   
   <style>
   .fanorfollow_box :hover {

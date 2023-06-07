@@ -1,20 +1,21 @@
 from django.db.models import Q
 from django.http import JsonResponse
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render
 from users.models import *
 import time
 from users.views import userid
-from django.conf import settings
+from utils import Bucket
+from video.settings import *
+import os
 
 
 def home(request):
-    videos = Video.objects.all().order_by('-upload_time')
+    videos = Video.objects.all().order_by('upload_date')
     return render(request, 'home.html', {'videos': videos})
 
 
 def upload_video(request):
-    method = request.method
-    if method == 'POST':
+    if request.method == 'POST':
         try:
             user_id = userid
             user = User.objects.get(id=user_id)
@@ -88,34 +89,29 @@ def upload_video(request):
         video.save()
 
         # 上传
-        video.isAudit = 0
         video.video_path = video.video.url
         video.save()
 
-        with open(video.video_path, 'wb') as f:
-            for chunk in video.chunks():
-                f.write(chunk)
-
-        result = {'result': 1, 'message': r"视频上传成功，正在审核！"}
-        for i in range(1, 6):
-            tag = eval('tag' + str(i))
-            if tag != '':
-                try:
-                    tag_info = Tag.objects.get(tag=tag)
-                    tag_info.count += 1
-                    tag_info.save()
-                except Exception:
-                    Tag.objects.create(tag=tag)
-        return JsonResponse(result)
-    else:
-        try:
-            user_id = userid
-            user = User.objects.get(id=user_id)
-        except Exception as e:
-            result = {'result': 0, 'message': r"请先登录!"}
+        bucket = Bucket()
+        upload_result = bucket.upload_file(video_upload.name)
+        if upload_result == -1:
+            result = {'result': 0, 'message': r"上传失败！"}
+            os.remove(os.path.join(BASE_DIR, "media/" + video_upload.name))
             return JsonResponse(result)
-        tag_list = list(Tag.objects.all().values())
-        result = {'result': 1, 'message': r"获取标签集成功", 'tag_list': tag_list}
+        else:
+            for i in range(1, 6):
+                tag = eval('tag' + str(i))
+                if tag != '':
+                    try:
+                        tag_info = Tag.objects.get(tag=tag)
+                        tag_info.count += 1
+                        tag_info.save()
+                    except Exception:
+                        Tag.objects.create(tag=tag)
+            result = {'result': 1, 'message': r"上传成功！"}
+            return JsonResponse(result)
+    else:
+        result = {'result': 0, 'message': r"请求方式错误！"}
         return JsonResponse(result)
 
 
@@ -200,7 +196,7 @@ def complain_video(request):
 
 # 视频列表
 def trending(request):
-    videos = Video.objects.all().order_by('-upload_time')[:10]
+    videos = Video.objects.all().order_by('upload_date')[:10]
     return render(request, 'trending.html', {'videos': videos})
 
 

@@ -1,25 +1,23 @@
-import os
-from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib import messages
-from django.http import JsonResponse
-from django.shortcuts import render, redirect, get_object_or_404
-from django.urls import reverse_lazy
-from django.views.generic.edit import UpdateView
-from django.db.models import expressions
+from random import Random
 
-# from . import global_variables
-# from .global_variables import userid
-from sendings.views import create_code
+from django.http import JsonResponse
 from utils.Bucket import Bucket
 from video.settings import *
-from .models import *
+from users.models import *
 from videos import views
 import re
-from django.conf import settings
 
 userid = 0
+
+
+def create_code(random_length=6):
+    str_code = ''
+    chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz0123456789'
+    length = len(chars) - 1
+    random = Random()
+    for i in range(random_length):
+        str_code += chars[random.randint(0, length)]
+    return str_code
 
 
 def register(request):
@@ -33,14 +31,14 @@ def register(request):
             return JsonResponse(result)
 
         if password != password2:
-            response = JsonResponse({'result': 0, 'message': ' 两次密码不一致'})
+            return JsonResponse({'result': 0, 'message': ' 两次密码不一致'})
 
         if User.objects.filter(username=username).exists():
             result = {'result': 0, 'message': r'用户已存在!'}
             return JsonResponse(result)
 
         response = JsonResponse({'result': 1, 'message': '注册成功'})
-        user = User.objects.create(name=username, password=password)
+        User.objects.create(name=username, password=password)
         return response
     else:
         return JsonResponse({'result': 0, 'message': '请求方法错误'}, status=405)
@@ -57,11 +55,11 @@ def login(request):
             result = {'result': 0, 'message': r'用户名与密码不允许为空!'}
             return JsonResponse(result)
 
-        if not User.objects.filter(username=username, isActive=True).exists():
+        if not User.objects.filter(username=username).exists():
             result = {'result': 0, 'message': r'用户不存在!'}
             return JsonResponse(result)
 
-        user = User.objects.get(username=username, isActive=True)
+        user = User.objects.get(username=username)
 
         if user.password != password:
             result = {'result': 0, 'message': r'用户名或者密码有误!'}
@@ -75,7 +73,7 @@ def login(request):
         return JsonResponse(result)
 
 
-def find_password(request):
+def change_password(request):
     if request.method == 'POST':
         username = request.POST.get('username', '')
         if not User.objects.filter(username=username).exists():
@@ -94,7 +92,7 @@ def find_password(request):
             result = {'result': 0, 'message': r'两次密码不一致!'}
             return JsonResponse(result)
 
-        email = user.email
+        user.update(password=password1)
         result = {'result': 1, 'message': r'修改成功!'}
         return JsonResponse(result)
     else:
@@ -129,25 +127,12 @@ def upload_avatar(request):
         bucket = Bucket()
         # 先生成一个随机 Key 保存在桶中进行审核
         key = create_code()
-        upload_result = bucket.upload_file("avatar", key + suffix, avatar.name)
-        # 上传审核
+        upload_result = bucket.upload_file(avatar.name)
+        # 上传
         if upload_result == -1:
             result = {'result': 0, 'message': r"上传失败！"}
             os.remove(os.path.join(BASE_DIR, "media/" + avatar.name))
             return JsonResponse(result)
-
-        # 审核
-        audit_dic = bucket.image_audit("avatar", key + suffix)
-        if audit_dic.get("result") != 0:
-            result = {'result': 0, 'message': r"审核失败！", "user": user.to_dic()}
-            # 删除审核对象
-            bucket.delete_object("avatar", key + suffix)
-            # 删除本地对象
-            os.remove(os.path.join(BASE_DIR, "media/" + avatar.name))
-            return JsonResponse(result)
-
-        # 删除审核对象
-        bucket.delete_object("avatar", key + suffix)
 
         # 判断用户是不是默认头像   如果不是，要删除以前的
         if re.match("media/avatar/a" + r'\d\.png', user.avatar_url) is None:
@@ -165,14 +150,14 @@ def upload_avatar(request):
                 pass
 
         # 上传是否成功
-        upload_result = bucket.upload_file("avatar", str(user_id) + suffix, avatar.name)
+        upload_result = bucket.upload_file(avatar.name)
         if upload_result == -1:
             os.remove(os.path.join(BASE_DIR, "media/" + avatar.name))
             result = {'result': 0, 'message': r"上传失败！"}
             return JsonResponse(result)
 
         # 上传是否可以获取路径
-        url = bucket.query_object("avatar", str(user_id) + suffix)
+        url = bucket.get_video_url(str(user_id) + suffix)
         if not url:
             os.remove(os.path.join(BASE_DIR, "media/" + avatar.name))
             result = {'result': 0, 'message': r"上传失败！"}
@@ -333,8 +318,112 @@ def video_list(request):
             result = {'result': 0, 'message': r"请先登录!"}
             return JsonResponse(result)
         result = {'result': 1, 'message': r"获取视频列表成功！", "user": user.to_dic(),
-                  "video_list": [x.to_dic() for x in Video.objects.filter(user_id=user_id, isAudit=1)],
-                  "video_num": len(Video.objects.filter(user_id=user_id, isAudit=1))}
+                  "video_list": [x.to_dic() for x in Video.objects.filter(user_id=user_id)],
+                  "video_num": len(Video.objects.filter(user_id=user_id))}
+        return JsonResponse(result)
+
+    else:
+        result = {'result': 0, 'message': r"请求方式错误！"}
+        return JsonResponse(result)
+
+
+def change_file(request):
+    if request.method == 'POST':
+        try:
+            user_id = userid
+            user = User.objects.get(id=user_id)
+        except Exception as e:
+            result = {'result': 0, 'message': r"请先登录!"}
+            return JsonResponse(result)
+
+        # 获取用户名
+        username = request.POST.get('username', '')
+
+        # 用户名不允许为空
+        if len(username) == 0:
+            result = {'result': 0, 'message': r"用户名不可以为空!"}
+            return JsonResponse(result)
+
+        # 用户名如果没有改变，不需要检查用户名是否已存在
+        if username != User.objects.get(id=user_id).username:
+            if User.objects.filter(username=username, isActive=True).exists():
+                result = {'result': 0, 'message': r'用户名已存在!'}
+                return JsonResponse(result)
+
+        # 获取用户上传头像
+        avatar = request.FILES.get("avatar", None)
+        if avatar:
+            if avatar.size > 1024 * 1024:
+                result = {'result': 0, 'message': r"图片不能超过1M！"}
+                return JsonResponse(result)
+            # 获取文件尾缀并修改名称
+            suffix = '.' + avatar.name.split(".")[-1]
+            avatar.name = str(user_id) + suffix
+            # 保存到本地
+            user.avatar = avatar
+            user.save()
+
+            # 常见对象存储的对象
+            bucket = Bucket()
+
+            # 先生成一个随机 Key 保存在桶中进行审核
+            upload_result = bucket.upload_file(avatar.name)
+            # 上传
+            if upload_result == -1:
+                result = {'result': 0, 'message': r"上传失败！"}
+                os.remove(os.path.join(BASE_DIR, "media/" + avatar.name))
+                return JsonResponse(result)
+
+            # 判断用户是不是默认头像   如果不是，要删除以前的
+            if re.match("media/avatar/a" + r'\d\.png', user.avatar_url) is None:
+                try:
+                    bucket.delete_object("avatar", str(user_id) + ".png")
+                except:
+                    pass
+                try:
+                    bucket.delete_object("avatar", str(user_id) + ".jpg")
+                except:
+                    pass
+                try:
+                    bucket.delete_object("avatar", str(user_id) + ".jpeg")
+                except:
+                    pass
+
+            upload_result = bucket.upload_file(avatar.name)
+            if upload_result == -1:
+                os.remove(os.path.join(BASE_DIR, "media/" + avatar.name))
+                result = {'result': 0, 'message': r"上传失败！"}
+                return JsonResponse(result)
+
+            # 上传是否可以获取路径
+            url = bucket.get_video_url(str(user_id) + suffix)
+            if not url:
+                os.remove(os.path.join(BASE_DIR, "media/" + avatar.name))
+                result = {'result': 0, 'message': r"上传失败！"}
+                return JsonResponse(result)
+            # 获取对象存储的桶地址
+            user.avatar_url = url
+            user.save()
+            # 删除本地文件
+            os.remove(os.path.join(BASE_DIR, "media/" + avatar.name))
+
+        # 获取昵称,性别，生日
+        nickname = request.POST.get('nickname', '')
+        sex = request.POST.get('sex', '')
+        signature = request.POST.get('signature', '')
+        birthday = request.POST.get('birthday', '')
+        location = request.POST.get('location', '')
+
+        user.username = username
+        user.nickname = nickname
+        user.sex = sex
+        user.signature = signature
+        user.birthday = birthday
+        user.location = location
+        user.save()
+
+        result = {'result': 1, 'message': r"修改用户个人资料成功!",
+                  "user": user.to_dic()}
         return JsonResponse(result)
 
     else:
@@ -359,23 +448,6 @@ def all_list(request):
                   }
         return JsonResponse(result)
 
-    else:
-        result = {'result': 0, 'message': r"请求方式错误！"}
-        return JsonResponse(result)
-
-
-def simple_list(request):
-    if request.method == 'POST':
-
-        try:
-            user_id = userid
-            user = User.objects.get(id=user_id)
-        except Exception as e:
-            result = {'result': 0, 'message': r"请先登录!"}
-            return JsonResponse(result)
-        result = {'result': 1, 'message': r"获取简略列表成功！",
-                  "user": user.to_simple_dic()}
-        return JsonResponse(result)
     else:
         result = {'result': 0, 'message': r"请求方式错误！"}
         return JsonResponse(result)
@@ -430,8 +502,8 @@ def up_video_list(request):
             return JsonResponse(result)
         result = {'result': 1, 'message': r"获取视频列表成功！", "user": up_user.to_dic(),
                   "video_list": [x.to_dic() for x in
-                                 Video.objects.filter(user_id=up_user_id, isAudit=1)],
-                  "video_num": len(Video.objects.filter(user_id=up_user_id, isAudit=1))}
+                                 Video.objects.filter(user_id=up_user_id)],
+                  "video_num": len(Video.objects.filter(user_id=up_user_id))}
         return JsonResponse(result)
 
     else:
@@ -449,7 +521,6 @@ def up_all_list(request):
             result = {'result': 0, 'message': r"获取详情列表失败！"}
             return JsonResponse(result)
 
-        JWT = request.POST.get('JWT', '')
         try:
             user_id = userid
             user = User.objects.get(id=user_id)

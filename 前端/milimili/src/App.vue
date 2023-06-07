@@ -5,7 +5,7 @@
         <router-link to="/video/home">VideoHome</router-link> |
         <router-link to="/">Home</router-link> |
         <!--<router-link to="/homepage">个人中心</router-link> |-->
-        <router-link to="/personal">主页界面</router-link> |
+        <router-link to="/personal/">主页界面</router-link> |
         <router-link to="/about">About</router-link> |
         <router-link to="/login">登录</router-link> |
         <router-link to="/register">注册</router-link>
@@ -14,8 +14,8 @@
         <router-link to="/video/1">VideoView</router-link> |
         <router-link to="/home">VideoHome</router-link> |
         <router-link to="/">Home</router-link> |
-        <!--<router-link to="/homepage">个人中心</router-link> |-->
-        <router-link to="/personal">主页界面</router-link> |
+        <!--<router-link :to="{ name: 'personal', params:this.$store.state.id }">个人中心</router-link> |-->
+        <router-link :to="{name: 'personal', params: { id: this.$store.state.id }}">主页界面</router-link> |
         <router-link to="/about">About</router-link> |
         <el-button type="info" @click="this.$store.commit('logout')">退出登录</el-button>
       </div>

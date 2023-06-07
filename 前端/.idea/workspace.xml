@@ -1,7 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0b7d54f5-5813-4c90-a71f-38d35ebfe2c4" name="Changes" comment="" />
+    <list default="true" id="0b7d54f5-5813-4c90-a71f-38d35ebfe2c4" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../后端/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../后端/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../后端/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../后端/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../后端/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../后端/.idea/video.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../后端/Admins/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../后端/Admins/admin.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../后端/Admins/apps.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../后端/Admins/models.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../后端/Admins/tests.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../后端/Admins/views.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../后端/manage.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../后端/media/avatar/a.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../后端/media/desktop.ini" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../后端/run.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../后端/sendings/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../后端/sendings/admin.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../后端/sendings/apps.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../后端/sendings/models.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../后端/sendings/tests.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../后端/sendings/views.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../后端/users/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../后端/users/admin.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../后端/users/apps.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../后端/users/migrations/0001_initial.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../后端/users/migrations/0002_usertofan_alter_user_options_remove_user_name_and_more.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../后端/users/migrations/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../后端/users/models.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../后端/users/tests.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../后端/users/urls.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../后端/users/views.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../后端/utils/Bucket.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../后端/utils/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../后端/video/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../后端/video/asgi.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../后端/video/settings.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../后端/video/urls.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../后端/video/wsgi.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../后端/videos/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../后端/videos/admin.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../后端/videos/apps.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../后端/videos/models.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../后端/videos/tests.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../后端/videos/views.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../后端/后端/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/milimili/src/components/MainView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/milimili/src/components/MainView.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/milimili/src/views/HomePage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/milimili/src/views/HomePage.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/milimili/src/views/Login.vue" beforeDir="false" afterPath="$PROJECT_DIR$/milimili/src/views/Login.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/milimili/src/views/RegisterView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/milimili/src/views/RegisterView.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/milimili/src/views/person/UpLoad.vue" beforeDir="false" afterPath="$PROJECT_DIR$/milimili/src/views/person/UpLoad.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../后端/后端/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../后端/后端/.idea/misc.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -18,18 +72,18 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "Elysia__01",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Elysia__01&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -40,10 +94,23 @@
       <updated>1684983461063</updated>
       <workItem from="1684983462375" duration="125000" />
       <workItem from="1685970628001" duration="61000" />
+      <workItem from="1686141152251" duration="24000" />
+      <workItem from="1686141194614" duration="35000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

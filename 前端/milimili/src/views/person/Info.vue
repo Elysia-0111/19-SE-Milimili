@@ -23,7 +23,7 @@
             账户名
             </div>
           </template>
-          {{ account }}
+          {{ id }}
         </el-descriptions-item>
         <el-descriptions-item>
           <template #label>
@@ -42,10 +42,10 @@
             <el-icon :style="iconStyle">
               <Odometer />
             </el-icon>
-            年龄
+            生日
             </div>
           </template>
-          {{ age }}
+          {{ birthday }}
         </el-descriptions-item>
         <el-descriptions-item>
           <template #label>
@@ -89,7 +89,8 @@
             地区
             </div>
           </template>
-          {{ area }}
+          {{ location }}
+          <!--
         </el-descriptions-item>
         <el-descriptions-item>
           <template #label>
@@ -112,7 +113,7 @@
             兴趣爱好
             </div>
           </template>
-          {{ hobby }}
+          {{ hobby }}-->
         </el-descriptions-item>
         <el-descriptions-item>
           <template #label>
@@ -123,7 +124,7 @@
             个性签名
             </div>
           </template>
-          {{ design }}
+          {{ signature }}
         </el-descriptions-item>
         <el-descriptions-item>
           <template #label>
@@ -134,7 +135,7 @@
               注册日期
             </div>
           </template>
-          {{ createDate | formatDate }}
+          {{ created_time }}
         </el-descriptions-item>
       </el-descriptions>
     </el-card>
@@ -142,51 +143,49 @@
 </template>
 
   <script>
-  /*import { userInfo } from "@/api/user.js";
+import axios from 'axios';
+
   export default {
     name: "Info",
     data() {
       return {
         avatar: String,
-        account: String,
-        age: Number,
+        id:String,
         email: String,
-        mobilePhoneNumber: String,
-        area: String,
-        createDate: Number,
         nickname: String,
         sex: String,
-        work: String,
-        hobby: String,
-        design: String,
-      };
+        signature: String,
+        birthday: Date,
+        mobilePhoneNumber: String,
+        location: String,
+        created_time: Date,
+      }
     },
     mounted() {
       this.load();
     },
     methods: {
       load() {
-        userInfo(this.$route.params.id)
-          .then((res) => {
-            this.avatar = res.data.avatar;
-            this.account = res.data.account;
-            this.age = res.data.age;
+        let x = new FormData();
+      x.append("up_user_id", this.$route.params.id)
+      axios.post('/api/up_all_list', x).then(res => {
+            this.avatar = res.data.avatar_url;
+            this.id = res.data.id;
+            this.birthday = res.data.birthday;
             this.email = res.data.email;
             this.mobilePhoneNumber = res.data.mobilePhoneNumber;
-            this.area = res.data.area;
-            this.createDate = res.data.createDate;
+            this.location = res.data.location;
+            this.created_time = res.data.created_time;
             this.nickname = res.data.nickname;
-            this.sex = res.data.sex == 1 ? "男" : "女";
-            this.work = res.data.work;
-            this.design = res.data.design;
-            this.hobby = res.data.hobby;
+            this.sex = res.data.sex ;
+            this.signature = res.data.signature;
           })
           .catch((err) => {
             console.log(err);
           });
       },
     },
-  };*/
+  };
   </script>
   
   <style scoped>

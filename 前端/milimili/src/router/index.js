@@ -36,37 +36,37 @@ const routes = [
     component: () => import(/* webpackChunkName: "login" */ '../views/HomePage.vue')
   },
   {
-    path: '/personal',
+    path: '/personal/:id',
     name: 'personal',
     component: () => import('../views/person/Personal.vue'),
     children: [
       {
-      path: '/personal/info',
+      path: '/personal/info/:id',
       name: 'info',
       component: () => import('../views/person/Info.vue')
     },
     {
-      path: '/personal/myarticle',
+      path: '/personal/myarticle/:id',
       name: 'myarticle',
       component: () => import('../views/person/MyArticle.vue')
     },
     {
-      path: '/personal/mycollect',
+      path: '/personal/mycollect/:id',
       name: 'mycollect',
       component: () => import('../views/person/MyCollect.vue')
     },
     {
-      path: '/personal/myfan',
+      path: '/personal/myfan/:id',
       name: 'myfan',
       component: () => import('../views/person/MyFanAndFollow.vue')
     },
     {
-      path: '/personal/myfollow',
+      path: '/personal/myfollow/:id',
       name: 'myfollow',
       component: () => import('../views/person/MyFanAndFollow.vue')
     },
     {
-      path: '/personal/personaldia',
+      path: '/personal/personaldia/:id',
       name: 'personaldia',
       component: () => import('../views/person/PersonalDia.vue')
     },

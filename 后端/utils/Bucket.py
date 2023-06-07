@@ -22,11 +22,28 @@ class Bucket:
         self.client = CosS3Client(self.config)
 
     def upload_video(self, title):
-        response = self.client.upload_file(
-            Bucket='milimili-1317998312',
-            LocalFilePath=self.base_path + '/media/',
-            Key=title,
-        )
+        try:
+            self.client.upload_file(
+                Bucket='milimili-1317998312',
+                LocalFilePath=self.base_path + '/media/' + title,
+                Key=title,
+            )
+        except Exception:
+            return -1
+        else:
+            return 1
+
+    def upload_file(self, title):
+        try:
+            self.client.upload_file(
+                Bucket='milimili-file-1317998312',
+                LocalFilePath=self.base_path + '/media/' + title,
+                Key=title,
+            )
+        except Exception:
+            return -1
+        else:
+            return 1
 
     def delete_video(self, title):
         response = self.client.delete_object(

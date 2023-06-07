@@ -6,6 +6,9 @@ from django.conf import settings
 class VideoUploadForm(forms.Form):
     video = forms.FileField(label='选择视频')
 
+    class Meta:
+        db_table = 'VideoUploadForm'
+
 
 class User(models.Model):
     username = models.CharField('用户名', max_length=30)
@@ -132,25 +135,40 @@ class UserToFan(models.Model):
     user_id = models.IntegerField(verbose_name='主体', default=0)
     fan_id = models.IntegerField(verbose_name='粉丝', default=0)
 
+    class Meta:
+        db_table = 'UserToFan'
+
 
 # 查看个人关注
 class UserToFollow(models.Model):
     user_id = models.IntegerField(verbose_name='主体', default=0)
     follow_id = models.IntegerField(verbose_name='关注的up主', default=0)
 
+    class Meta:
+        db_table = 'UserToFollow'
+
 
 class Tag(models.Model):
     tag = models.CharField(verbose_name='标签集合', max_length=64)
     count = models.IntegerField(verbose_name='选用此标签的视频数量', default=0)
 
+    class Meta:
+        db_table = 'Tag'
+
 
 class Zone(models.Model):
     zone = models.CharField(verbose_name='分区', max_length=64)
+
+    class Meta:
+        db_table = 'Zone'
 
 
 class Video_like_list(models.Model):
     user_id = models.IntegerField(verbose_name='用户id', default=0)
     video_id = models.IntegerField(verbose_name='点赞的视频id', default=0)
+
+    class Meta:
+        db_table = 'Video_like_list'
 
 
 class UserToHistory(models.Model):
@@ -160,6 +178,7 @@ class UserToHistory(models.Model):
 
     class Meta:
         ordering = ['-created_time']
+        db_table = 'UserToHistory'
 
     def to_dic(self):
         return {
@@ -259,15 +278,24 @@ class VideoComplain(models.Model):
             'video': self.video.to_simple_dic(),
         }
 
+    class Meta:
+        db_table = 'VideoComplain'
+
 
 class UserToFollow(models.Model):
     user_id = models.IntegerField(verbose_name='主体', default=0)
     follow_id = models.IntegerField(verbose_name='关注的up主', default=0)
 
+    class Meta:
+        db_table = 'UserToFollow'
+
 
 class Like(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     video = models.ForeignKey(Video, on_delete=models.CASCADE)
+
+    class Meta:
+        db_table = 'Like'
 
 
 class Comment(models.Model):
@@ -326,6 +354,9 @@ class UserToComment_like(models.Model):
     comment_id = models.IntegerField(verbose_name='点赞的评论', default=0)
     root_id = models.IntegerField(verbose_name='点赞的根评论', default=0)
 
+    class Meta:
+        db_table = 'UserToComment_like'
+
 
 class Notification(models.Model):
     TYPE_CHOICES = (
@@ -343,6 +374,9 @@ class Notification(models.Model):
     def __str__(self):
         return f"{self.user}'s {self.type} notification"
 
+    class Meta:
+        db_table = 'Notification'
+
 
 # 投诉
 class Complaint(models.Model):
@@ -351,3 +385,6 @@ class Complaint(models.Model):
     comment = models.ForeignKey(Comment, on_delete=models.CASCADE, null=True, blank=True)
     text = models.TextField()
     time = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = 'Complaint'

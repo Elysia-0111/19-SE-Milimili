@@ -20,7 +20,7 @@
             </div>
             <div class="rightheader">
                 <div class="rightheader-grid">
-                    <router-link to="../../personal">
+                    <router-link :to="{name: 'personal', params: { id: this.$store.state.id }}">
                         <img class="img1" src="../../assets/头像.jpg">
                     </router-link>
                     <router-link to="home">

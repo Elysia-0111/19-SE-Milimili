@@ -43,6 +43,9 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',  # 注意顺序
+
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -109,11 +112,14 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'backend_demo',
         'USER': 'root',
-        'PASSWORD': 'lzy1084064676',
-        'HOST': '127.0.0.1',
+        'PASSWORD': '2000227',
+        'HOST': 'localhost',
         'PORT': '3306',
     }
 }
+
+#        'PASSWORD': 'lzy1084064676',
+#        'HOST': '127.0.0.1',
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators

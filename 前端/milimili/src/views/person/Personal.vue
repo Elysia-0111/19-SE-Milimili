@@ -16,17 +16,17 @@
               </template>
             </el-input>
           </el-col>
-          <el-col :span="3" :offset="3"><router-link to="/personal">
+          <el-col :span="3" :offset="3"><router-link :to="{name: 'personal', params: { id: this.$store.state.id }}">
               <img class="img1" src="../../assets/img/V.png">
             </router-link>
           </el-col>
-          <el-col :span="1"><router-link to="../../personal">
+          <el-col :span="1"><router-link :to="{name: 'personal', params: { id: this.$store.state.id }}">
               <el-icon size="24">
                 <ChatLineSquare />
               </el-icon>
             </router-link>
           </el-col>
-          <el-col :span="1"><router-link to="../../personal/mycollect">
+          <el-col :span="1"><router-link :to="{name: 'mycollect', params: { id: this.$store.state.id }}">
               <el-icon size="24">
                 <Collection />
               </el-icon>
@@ -38,7 +38,6 @@
               </el-icon>
             </router-link>
           </el-col>
-
 
           <el-col :span="1"><router-link to="../../personal/upload">
               <el-icon size="24">
@@ -56,40 +55,53 @@
       <div class="PersonTop_text">
         <div class="user_text">
           <div class="user_name">
-            <span> user_name </span>
+            <span> {{ nickname }} </span>
           </div>
           <div class="user-v">
             <img src="@/assets/logo.png" class="user-v-img" />
             <span class="user-v-font">大会员</span>
           </div>
           <div class="user_qianming">
-            <span> user_qianming </span>
+            <span> {{ signature }} </span>
           </div>
           <div class="user_anniu">
             <!--<router-link to="/personal/personaldia"><el-button class="el-icon-edit" type="primary"
                 size="medium">编辑</el-button></router-link>-->
                 <el-button
               class="el-icon-edit"
+              v-if="this.$route.params.id === this.$store.state.id"
               type="primary"
               size="medium"
               plain
               @click="edit"
               >编辑</el-button
             >
+            <el-button
+              v-else
+              @click="ynfollow"
+              type="primary"
+              size="medium"
+              icon="el-icon-check"
+              v-text="
+                isfollowid.indexOf(this.$route.params.id) > -1
+                  ? '已关注'
+                  : '关注'
+              "
+            ></el-button>
           </div>
         </div>
         <el-col :span="14"></el-col>
         <div class="user_num">
           <div style="cursor: pointer" @click="myfan">
-            <div class="num_number"> 11 </div>
+            <div class="num_number"> {{ fan_num }} </div>
             <span class="num_text">粉丝</span>
           </div>
           <div style="cursor: pointer" @click="myfollow">
-            <div class="num_number"> 2 </div>
+            <div class="num_number"> {{ follow_num }} </div>
             <span class="num_text">关注</span>
           </div>
           <div>
-            <div class="num_number"> 20 </div>
+            <div class="num_number"> {{ like_num }} </div>
             <span class="num_text">获赞</span>
           </div>
         </div>
@@ -111,23 +123,23 @@
               }}</router-link>
             </div> -->
           <el-menu router active-text-color="#00c3ff" class="el-menu-vertical-demo">
-            <el-menu-item index="info" :route="{ name: 'info' }">
+            <el-menu-item index="info" :route="{ name: 'info' , params: $route.params.id}">
               <i class="el-icon-user"></i>
               <span slot="title">个人简介</span>
             </el-menu-item>
-            <el-menu-item index="myarticle" :route="{ name: 'myarticle' }">
+            <el-menu-item index="myarticle" :route="{ name: 'myarticle' , params: $route.params.id}">
               <i class="el-icon-edit-outline"></i>
               <span slot="title">上传视频</span>
             </el-menu-item>
-            <el-menu-item index="mycollect" :route="{ name: 'mycollect' }">
+            <el-menu-item index="mycollect" :route="{ name: 'mycollect' , params: $route.params.id}">
               <i class="el-icon-document"></i>
               <span slot="title">收藏</span>
             </el-menu-item>
-            <el-menu-item index="myfan" :route="{ name: 'myfan' }">
+            <el-menu-item index="myfan" :route="{ name: 'myfan' , params: $route.params.id}">
               <i class="el-icon-tableware"></i>
               <span slot="title">粉丝</span>
             </el-menu-item>
-            <el-menu-item index="myfollow" :route="{ name: 'myfollow' }">
+            <el-menu-item index="myfollow" :route="{ name: 'myfollow' , params: $route.params.id}">
               <i class="el-icon-circle-plus-outline"></i>
               <span slot="title">关注</span>
             </el-menu-item>
@@ -138,7 +150,7 @@
         <router-view></router-view>
       </div>
     </div>
-    <personal-dia ref="dia" @flesh="reload" />
+   
   </div>
   <el-backtop></el-backtop>
 </template>
@@ -147,7 +159,9 @@
     
 
 <script>
+import axios from 'axios';
 import PersonalDia from "./PersonalDia.vue";
+
 
 export default {
   components: { PersonalDia },
@@ -171,13 +185,83 @@ export default {
     };
   },
   mounted() {
+    this.load();
   },
   watch: {
-    $route() {
-      //this.$emit("flesh");
+    $route(to, from) {
+      if (to.path == `/personal/${this.$store.state.id}`) {
+        this.load();
+      } else if (to.path == `/personal/${this.$route.params.id}`) {
+        this.load();
+      }
     },
   },
   methods: {
+    load() {
+      let data = new FormData();
+      data.append("up_user_id", this.$route.params.id)
+      axios.post('/api/up_all_list', data).then(res => {
+      })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    myfan() {
+      this.$router.push({
+        path: `/personal/myfan/${this.$route.params.id}`,
+      });
+    },
+    myfollow() {
+      this.$router.push({
+        path: `/personal/myfollow/${this.$route.params.id}`,
+      });
+    },
+    ynfollow() {
+      if (!this.$store.state.id) {
+        this.$message({
+          showClose: true,
+          message: "请登录后再进行操作哦",
+          type: "warning",
+        });
+      } else {
+        this.followData.followId = this.$route.params.id;
+        this.followData.fanId = this.$store.state.id;
+        if (this.isfollowid.indexOf(this.followData.followId) > -1) {
+          this.isfollow = true;
+        } else {
+          this.isfollow = false;
+        }
+        if (this.isfollow) {
+          axios.post('/api/unfollow',this.followData)
+            .then((res) => {
+              this.isfollow = false;
+              this.$message({
+                showClose: true,
+                message: "已取消关注",
+                type: "success",
+              });
+              this.reload();
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        } else if (!this.isfollow) {
+          axios.post('/api/follow',this.followData)
+            .then((res) => {
+              this.isfollow = true;
+              this.$message({
+                showClose: true,
+                message: "已成功关注",
+                type: "success",
+              });
+              this.reload();
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        }
+      }
+    },
     edit() {
       this.$refs.dia.open();
     },
