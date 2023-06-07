@@ -202,11 +202,11 @@ export default {
             console.log(this.username); // 在控制台中打印输入内容
         },
         registerUser() {
-            if (this.username == '') {
+            if (this.username === '') {
                 alert("请输入用户名")
                 return
             }
-            if (this.password == '' || this.repassword == '') {
+            if (this.password === '' || this.repassword === '') {
                 alert("请输入密码");
                 return
             }
@@ -214,9 +214,14 @@ export default {
                 let data = new FormData();
                 data.append("username", this.username)
                 data.append("password", this.password)
-                axios.post('/api/register', data)
+                axios.post('http://127.0.0.1:8000/api/register/', data)
                     .then(response => {
                         // 注册成功后的处理逻辑
+                        const result = response.data.result;
+                        if(result === 0) {
+                          alert("用户已存在，请重新注册")
+                          return
+                        }
                         console.log('Registration successful');
                         this.$message.success("注册成功，3秒后返回登录页面");
                         const timejump = 3;
