@@ -202,7 +202,7 @@ export default {
         },
         registerUser() {
             if (this.password === this.repassword) {
-                axios.post('/register', {
+                axios.post('http://localhost:8000/register', {
                     username: this.username,
                     password: this.password,
                     re_password: this.repassword

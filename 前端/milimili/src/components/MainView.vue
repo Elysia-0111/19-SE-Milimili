@@ -2,8 +2,8 @@
     <main class="view-main">
         <section class="video-header">
             <div class="video-info">
-                <div class="video-info-title" title="测试标题">
-                    测试标题
+                <div class="video-info-title" :title="video.title">
+                  {{ video.title }}
                 </div>
                 <div class="video-info-detail">
                     <div class="video-info-time">
@@ -13,7 +13,7 @@
                                 d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm1 12v-6h-2v8h7v-2h-5z" />
                         </svg>
                         <span>
-                            测试上传时间
+                            {{ video.time }}
                         </span>
                     </div>
                     <div class="video-info-playcount">
@@ -22,7 +22,7 @@
                             <path
                                 d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-3 17v-10l9 5.146-9 4.854z" />
                         </svg>
-                        <span>测试播放量</span>
+                        <span>{{ video.play }}</span>
                     </div>
                 </div>
             </div>
@@ -302,6 +302,15 @@ export default {
   },
   data () {
     return {
+      video1:
+        {
+          id: 'video1-1',
+          src: require('../assets/video/test.mp4'),
+          title: '旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转',
+          author: '123',
+          time: '2023-6-6',
+          play: '1000'
+        },
       video: {},
       uper: {},
       player: {},
@@ -737,10 +746,6 @@ export default {
         url: ''
       },
       theme: '#9AC8E2',
-      danmaku: {
-        api: 'https://kotokawa-akira-mywife.site/web/api/comments/getDanmaku/',
-        id: this.getVideoId()
-      }
     })
     this.player = player
     this.player.on('ended', () => {
