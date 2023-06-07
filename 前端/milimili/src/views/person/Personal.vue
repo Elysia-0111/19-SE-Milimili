@@ -150,7 +150,7 @@
         <router-view></router-view>
       </div>
     </div>
-   
+    <PersonalDia ref="dia" v-if="openDialog" />
   </div>
   <el-backtop></el-backtop>
 </template>
@@ -161,7 +161,6 @@
 <script>
 import axios from 'axios';
 import PersonalDia from "./PersonalDia.vue";
-
 
 export default {
   components: { PersonalDia },
@@ -182,6 +181,7 @@ export default {
         followId: "",
       },
       isfollowid: [],
+      openDialog: false,
     };
   },
   mounted() {
@@ -263,7 +263,9 @@ export default {
       }
     },
     edit() {
-      this.$refs.dia.open();
+				this.openDialog = true;
+        PersonalDia.dialogVisible = true;
+        //this.$refs.dia.open();
     },
   },
 };

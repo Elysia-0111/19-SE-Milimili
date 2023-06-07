@@ -1,16 +1,16 @@
 <template>
-  <span>修改个人信息</span>
-  <!-- Form -->
+  <!-- Form
   <el-dialog
   title="修改个人信息"
   :visible.sync="dialogVisible"
   width="60%"
-  :before-close="handleClose">
-  <el-form :model="form" :rules="rules" ref="form" label-width="150px">
+  :before-close="handleClose"> -->
+  <el-dialog v-model="dialogFormVisible" title="修改个人信息" width="60%" :before-close="handleClose">
+  <el-form :model="form" :rules="rules" ref="form">
       <div class="updateinfo">
   <div class="left">
       <el-form-item label="头像" prop="avatar">
-              <img style="width:150px;height:110px" src="form.avatar"/>
+              <img style="width:150px;height:110px" src="form.avatar_url"/>
           </el-form-item>
             <el-form-item label="账号密码" prop="password">
             <el-input v-model="form.password"></el-input>
@@ -18,8 +18,8 @@
           <el-form-item label="昵称" prop="nickname">
             <el-input v-model="form.nickname"></el-input>
           </el-form-item>
-          <el-form-item label="年龄" prop="age">
-            <el-input v-model="form.age"></el-input>
+          <el-form-item label="生日" prop="birthday">
+            <el-input v-model="form.birthday"></el-input>
           </el-form-item>
           <el-form-item label="性别" prop="sex">
             <el-switch
@@ -55,7 +55,7 @@
             <el-input v-model="form.work"></el-input>
           </el-form-item>
             <el-form-item label="个性签名" prop="design">
-            <el-input v-model="form.design"></el-input>
+            <el-input v-model="form.signature"></el-input>
           </el-form-item>
           <el-form-item label="手机号码" prop="mobilePhoneNumber">
             <el-input v-model="form.mobilePhoneNumber"></el-input>
@@ -64,32 +64,34 @@
   </div>
   </el-form>
   <span slot="footer" class="dialog-footer">
-      <el-button @click="dialogVisible = false">取 消</el-button>
-      <el-button type="primary" @click="dialogVisible = false">提 交</el-button>
+    <!--<el-button @click="handleClose">取 消</el-button>
+    <el-button type="primary" @click="submit">提 交</el-button>-->
+    <el-button @click="dialogFormVisible=false">取 消</el-button>
+    <el-button type="primary" @click="dialogFormVisible=false">提 交</el-button>
   </span>
 </el-dialog>
 </template>
 
 <script>
+import axios from 'axios';
 
 export default {
   data() {
     return {
       form: {
-        avatar: "",
+        avatar_url: "",
         password: "",
         nickname: "",
-        age: Number,
+        birthday: Date,
         email: "",
         mobilePhoneNumber: "",
         sex: Number,
         id: Number,
         account: "",
-        area: "",
-        hobby: "",
-        work: "",
-        design: "",
+        location: "",
+        signature: "",
       },
+      dialogFormVisible:true,
       rules: {
         nickname: [
           { required: true, message: "昵称不能为空", trigger: "blur" },
@@ -108,10 +110,31 @@ export default {
       this.dialogVisible = true;
     },
     load() {
+      let x = new FormData();
+      x.append("up_user_id", this.$route.params.id)
+      axios.post('/api/up_all_list', x).then(res => {
+          console.log(res);
+          Object.assign(this.form, res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
     submit() {
+      axios.post('/api/change_file', this.form).then(res => {
+          console.log(res);
+          this.dialogVisible = false;
+          this.$emit("flesh");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    handleClose() {
+      this.dialogVisible = false;
+      this.$emit("flesh");
+    },
   },
-},
 };
 </script>
 
