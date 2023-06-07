@@ -17,7 +17,7 @@
                     <br>
                     <div class="pwdbox">
                         <el-avatar :size="30"> pwd </el-avatar>
-                        <input v-model="repassword" class="pwd" id="re_password" type="password" placeholder="确认密码">
+                        <input v-model="repassword" class="pwd" id="repassword" type="password" placeholder="确认密码">
                     </div>
 
                     <br>
@@ -202,11 +202,17 @@ export default {
         },
         registerUser() {
             if (this.password === this.repassword) {
+<<<<<<< HEAD
                 axios.post('http://localhost:8000/register', {
                     username: this.username,
                     password: this.password,
                     re_password: this.repassword
                 })
+=======
+                let data = new FormData();
+                data.append("username", this.username)
+                axios.post('http://127.0.0.1:8000/api/register/', data)
+>>>>>>> test
                     .then(response => {
                         // 注册成功后的处理逻辑
                         console.log('Registration successful');
