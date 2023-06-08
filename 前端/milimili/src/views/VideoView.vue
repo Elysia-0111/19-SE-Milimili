@@ -1,5 +1,5 @@
 <template>
-  <NavigateView></NavigateView>
+  <!--<NavigateView></NavigateView>-->
   <MainView isLogin=true :user="user" :collection="collection"></MainView>
 </template>
 <script>
@@ -11,7 +11,7 @@ export default {
     NavigateView,
     MainView
   },
-  data () {
+  data() {
     return {
       isLogin: false,
       user: {},
@@ -19,12 +19,12 @@ export default {
     }
   },
   watch: {
-    isLogin (newValue) {
+    isLogin(newValue) {
       if (newValue) { this.getCollection() }
     }
   },
   methods: {
-    getCollection () {
+    getCollection() {
       fetch('https://kotokawa-akira-mywife.site/web/api/collection/getCollectionByUid/' + this.user.id, { method: 'get' })
         .then(res => {
           return res.json()
@@ -32,7 +32,7 @@ export default {
           this.collection = data
         })
     },
-    getLoginInfo () {
+    getLoginInfo() {
       fetch('https://kotokawa-akira-mywife.site/web/api/account/getLoginInfo', { method: 'get', credentials: 'include' })
         .then(res => {
           return res.json()
@@ -49,7 +49,7 @@ export default {
         })
     }
   },
-  created () {
+  created() {
     this.getLoginInfo()
   }
 }

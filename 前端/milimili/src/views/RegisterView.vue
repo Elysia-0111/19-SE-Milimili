@@ -17,7 +17,7 @@
                     <br>
                     <div class="pwdbox">
                         <el-avatar :size="30"> pwd </el-avatar>
-                        <input v-model="repassword" class="pwd" id="re_password" type="password" placeholder="确认密码">
+                        <input v-model="repassword" class="pwd" id="repassword" type="password" placeholder="确认密码">
                     </div>
 
                     <br>
@@ -193,7 +193,8 @@ export default {
         return {
             username: '',
             password: '',
-            repassword: ''
+            repassword: '',
+            count: ''
         }
     },
     methods: {
@@ -201,23 +202,52 @@ export default {
             console.log(this.username); // 在控制台中打印输入内容
         },
         registerUser() {
+            if (this.username == '') {
+                alert("请输入用户名")
+                return
+            }
+            if (this.password == '' || this.repassword == '') {
+                alert("请输入密码");
+                return
+            }
             if (this.password === this.repassword) {
-                axios.post('/register', {
-                    username: this.username,
-                    password: this.password,
-                    re_password: this.repassword
-                })
+                let data = new FormData();
+                data.append("username", this.username)
+                data.append("password", this.password)
+                axios.post('http://127.0.0.1:8000/api/register/', data)
                     .then(response => {
+                        const result = response.data.result;
+                        if (result === 0) {
+                            alert("用户已存在，请重新注册")
+                            return
+                        }
                         // 注册成功后的处理逻辑
                         console.log('Registration successful');
-                        this.$router.push('/login');
+                        this.$message.success("注册成功，3秒后返回登录页面");
+                        const timejump = 3;
+                        if (!this.timer) {
+                            this.count = timejump;
+                            this.show = false;
+                            this.timer = setInterval(() => {
+                                if (this.count > 0 && this.count <= timejump) {
+                                    this.count--;
+                                } else {
+                                    this.show = true;
+                                    clearInterval(this.timer);
+                                    this.timer = null;
+                                    //跳转的页面写在此处
+                                    this.$router.push({ path: '/login' });
+                                }
+                            }, 1000)
+                        }
                     })
                     .catch(error => {
                         // 注册失败后的处理逻辑
                         console.error('Registration failed', error);
+                        alert("注册失败，请尝试重新注册")
                     });
             } else {
-                console.error('Passwords do not match');
+                alert("两次输入的密码不匹配，请重新输入")
             }
         }
     }

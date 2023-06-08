@@ -1,9 +1,14 @@
 <template>
-    <div>
-      <el-card>
-        <el-descriptions class="margin-top" title="简介" :column="2" border>
-          <template slot="extra">
-            <el-button type="primary" size="small">操作</el-button>
+  <div>
+    <el-card>
+      <el-descriptions class="margin-top" title="简介" :column="2" border>
+        <template slot="extra">
+          <el-button type="primary" size="small">操作</el-button>
+        </template>
+        <el-descriptions-item>
+          <template slot="label">
+            <i class="el-icon-picture-outline"></i>
+            头像
           </template>
           <el-descriptions-item>
             <template #label>
@@ -169,10 +174,10 @@
   };
   </script>
   
-  <style scoped>
-  .img {
-    width: 80px;
-    height: 80px;
-  }
-  </style>
+<style scoped>
+.img {
+  width: 80px;
+  height: 80px;
+}
+</style>
   

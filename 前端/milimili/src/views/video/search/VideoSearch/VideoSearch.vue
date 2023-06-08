@@ -98,13 +98,16 @@ export default {
                 query
             }
             return this.$router.resolve(route).href;
-        }
+        },
     },
     created() {
         this.updateSearchInput(this.$route.query.input || '');
     },
     methods: {
         ...mapActions(['updateSearchInput'])
+    },
+    mounted() {
+
     }
 
 }

@@ -1,96 +1,44 @@
 <template>
   <div class="personal">
-    <el-container>
-      <el-header class="header2">
-        <el-row>
-          <el-col :span="1" :offset="1"><router-link class="linkhead" to="../../video/home"><a
-                class="fonthead">首页</a></router-link></el-col>
-          <el-col :span="1" class="fonthead"><router-link to="../../video/home"><a
-                class="fonthead">热门</a></router-link></el-col>
-          <el-col :span="1" class="fonthead"><router-link to="../../video/home"><a
-                class="fonthead">频道</a></router-link></el-col>
-          <el-col :span="6" :offset="3">
-            <el-input v-model="searchinput" size="small" placeholder="Please input">
-              <template #append>
-                <el-button type="primary" icon="Search" circle></el-button>
-              </template>
-            </el-input>
-          </el-col>
-          <el-col :span="3" :offset="3"><router-link to="/personal">
-              <img class="img1" src="../../assets/img/V.png">
-            </router-link>
-          </el-col>
-          <el-col :span="1"><router-link to="../../personal">
-              <el-icon size="24">
-                <ChatLineSquare />
-              </el-icon>
-            </router-link>
-          </el-col>
-          <el-col :span="1"><router-link to="../../personal/mycollect">
-              <el-icon size="24">
-                <Collection />
-              </el-icon>
-            </router-link>
-          </el-col>
-          <el-col :span="1"><router-link to="../../home">
-              <el-icon size="24">
-                <VideoPlay />
-              </el-icon>
-            </router-link>
-          </el-col>
 
-
-          <el-col :span="1"><router-link to="../../personal/upload">
-              <el-icon size="24">
-                <Upload />
-              </el-icon>
-            </router-link>
-          </el-col>
-        </el-row>
-      </el-header>
-    </el-container>
     <div class="PersonTop">
       <div class="PersonTop_img">
-        <img src="@/assets/img/V.png" />
+        <img :src="this.avatar" @click="editavatar" />
+        <input type="file" ref="fileInput" style="display: none;" @change="uploadAvatar">
       </div>
       <div class="PersonTop_text">
         <div class="user_text">
           <div class="user_name">
-            <span> {{ nickname }} </span>
+            <span> {{ this.nickname }} </span>
           </div>
-          <div class="user-v" v-if="v === 3">
+          <!-- <div class="user-v">
             <img src="@/assets/logo.png" class="user-v-img" />
             <span class="user-v-font">大会员</span>
+          </div> -->
+          <!-- <div class="user_qianming">
+            <span> user_qianming </span>
+          </div> -->
+          <div v-if="this.id != this.input">
+
           </div>
-          <div class="user_qianming">
-            <span> {{ design }} </span>
-          </div>
-          <div class="user_anniu">
-            <el-button
-              class="el-icon-edit"
-              v-if="this.$route.params.id === this.$store.state.id"
-              type="primary"
-              size="medium"
-              plain
-              @click="edit"
-              >编辑</el-button
-            >
-            <!--<router-link to="../../personal/personaldia"><el-button class="el-icon-edit" type="primary"
-                size="medium">编辑</el-button></router-link>-->
+          <div v-else>
+            <div class="user_anniu">
+              <el-button class="el-icon-edit" type="primary" size="medium" @click="editnickname">编辑昵称</el-button>
+            </div>
           </div>
         </div>
         <el-col :span="14"></el-col>
         <div class="user_num">
           <div style="cursor: pointer" @click="myfan">
-            <div class="num_number"> {{ fanCounts }} </div>
+            <div class="num_number">{{ this.fannum }}</div>
             <span class="num_text">粉丝</span>
           </div>
           <div style="cursor: pointer" @click="myfollow">
-            <div class="num_number"> {{ followCounts }} </div>
+            <div class="num_number">{{ this.follownum }}</div>
             <span class="num_text">关注</span>
           </div>
           <div>
-            <div class="num_number"> {{ goodCounts }} </div>
+            <div class="num_number">{{ this.likenum }}</div>
             <span class="num_text">获赞</span>
           </div>
         </div>
@@ -102,83 +50,32 @@
           <div slot="header" class="clearfix">
             <span class="person_body_list" style="border-bottom: none">个人中心</span>
           </div>
-          <!-- <div
-              class="person_body_list"
-              v-for="(item, index) in person_body_list"
-              :key="index"
-            >
-              <router-link :to="{ name: item.name, params: item.params }">{{
-                item.label
-              }}</router-link>
-            </div> -->
-            <!--
-          <el-menu router active-text-color="#00c3ff" class="el-menu-vertical-demo">
-            <el-menu-item index="info" :route="{ name: 'info' }">
-              <i class="el-icon-user"></i>
-              <span slot="title">个人简介</span>
-            </el-menu-item>
-            <el-menu-item index="myarticle" :route="{ name: 'myarticle' }">
-              <i class="el-icon-edit-outline"></i>
-              <span slot="title">上传视频</span>
-            </el-menu-item>
-            <el-menu-item index="mycollect" :route="{ name: 'mycollect' }">
-              <i class="el-icon-document"></i>
-              <span slot="title">收藏</span>
-            </el-menu-item>
-            <el-menu-item index="myfan" :route="{ name: 'myfan' }">
-              <i class="el-icon-tableware"></i>
-              <span slot="title">粉丝</span>
-            </el-menu-item>
-            <el-menu-item index="myfollow" :route="{ name: 'myfollow' }">
-              <i class="el-icon-circle-plus-outline"></i>
-              <span slot="title">关注</span>
-            </el-menu-item>
-          </el-menu>-->
-          <el-menu
-            router
-            active-text-color="#00c3ff"
-            class="el-menu-vertical-demo"
-          >
-            <el-menu-item
-              index="info"
-              :route="{ name: 'info'}"
-            >
-              <i class="el-icon-user"></i>
-              <span slot="title">个人简介</span>
-            </el-menu-item>
-            <el-menu-item
-              index="myarticle"
-              :route="{ name: 'myarticle'}"
-            >
-              <i class="el-icon-edit-outline"></i>
-              <span slot="title">动态</span>
-            </el-menu-item>
-            <el-menu-item
-              index="mycollect"
-              :route="{ name: 'mycollect'}"
-            >
-              <i class="el-icon-document"></i>
-              <span slot="title">收藏</span>
-            </el-menu-item>
-            <el-menu-item
-              index="myfan"
-              :route="{ name: 'myfan'}"
-            >
-              <i class="el-icon-tableware"></i>
-              <span slot="title">粉丝</span>
-            </el-menu-item>
-            <el-menu-item
-              index="myfollow"
-              :route="{ name: 'myfollow'}"
-            >
-              <i class="el-icon-circle-plus-outline"></i>
-              <span slot="title">关注</span>
-            </el-menu-item>
+            <div v-if="this.id != this.input">
+              <div v-if="followuser.includes(this.input)">
+                <el-menu-item @click="unfollow(this.input)">
+                  <i class="el-icon-user"></i>
+                  <span slot="title">取消关注</span>
+                </el-menu-item>
+              </div>
+              <div v-else>
+                <el-menu-item @click="follow(this.input)">
+                  <i class="el-icon-user"></i>
+                  <span slot="title">关注用户</span>
+                </el-menu-item>
+              </div>
+            </div>
+            <div v-else>
+              <el-menu-item @click="editsignature">
+                <i class="el-icon-user"></i>
+                <span slot="title">修改个性签名</span>
+              </el-menu-item>
+            </div>
+
           </el-menu>
         </el-card>
       </div>
       <div class="person_body_right">
-        <router-view></router-view>
+        <a>{{ this.signature }}</a>
       </div>
     </div>
     <div v-if="x === 1"><personal-dia ref="dia" @flesh="reload" /></div>
@@ -188,6 +85,7 @@
     
 
 <script>
+import axios from "axios";
 import PersonalDia from "./PersonalDia.vue";
 
 export default {
@@ -196,24 +94,56 @@ export default {
   inject: ["reload"],
   data() {
     return {
+      id: 0,
       avatar: "",
       nickname: "lulu",
       v: 1,
-      x:0,
-      design: "这里是个性签名",
-      followCounts: "5",
-      fanCounts: "7",
-      goodCounts: "11",
+      design: "",
+      follownum: 0,
+      fannum: 0,
+      likenum: 0,
       isfollow: true,
       followData: {
         fanId: "",
         followId: "",
       },
       isfollowid: [],
+      input: 0,
+      signature: "",
+      followuser: [],
+      FormData: new FormData()
     };
   },
   mounted() {
-    this.load();
+    this.input = parseInt(window.location.search.substring(8))
+
+    this.FormData.append("user_id", this.input)
+    axios.post('http://127.0.0.1:8000/api/show/', this.FormData).then(res => {
+      this.avatar = res.data.user.avatar_url
+      this.nickname = res.data.user.nickname
+      this.fannum = res.data.user.fan_num
+      // console.log(this.fannum)
+      this.likenum = res.data.user.like_num
+      // console.log(this.likenum)
+      this.follownum = res.data.user.follow_num
+      this.signature = res.data.user.signature
+
+    })
+    axios.get('http://127.0.0.1:8000/api/get_userid/').then(res => {
+      // this.nickname = res.data.user.nickname
+      // this.fannum = res.data.user.fan_num
+      // // console.log(this.fannum)
+      // this.likenum = res.data.user.like_num
+      // // console.log(this.likenum)
+      // this.follownum = res.data.user.follow_num
+      // this.signature = res.data.user.signature
+      this.id = res.data.result
+      console.log(this.id)
+    }),
+
+
+
+      console.log(this.input)
   },
   watch: {
     $route(to, from) {
@@ -224,23 +154,107 @@ export default {
     load() {
 
     },
-    edit() {
-      this.$router.push({ path: `/personal/personaldia` })
+    editnickname() {
+      this.$prompt('请输入昵称', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+      }).then(({ value }) => {
+        // this.$message({
+        //   type: 'success',
+        //   message: '你的邮箱是: ' + value
+        // });
+        this.nickname = value
+        let data = new FormData()
+        data.append("nickname", this.nickname)
+        data.append("signature", this.signature)
+        axios.post('http://127.0.0.1:8000/api/change_file/', data)
+          .then(res => {
+            alert(res.data.message)
+          })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '取消输入'
+        });
+      });
+
     },
-    toInfo(){
-      this.$router.push({ path: `/personal/info` })
+    editsignature() {
+      this.$prompt('请输入个性签名', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+      }).then(({ value }) => {
+        // this.$message({
+        //   type: 'success',
+        //   message: '你的邮箱是: ' + value
+        // });
+        this.signature = value
+        let data = new FormData()
+        data.append("nickname", this.nickname)
+        data.append("signature", this.signature)
+        axios.post('http://127.0.0.1:8000/api/change_file/', data)
+          .then(res => {
+            alert(res.data.message)
+          })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '取消输入'
+        });
+      });
+
     },
-    toMyArticle(){
-      this.$router.push({path:`/personal/myarticle`})
+    editavatar() {
+      this.$refs.fileInput.click()
     },
-    toMyCollect(){
-      this.$router.push({path:`/personal/mycollect`})
-    }
-  },
+    uploadAvatar() {
+      const file = this.$refs.fileInput.files[0];
+      const data = new FormData();
+      data.append("avatar", file)
+      axios.post('http://127.0.0.1:8000/api/upload_avatar/', data)
+        .then(res => {
+          alert(res.data.message)
+        })
+    },
+    follow(id) {
+      let data = new FormData();
+      data.append("follow_id", id)
+      axios.post('http://127.0.0.1:8000/api/follow/', data).then(res => {
+        if (res.data.result == 2) {
+          alert(res.data.message)
+          return
+        }
+        alert(res.data.message)
+        location.reload()
+      })
+
+
+    },
+    unfollow(id) {
+      let data = new FormData();
+      data.append("follow_id", id)
+      axios.post('http://127.0.0.1:8000/api/unfollow/', data).then(res => {
+        alert(res.data.message)
+        location.reload()
+      })
+
+    },
+
+  }, created() {
+    axios.get('http://127.0.0.1:8000/api/havefollow/').then(res => {
+      if (res.data.result != 0) {
+        this.followuser = res.data.follow_list
+      }
+
+      console.log(1)
+      console.log(this.followuser)
+
+
+    })
+  }
 };
 </script>
-
-<style scoped>
+<style>
 dq {
   width: 100%;
   height: 100%;
@@ -323,6 +337,14 @@ a {
   font-weight: bold;
 }
 
+.user_name span {
+  font-size: 20px;
+}
+
+.user_anniu {
+  margin-top: 30%;
+}
+
 .user-v {
   margin-bottom: -5px;
 }
@@ -385,7 +407,7 @@ a {
 
 .person_body_left {
   width: 27%;
-  height: 600px;
+  height: 480px;
   border-radius: 5px;
   margin-right: 3%;
   text-align: center;
@@ -419,6 +441,12 @@ a {
   /* height: 500px; */
   border-radius: 5px;
   background-color: white;
+}
+
+.person_body_right a {
+  font-size: 70px;
+  font-family: STXingkai;
+
 }
 
 .box-card {

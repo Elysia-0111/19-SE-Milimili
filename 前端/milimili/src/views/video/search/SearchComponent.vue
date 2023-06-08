@@ -199,11 +199,14 @@ export default {
     methods: {
         ...mapActions(['updateSearchInput']),
         submitData() {
+            // console.log(sessionStorage.getItem('isLogin'))
             this.updateSearchInput(this.input);
             // console.log(this.input);
             // console.log(this.searchinput)
             if (this.input.trim() !== '') {
                 this.$router.push({ path: this.$route.path, query: { input: this.input } })
+                // location.href = ({ path: this.$route.path, query: { input: this.searchinput } })
+                // location.reload()
             }
 
         },

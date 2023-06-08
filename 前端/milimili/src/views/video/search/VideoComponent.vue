@@ -2,21 +2,21 @@
     <div class="videoclass">
         <div v-if="isAll">
             <div class="videoclass-grid">
-                <div v-for="video in videos" class="videocontainer">
+                <div v-for="video in video" class="videocontainer">
                     <div class="video-grid">
                         <video class="video" :id="video.id" @mouseenter="videoPlay(video.id)"
                             @mouseleave="videoPause(video.id)" @click="directToDetail(video.id)" muted="muted">
-                            <source type="video/mp4" v-bind:src="video.src">
+                            <source type="video/mp4" v-bind:src="video.video_path">
                         </video>
                         <div class="titlecontainer">
                             <div class="title-grid">
                                 <div class="videoTitle">
-                                    <a class="videoTitlefond" :href="video.src">
+                                    <a class="videoTitlefond" :href="gethref(video.id)">
                                         {{ video.title }}
                                     </a>
                                 </div>
                                 <div class="videoAuthor">
-                                    <a class="videoAuthorfond" :href="video.src">
+                                    <a class="videoAuthorfond" :href="gethref(video.id)">
                                         {{ video.author }}
                                     </a>
                                 </div>
@@ -28,21 +28,21 @@
         </div>
         <div v-if="isLike" :videos="likesortedVideos">
             <div class="videoclass-grid">
-                <div v-for="video in videos" class="videocontainer">
+                <div v-for="video in video" class="videocontainer">
                     <div class="video-grid">
                         <video class="video" :id="video.id" @mouseenter="videoPlay(video.id)"
                             @mouseleave="videoPause(video.id)" @click="directToDetail(video.id)" muted="muted">
-                            <source type="video/mp4" v-bind:src="video.src">
+                            <source type="video/mp4" v-bind:src="video.video_path">
                         </video>
                         <div class="titlecontainer">
                             <div class="title-grid">
                                 <div class="videoTitle">
-                                    <a class="videoTitlefond" :href="video.src">
+                                    <a class="videoTitlefond" :href="gethref(video.id)">
                                         {{ video.title }}
                                     </a>
                                 </div>
                                 <div class="videoAuthor">
-                                    <a class="videoAuthorfond" :href="video.src">
+                                    <a class="videoAuthorfond" :href="gethref(video.id)">
                                         {{ video.author }}
                                     </a>
                                 </div>
@@ -54,21 +54,21 @@
         </div>
         <div v-if="isNew" :videos="timesortedVideos">
             <div class="videoclass-grid">
-                <div v-for="video in videos" class="videocontainer">
+                <div v-for="video in video" class="videocontainer">
                     <div class="video-grid">
                         <video class="video" :id="video.id" @mouseenter="videoPlay(video.id)"
                             @mouseleave="videoPause(video.id)" @click="directToDetail(video.id)" muted="muted">
-                            <source type="video/mp4" v-bind:src="video.src">
+                            <source type="video/mp4" v-bind:src="video.video_path">
                         </video>
                         <div class="titlecontainer">
                             <div class="title-grid">
                                 <div class="videoTitle">
-                                    <a class="videoTitlefond" :href="video.src">
+                                    <a class="videoTitlefond" :href="gethref(video.id)">
                                         {{ video.title }}
                                     </a>
                                 </div>
                                 <div class="videoAuthor">
-                                    <a class="videoAuthorfond" :href="video.src">
+                                    <a class="videoAuthorfond" :href="gethref(video.id)">
                                         {{ video.author }}
                                     </a>
                                 </div>
@@ -128,8 +128,8 @@
 } */
 
 .videocontainer video {
-    width: 95%;
-    height: 95%;
+    width: 90%;
+    height: 90%;
     object-fit: cover;
     border-radius: 4%;
 }
@@ -169,6 +169,7 @@
 }
 </style>
 <script>
+import axios from 'axios';
 export default {
     data() {
         return {
@@ -223,7 +224,8 @@ export default {
                 },
 
 
-            ]
+            ],
+            video: []
         }
     },
     methods: {
@@ -261,16 +263,20 @@ export default {
             video.pause();
         },
         directToDetail(id) {
-            this.$router.push('../../personal');
-            // TODO
+            let href = ('/video/' + id + '/')
+            this.$router.push(href);
+        },
+        gethref: function (id) {
+            return '/video/' + id + '/';
+
         }
     },
     computed: {
         likesortedVideos() {
-            return this.videos.sort((a, b) => b.like - a.like)
+            return this.videos.sort((a, b) => b.like_num - a.like_num)
         },
         timesortedVideos() {
-            return this.videos.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+            return this.videos.sort((a, b) => new Date(b.upload_date) - new Date(a.upload_date))
         },
         isAll() {
             const prefix = '/search/video/all';
@@ -284,7 +290,27 @@ export default {
             const prefix = '/search/video/newest';
             return this.$route.path.startsWith(prefix);
         }
-    }
+    },
+    mounted() {
+        console.log(window.location.search.substring(7))
+        let data = new FormData();
+        data.append("type", 'video')
+        data.append("query", window.location.search.substring(7))
+        // console.log(data)
+        console.log(this.user)
+        axios.post('http://127.0.0.1:8000/api/search/', data)
+            .then(res => {
+                // for (var pair of res.data.user.entries()) {
+                //     this.user.push(pair)
+                // }
+
+                // console.log(res.data.user)
+                // this.user = res.data.user
+                // console.log(this.user)
+                this.video = res.data.video
+
+            })
+    },
 
 }
 </script >
