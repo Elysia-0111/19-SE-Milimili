@@ -24,6 +24,18 @@
   <router-view />
 </template>
 
+<script>
+export default{
+  mounted() {
+  },
+  methods: {
+    saveState() {
+      this.$store.commit("saveToken", this.$storage._session.get('id'));
+    },
+  },
+}
+</script>
+
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

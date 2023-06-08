@@ -24,21 +24,21 @@ def register(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
-        password2 = request.POST.get('repassword')
+        #password2 = request.POST.get('repassword')
 
-        if len(username) == 0 or len(password) == 0 or len(password2) == 0:
-            result = {'result': 0, 'message': r'用户名与密码不允许为空!'}
-            return JsonResponse(result)
+        #if len(username) == 0 or len(password) == 0 or len(password2) == 0:
+        #    result = {'result': 0, 'message': r'用户名与密码不允许为空!'}
+        #    return JsonResponse(result)
 
-        if password != password2:
-            return JsonResponse({'result': 0, 'message': ' 两次密码不一致'})
+        #if password != password2:
+        #    return JsonResponse({'result': 0, 'message': ' 两次密码不一致'})
 
         if User.objects.filter(username=username).exists():
             result = {'result': 0, 'message': r'用户已存在!'}
             return JsonResponse(result)
 
         response = JsonResponse({'result': 1, 'message': '注册成功'})
-        User.objects.create(name=username, password=password)
+        user = User.objects.create(username=username,password=password,isActive=True)
         return response
     else:
         return JsonResponse({'result': 0, 'message': '请求方法错误'}, status=405)

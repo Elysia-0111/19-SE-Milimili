@@ -1,7 +1,7 @@
 import { createStore } from 'vuex'
 
 export default createStore({
-  state: {
+  state:{
     id:'1',
     searchinput: ''
   },
@@ -13,6 +13,9 @@ export default createStore({
     },
     logout(state) {
       state.isLogin = false
+    },
+    setid(state,value){
+      state.id=value;
     },
     setSearchInput(state, value) {
       state.searchinput = value;

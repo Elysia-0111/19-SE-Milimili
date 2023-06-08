@@ -188,6 +188,7 @@ input:-webkit-autofill::first-line {
 </style>
 <script>
 import axios from 'axios'
+
 export default {
     data() {
         return {
@@ -209,9 +210,16 @@ export default {
             let data = new FormData();
             data.append("username", this.username)
             data.append("password", this.password)
-            axios.post('/api/login', data)
+            axios.post('http://127.0.0.1:8000/api/login/', data)
                 .then(response => {
                     // 注册成功后的处理逻辑
+                    const result = response.data.result;
+                    if(result === 0) {
+                        return
+                    }
+                    const user1=response.data.user;
+                    this.$store.commit('setid',user1.id);
+                    userid=user1.id;
                     this.$message.success("登录成功，3秒后进入主页");
                     const timejump = 3;
                     if (!this.timer) {

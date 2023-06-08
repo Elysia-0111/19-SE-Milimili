@@ -212,10 +212,10 @@ export default {
             }
             if (this.password === this.repassword) {
                 let data = new FormData();
-                data.append("username", this.username)
-                data.append("password", this.password)
-                axios.post('http://127.0.0.1:8000/api/register/', data)
-                    .then(response => {
+                data.append("username",this .username);
+                data.append("password",this .password);
+                axios.post('http://127.0.0.1:8000/api/register/',data)
+                    .then(response =>{
                         // 注册成功后的处理逻辑
                         const result = response.data.result;
                         if(result === 0) {

@@ -282,12 +282,7 @@ class VideoComplain(models.Model):
         db_table = 'VideoComplain'
 
 
-class UserToFollow(models.Model):
-    user_id = models.IntegerField(verbose_name='主体', default=0)
-    follow_id = models.IntegerField(verbose_name='关注的up主', default=0)
 
-    class Meta:
-        db_table = 'UserToFollow'
 
 
 class Like(models.Model):
