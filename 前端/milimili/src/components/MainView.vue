@@ -7,16 +7,14 @@
         </div>
         <div class="video-info-detail">
           <div class="video-info-time">
-            <svg style="margin-right:8px" xmlns="http://www.w3.org/2000/svg" width="21" height="21"
-                 viewBox="0 0 24 24">
+            <svg style="margin-right:8px" xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 24 24">
               <path
                 d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm1 12v-6h-2v8h7v-2h-5z" />
             </svg>
             <span>{{ video['upload_date'] }}</span>
           </div>
           <div class="video-info-playcount">
-            <svg style="margin-right:8px" xmlns="http://www.w3.org/2000/svg" width="21" height="21"
-                 viewBox="0 0 24 24">
+            <svg style="margin-right:8px" xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 24 24">
               <path
                 d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-3 17v-10l9 5.146-9 4.854z" />
             </svg>
@@ -25,18 +23,18 @@
         </div>
       </div>
       <div class="video-info-uper">
-        <a href="http://localhost:8080/personal" target="_blank">
-          <el-image fit="cover" draggable="false"
-                    src="https://kotokawa-akira-mywife.site/web/api/account/getProfile/000" alt="">
+        <a :href="gethref(video['user_id'])" target="_blank">
+          <el-image fit="cover" draggable="false" src="https://kotokawa-akira-mywife.site/web/api/account/getProfile/000"
+            alt="">
             <template #error>
               <img style="width: 100%;height: 100%;object-fit: cover;"
-                   src="https://kotokawa-akira-mywife.site/web/api/account/getProfile/000" alt="">
+                src="https://kotokawa-akira-mywife.site/web/api/account/getProfile/000" alt="">
             </template>
           </el-image>
         </a>
         <a href="http://localhost:8080/personal" target="_blank">
-          <div class="video-info-uper-name" >
-            {{ user.username }}
+          <div class="video-info-uper-name">
+            {{ video['user_id'] }}
           </div>
         </a>
       </div>
@@ -45,8 +43,7 @@
       <div class="player" ref="player"></div>
     </section>
     <section class="lower-switcher">
-      <div class="lower-switcher-btn" :class="{ 'lower-switcher-active': switcher_isActive }"
-           @click="showComment">评论
+      <div class="lower-switcher-btn" :class="{ 'lower-switcher-active': switcher_isActive }" @click="showComment">评论
       </div>
       <div class="lower-switcher-btn" :class="{ 'lower-switcher-active': !switcher_isActive }" @click="showMore">
         选集
@@ -57,16 +54,16 @@
         <div class="lower-left-options">
           <div style="display: flex;justify-content: flex-start;align-items: center;height: 70px;">
             <div class="lower-left-options-li lower-left-options-like" @click="btnLike">
-              <svg :class="{ 'btn-active': isLiked }" xmlns="http://www.w3.org/2000/svg" width="32"
-                   height="32" viewBox="0 0 24 24">
+              <svg :class="{ 'btn-active': isLiked }" xmlns="http://www.w3.org/2000/svg" width="32" height="32"
+                viewBox="0 0 24 24">
                 <path
                   d="M5 22h-5v-12h5v12zm17.615-8.412c-.857-.115-.578-.734.031-.922.521-.16 1.354-.5 1.354-1.51 0-.672-.5-1.562-2.271-1.49-1.228.05-3.666-.198-4.979-.885.906-3.656.688-8.781-1.688-8.781-1.594 0-1.896 1.807-2.375 3.469-1.221 4.242-3.312 6.017-5.687 6.885v10.878c4.382.701 6.345 2.768 10.505 2.768 3.198 0 4.852-1.735 4.852-2.666 0-.335-.272-.573-.96-.626-.811-.062-.734-.812.031-.953 1.268-.234 1.826-.914 1.826-1.543 0-.529-.396-1.022-1.098-1.181-.837-.189-.664-.757.031-.812 1.133-.09 1.688-.764 1.688-1.41 0-.565-.424-1.109-1.26-1.221z" />
               </svg>
               <span :class="{ 'btn-active': isLiked }">{{ video['like_num'] }}</span>
             </div>
             <div class="lower-left-options-li lower-left-options-collection" @click="btnCollection">
-              <svg :class="{ 'btn-active': isCollected }" xmlns="http://www.w3.org/2000/svg" width="32"
-                   height="32" viewBox="0 0 24 24">
+              <svg :class="{ 'btn-active': isCollected }" xmlns="http://www.w3.org/2000/svg" width="32" height="32"
+                viewBox="0 0 24 24">
                 <path
                   d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z" />
               </svg>
@@ -76,16 +73,15 @@
           <div class="options-info">
             <a href="http://localhost:8080/personal" target="_blank">
               <el-image fit="cover" draggable="false"
-                        src="https://kotokawa-akira-mywife.site/web/api/account/getProfile/000"
-                        alt="">
+                src="https://kotokawa-akira-mywife.site/web/api/account/getProfile/000" alt="">
                 <template #error>
                   <img style="width: 100%;height: 100%;object-fit: cover;"
-                       src="https://kotokawa-akira-mywife.site/web/api/account/getProfile/000" alt="">
+                    src="https://kotokawa-akira-mywife.site/web/api/account/getProfile/000" alt="">
                 </template>
               </el-image>
             </a>
             <a href="'http://localhost:8080/personal'" target="_blank">
-              <div class="options-img-name">{{ user.username }}</div>
+              <div class="options-img-name">{{ video['user_id'] }}</div>
             </a>
           </div>
         </div>
@@ -97,23 +93,21 @@
             </div>
           </div>
           <span class="lower-left-summary-more" ref="summary_more" v-show="summary_show">
-                        展开
-                    </span>
+            展开
+          </span>
         </div>
         <div class="lower-comments">
           <div style="text-align:left;font-size: 26px;color: #000;">评论</div>
           <ul>
             <li class="lower-comments-li" v-for="item in comments" :key="item.id">
               <div class="lower-comments-li-header">
-                <a href="'http://localhost:8080/personal'">
+                <a :href="gethref(item.comment_root.user_id)">
                   <div class="lower-comments-li-img-container">
                     <el-image fit="cover" draggable="false"
-                              src="https://kotokawa-akira-mywife.site/web/api/account/getProfile/000"
-                              alt="">
+                      src="https://kotokawa-akira-mywife.site/web/api/account/getProfile/000" alt="">
                       <template #error>
                         <img style="width: 100%;height: 100%;object-fit: cover;"
-                             src="https://kotokawa-akira-mywife.site/web/api/account/getProfile/000"
-                             alt="">
+                          src="https://kotokawa-akira-mywife.site/web/api/account/getProfile/000" alt="">
                       </template>
                     </el-image>
                   </div>
@@ -188,11 +182,9 @@
                 <div style="display:flex;justify-content:space-between;align-items: flex-start;">
                   <div class="lower-reply-img-container">
                     <el-image fit="cover" draggable="false"
-                              src="https://kotokawa-akira-mywife.site/web/api/account/getProfile/000"
-                              alt="">
+                      src="https://kotokawa-akira-mywife.site/web/api/account/getProfile/000" alt="">
                       <template #error>
-                        <img src="https://kotokawa-akira-mywife.site/web/api/account/getProfile/000"
-                             alt="">
+                        <img src="https://kotokawa-akira-mywife.site/web/api/account/getProfile/000" alt="">
                       </template>
                     </el-image>
                   </div>
@@ -230,7 +222,7 @@
         <div style="display:flex;justify-content:space-between;align-items: flex-start;">
           <div class="lower-reply-img-container">
             <el-image fit="cover" draggable="false"
-                      src="https://kotokawa-akira-mywife.site/web/api/account/getProfile/000" alt="">
+              src="https://kotokawa-akira-mywife.site/web/api/account/getProfile/000" alt="">
               <template #error>
                 <img src="https://kotokawa-akira-mywife.site/web/api/account/getProfile/000" alt="">
               </template>
@@ -255,17 +247,16 @@
     <el-dialog v-model="dialogVisible" title="添加到收藏夹" width="20%" center>
       <div style="display:flex;flex-direction:column;justify-content:flex-start;align-items: center;">
         <div class="dialog-collection-ul">
-          <div class="dialog-collection-li" v-for="item in collection" :key="item.name"
-               @click="addCollection(item.name)">
+          <div class="dialog-collection-li" v-for="item in collection" :key="item.name" @click="addCollection(item.name)">
             {{ item.name }}
           </div>
         </div>
       </div>
       <template #footer>
-                <span class="dialog-footer">
-                    <el-button @click="addNewCollection">新建</el-button>
-                    <el-button @click="dialogVisible = false">取消</el-button>
-                </span>
+        <span class="dialog-footer">
+          <el-button @click="addNewCollection">新建</el-button>
+          <el-button @click="dialogVisible = false">取消</el-button>
+        </span>
       </template>
     </el-dialog>
   </div>
@@ -274,6 +265,7 @@
 import Dplayer from 'dplayer'
 import { ElPagination, ElMessageBox, ElImage, ElNotification } from 'element-plus';
 import BackTop from './BackTop.vue';
+import axios from 'axios';
 export default {
   //props: ['isLogin', 'user', 'collection'],
   components: {
@@ -283,8 +275,10 @@ export default {
   },
   data() {
     return {
-      user: {},
-      isLogin: this.$store.state.isLogin,
+      isLogin: true,
+      user: {
+        id: 1
+      },
       video: {},
       player: {},
       videoList: [],
@@ -310,7 +304,8 @@ export default {
       loader: {},
       progress: 0,
       file: document.createElement("input"),
-      video_file: null
+      video_file: null,
+      userid: 0
     }
   },
   watch: {
@@ -371,6 +366,11 @@ export default {
     }
   },
   methods: {
+    gethref: function (id) {
+      console.log(id)
+      return '../../personal?userid=' + parseInt(id);
+
+    },
     ajax(options, success, failure) {
       // 默认参数
       const defaultOptions = {
@@ -428,7 +428,6 @@ export default {
         console.log(data.is_like)
         //this.comments = data.comment_list;
         this.isLiked = data.is_like;
-        this.user = this.video.user
       });
     },
     currentChange(index, value) {
@@ -465,6 +464,12 @@ export default {
       this.userNames[index] = userName;
     },
     replyForVideo() {
+      if (this.userid == 0) {
+        ElMessageBox.alert('登录后即可发布评论', '提示', {
+          confirmButtonText: "确定"
+        });
+        return;
+      }
       if (this.replyVideo === "") return;
       this.addComment(this.replyVideo);
       this.replyVideo = "";
@@ -486,12 +491,13 @@ export default {
       this.reply_list[index] = "";
     },
     addComment(text) {
-      fetch('http://127.0.0.1:8000/api/add-comment/' + this.getVideoId(),{
+      fetch('http://127.0.0.1:8000/api/add-comment/' + this.getVideoId() + '/', {
         method: "post",
         headers: {
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
+          user_id: this.userid,
           content: text,
         }),
         credentials: "include"
@@ -515,21 +521,23 @@ export default {
     },
     btnLikeClick() {
       console.log(this.getVideoId())
-      fetch('http://127.0.0.1:8000/api/like/' + this.getVideoId(), { method: "post",
+      fetch('http://127.0.0.1:8000/api/like-video/' + this.getVideoId() + '/', {
+        method: "post",
         headers: {
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          user_id: this.user.id
+          user_id: this.userid,
+          video_id: parseInt(this.getVideoId())
         }),
-        })
+      })
         .then(res => {
           return res.json();
         }).then(data => {
           console.log(data.video_info)
-        this.video = data.video_info;
-        this.isLiked = data.is_like;
-      });
+          this.video = data.video_info;
+          this.isLiked = data.is_like;
+        });
     },
     btnCollection() {
       if (!this.isLogin) {
@@ -546,7 +554,7 @@ export default {
             return video.id == this.video.id;
           });
         });
-        fetch('', {
+        fetch('https://kotokawa-akira-mywife.site/web/api/collection/removeFromCollection', {
           method: "post",
           headers: {
             "Content-Type": "application/json"
@@ -564,7 +572,7 @@ export default {
       } else this.dialogVisible = true;
     },
     addCollection(Name) {
-      fetch('', {
+      fetch('https://kotokawa-akira-mywife.site/web/api/collection/addToCollection', {
         method: "post",
         headers: {
           "Content-Type": "application/json"
@@ -598,9 +606,9 @@ export default {
         inputPlaceholder: '收藏夹名'
       }).then(msg => {
         if (msg.value.includes(":")) {
-          ElMessageBox.alert("由于系统设计，不能输入 ':' 字符","错误",{
-            confirmButtonText:"确定",
-            type:"error"
+          ElMessageBox.alert("由于系统设计，不能输入 ':' 字符", "错误", {
+            confirmButtonText: "确定",
+            type: "error"
           });
           return;
         }
@@ -630,6 +638,9 @@ export default {
         this.reply_show = true;
       } else this.reply_show = false;
     });
+    axios.get('http://127.0.0.1:8000/api/get_userid/').then(res => {
+      this.userid = parseInt(res.data.result)
+    })
   }
 }
 </script>

@@ -20,9 +20,11 @@
             </div>
             <div class="rightheader">
                 <div class="rightheader-grid">
-                    <router-link to="../../personal">
-                        <img class="img1" src="../../assets/头像.jpg">
-                    </router-link>
+                    <!-- <router-link :to="gethref"> -->
+                    <div>
+                        <img class="img1" src="../../assets/头像.jpg" @click="jump">
+                    </div>
+                    <!-- </router-link> -->
                     <router-link to="home">
                         <el-icon class="icon-header">
                             <ChatLineSquare />
@@ -105,7 +107,7 @@
                     <div v-for="video in  videos1 " class="rightvideo-container">
                         <video class="video" :id="video.id" @mouseenter="videoPlay(video.id)"
                             @mouseleave="videoPause(video.id)" @click="directToDetail(video.id)" muted="muted">
-                            <source type="video/mp4" v-bind:src="video.src">
+                            <source type="video/mp4" v-bind:src="video.video_path">
                         </video>
                         <div class="videoTitle">
                             <a class="videoTitlefond" :href="video.src">
@@ -331,60 +333,62 @@ a {
 }
 </style>
 <script>
+import axios from "axios";
 import { mapActions, mapState } from "vuex";
 export default {
     data() {
         return {
-            videos1: [
-                {
-                    id: 'video1-1',
-                    src: require('../../assets/video/test.mp4'),
-                    title: '旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转',
-                    author: '123'
-                },
-                {
-                    id: 'video1-2',
-                    src: require('../../assets/video/test.mp4'),
-                    title: '旋转旋转旋转',
-                    author: '123'
-                },
-                {
-                    id: 'video1-3',
-                    src: require('../../assets/video/test.mp4'),
-                    title: '旋转旋转旋转',
-                    author: '123'
-                },
-                {
-                    id: 'video1-4',
-                    src: require('../../assets/video/test.mp4'),
-                    title: '旋转旋转旋转',
-                    author: '123'
-                },
-                {
-                    id: 'video1-5',
-                    src: require('../../assets/video/test.mp4'),
-                    title: '旋转旋转旋转',
-                    author: '123'
-                },
-                {
-                    id: 'video1-6',
-                    src: require('../../assets/video/test.mp4'),
-                    title: '旋转旋转旋转',
-                    author: '123'
-                },
-                {
-                    id: 'video1-7',
-                    src: require('../../assets/video/test.mp4'),
-                    title: '旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转',
-                    author: '123'
-                },
-                {
-                    id: 'video1-8',
-                    src: require('../../assets/video/test.mp4'),
-                    title: '旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转',
-                    author: '123'
-                }
-            ],
+            // videos1: [
+            //     {
+            //         id: 'video1-1',
+            //         src: require('../../assets/video/test.mp4'),
+            //         title: '旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转',
+            //         author: '123'
+            //     },
+            //     {
+            //         id: 'video1-2',
+            //         src: require('../../assets/video/test.mp4'),
+            //         title: '旋转旋转旋转',
+            //         author: '123'
+            //     },
+            //     {
+            //         id: 'video1-3',
+            //         src: require('../../assets/video/test.mp4'),
+            //         title: '旋转旋转旋转',
+            //         author: '123'
+            //     },
+            //     {
+            //         id: 'video1-4',
+            //         src: require('../../assets/video/test.mp4'),
+            //         title: '旋转旋转旋转',
+            //         author: '123'
+            //     },
+            //     {
+            //         id: 'video1-5',
+            //         src: require('../../assets/video/test.mp4'),
+            //         title: '旋转旋转旋转',
+            //         author: '123'
+            //     },
+            //     {
+            //         id: 'video1-6',
+            //         src: require('../../assets/video/test.mp4'),
+            //         title: '旋转旋转旋转',
+            //         author: '123'
+            //     },
+            //     {
+            //         id: 'video1-7',
+            //         src: require('../../assets/video/test.mp4'),
+            //         title: '旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转',
+            //         author: '123'
+            //     },
+            //     {
+            //         id: 'video1-8',
+            //         src: require('../../assets/video/test.mp4'),
+            //         title: '旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转旋转',
+            //         author: '123'
+            //     }
+            // ],
+            videos1: [],
             imgs: [
                 {
                     id: 'leftimg1',
@@ -480,7 +484,8 @@ export default {
             video.pause();
         },
         directToDetail(id) {
-            this.$router.push('../../personal');
+            let href = ('/video/' + id + '/')
+            this.$router.push(href);
             // TODO
         },
         ...mapActions(['updateSearchInput']),
@@ -493,11 +498,58 @@ export default {
 
             }
 
-        }
+        },
+        jump() {
+            let isLogin = sessionStorage.getItem('isLogin')
+            console.log(isLogin)
+            let login = String(isLogin)
+            console.log(isLogin)
+            if (login !== 'true') {
+                this.$router.push({ path: '/login' });
+            }
+            else {
+                axios.get('http://127.0.0.1:8000/api/get_userid/')
+                    .then(res => {
+                        console.log(res.data.result)
+
+                        this.$router.push({ path: '/personal', query: { userid: res.data.result } });
+                    }
+                    ).catch(error => {
+                        alert("错误")
+                    })
+
+            }
+
+        },
     },
     computed: {
-        ...mapState(['searchinput'])
-    }
+        ...mapState(['searchinput']),
+        // gethref() {
+        //     const isLogin = sessionStorage.getItem('isLogin')
+        //     console.log(isLogin)
+        //     if (isLogin == null) {
+        //         alert("请前往登录")
+        //         return '../login'
+        //     }
+        //     return '../personal'
+        // }
+    },
+    mounted() {
+
+        if (!sessionStorage.getItem('pageRefreshed')) {
+            sessionStorage.setItem('pageRefreshed', 'true');
+            window.history.replaceState({}, '', window.location.href); // 替换当前页面 URL
+            location.reload(); // 刷新页面
+        } else {
+            sessionStorage.removeItem('pageRefreshed');
+        }
+        axios.get('http://127.0.0.1:8000/api/page_video_id/').then(res => {
+            this.videos1 = res.data.video
+            // alert(res.data.video)
+            // alert(this.videos1)
+        })
+    },
+
 
 }
 </script>

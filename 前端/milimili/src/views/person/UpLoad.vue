@@ -51,7 +51,8 @@ export default {
       progress: 0,
       loader: {},
       upload_id: '',
-      user: {}
+      user: {},
+      id: 0
     }
   },
   watch: {
@@ -126,6 +127,7 @@ export default {
       if (this.btnAvailable) {
         this.btnAvailable = false;
         let formData = new FormData();
+        formData.append('id', parseInt(this.id));
         formData.append('avatar', this.img);
         formData.append('video', this.video);
         formData.append('title', this.title_text);
@@ -201,7 +203,12 @@ export default {
           this.video = this.video_file.files[0];
       }
     });
-  }
+    axios.get('http://127.0.0.1:8000/api/get_userid').then(res => {
+      this.id = res.data.result
+      console.log(this.id)
+    })
+  },
+
 }
 </script>
 <style lang="css">
