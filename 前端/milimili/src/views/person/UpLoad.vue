@@ -4,6 +4,10 @@
     <div class="upload-main">
       <div class="upload-main-body">
         <div class="upload-body-left">
+          <div class="container" @click="selectImgFile">
+            <img ref="upload_img" draggable="false" src="" alt="" v-show="isShowImg">
+            <div v-show="!isShowImg">点击选择封面</div>
+          </div>
           <div class="container" @click="selectVideoFile">
             <div ref="video_name" class="video_name">点击选择视频</div>
           </div>
@@ -28,16 +32,20 @@
 </template>
 <script>
 import { ElMessageBox, ElDialog, ElButton, ElNotification } from 'element-plus';
+import axios from 'axios';
 export default {
   components: {
     ElDialog, ElButton
   },
   data() {
     return {
+      img_file: document.createElement("input"),
       video_file: document.createElement("input"),
       title_text: '',
+      img: "",
       video: "",
       summary_text: '',
+      isShowImg: false,
       btnAvailable: false,
       dialogVisible: false,
       progress: 0,
@@ -55,17 +63,29 @@ export default {
         this.$refs.video_name.title = value.name;
         this.$refs.video_name.innerText = value.name;
       }
-      if (this.title_text !== "" && this.video !== "" && this.summary_text !== "")
+      if (this.title_text !== "" && this.img !== "" && this.video !== "" && this.summary_text !== "")
+        this.btnAvailable = true;
+      else this.btnAvailable = false;
+    },
+    img(value) {
+      if (value === "") {
+        this.isShowImg = false;
+      } else {
+        let url = URL.createObjectURL(this.img_file.files[0]);
+        this.$refs.upload_img.src = url;
+        this.isShowImg = true;
+      }
+      if (this.title_text !== "" && this.img !== "" && this.video !== "" && this.summary_text !== "")
         this.btnAvailable = true;
       else this.btnAvailable = false;
     },
     title_text() {
-      if (this.title_text !== "" && this.video !== "" && this.summary_text !== "")
+      if (this.title_text !== "" && this.img !== "" && this.video !== "" && this.summary_text !== "")
         this.btnAvailable = true;
       else this.btnAvailable = false;
     },
     summary_text() {
-      if (this.title_text !== "" && this.video !== "" && this.summary_text !== "")
+      if (this.title_text !== "" && this.img !== "" && this.video !== "" && this.summary_text !== "")
         this.btnAvailable = true;
       else this.btnAvailable = false;
     },
@@ -85,8 +105,13 @@ export default {
       }).catch(() => { });
     },
     initFiles() {
+      this.img_file.accept = ".png , .jpg , .jpeg";
+      this.img_file.type = "file";
       this.video_file.type = "file";
-      this.video_file.accept = ".mp4 , .ogg";
+      this.video_file.accept = ".mp4";
+    },
+    selectImgFile() {
+      this.img_file.click();
     },
     selectVideoFile() {
       this.video_file.click();
@@ -98,46 +123,54 @@ export default {
       this.img = "";
     },
     submit() {
-      this.dialogVisible = true;
-      const xhr = new XMLHttpRequest();
-      this.loader = xhr;
-      xhr.open('post', 'http://127.0.0.1:8000/api/upload_video');
-      const data = new FormData();
-      data.append("avatar", this.video);
-      data.append("title", this.title_text);
-      data.append("description", this.summary_text);
-      data.append("user_id", this.user.id);
-      data.append("zone", this.title_text);
-      data.append("tag1", this.title_text);
-      data.append("tag2", this.title_text);
-      data.append("tag3", this.title_text);
-      data.append("tag4", this.title_text);
-      data.append("tag5", this.title_text);
-      xhr.upload.addEventListener("progress", (e) => {
-        let num = e.loaded * 100 / e.total;
-        this.progress = num.toFixed(2);
-      });
-      xhr.addEventListener("readystatechange", () => {
-        if (xhr.readyState === xhr.DONE && xhr.status === 200) {
-          this.upload_id = "";
-          ElNotification({
-            title: "上传完毕",
-            message: '<b style="color:var(--ava)">' + this.title_text + "</b>" + "  上传完毕",
-            duration: 0,
-            dangerouslyUseHTMLString: true
+      if (this.btnAvailable) {
+        this.btnAvailable = false;
+        let formData = new FormData();
+        formData.append('avatar', this.img);
+        formData.append('video', this.video);
+        formData.append('title', this.title_text);
+        formData.append('description', this.summary_text);
+        formData.append('zone', '旋转');
+        formData.append('tag1', '旋转');
+        formData.append('tag2', '旋转');
+        formData.append('tag3', '旋转');
+        formData.append('tag4', '旋转');
+        formData.append('tag5', '旋转');
+
+        axios.post('http://127.0.0.1:8000/api/upload_video/', formData)
+          .then(response => {
+            // 请求成功的处理逻辑
+
+            const data = response.data;
+            console.log(data);
+            if (data.result === 1) {
+              this.$message.success("登录成功，3秒后进入主页");
+            }
+          })
+          .catch(error => {
+            // 请求失败的处理逻辑
+            console.error(error);
           });
-          this.dialogVisible = false;
-          this.clear();
-        }
-      });
-      xhr.send(data);
+      } else {
+        ElMessageBox.alert('请填写信息！', '提示', { confirmButtonText: '确定' });
+      }
+    },
+    beforeImgUpload(rawFile) {
+      if (rawFile.type !== 'image/jpeg' && rawFile.type !== 'image/png') {
+        ElMessageBox.alert('只能上传 <b style="color:var(--ava)">jpg、png</b> 格式的图片', '提示', { dangerouslyUseHTMLString: true, confirmButtonText: "确定" });
+        return false;
+      } else if (rawFile.size / 1024 / 1024 > 2) {
+        ElMessageBox.alert('图片大小不能超过 <b style="color:var(--ava)">2MB</b> ', '提示', { dangerouslyUseHTMLString: true, confirmButtonText: "确定" });
+        return false
+      }
+      return true
     },
     beforeVideoUpload(rawFile) {
-      if (rawFile.type !== 'video/mp4' && rawFile.type !== 'video/ogg') {
-        ElMessageBox.alert('只能上传 <b style="color:var(--ava)">mp4、ogg</b> 格式的视频', '提示', { dangerouslyUseHTMLString: true, confirmButtonText: "确定" });
+      if (rawFile.type !== 'video/mp4') {
+        ElMessageBox.alert('只能上传 <b style="color:var(--ava)">mp4</b> 格式的视频', '提示', { dangerouslyUseHTMLString: true, confirmButtonText: "确定" });
         return false;
-      } else if (rawFile.size / 1024 / 1024 > 500) {
-        ElMessageBox.alert('视频大小不能超过 <b style="color:var(--ava)">500MB</b> ', '提示', { dangerouslyUseHTMLString: true, confirmButtonText: "确定" });
+      } else if (rawFile.size / 1024 / 1024 > 100) {
+        ElMessageBox.alert('视频大小不能超过 <b style="color:var(--ava)">100MB</b> ', '提示', { dangerouslyUseHTMLString: true, confirmButtonText: "确定" });
         return false
       }
       return true
@@ -147,6 +180,17 @@ export default {
     this.initFiles();
   },
   mounted() {
+    this.img_file.addEventListener("change", () => {
+      if (this.img_file.files.length === 0) {
+        //this.selectImgFile = false;
+        //this.img = "";
+      }
+      else {
+        let can = this.beforeImgUpload(this.img_file.files[0])
+        if (can)
+          this.img = this.img_file.files[0];
+      }
+    });
     this.video_file.addEventListener("change", () => {
       if (this.video_file.files.length === 0) {
         //this.video = "";

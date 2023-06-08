@@ -11,7 +11,7 @@
         <router-link to="/register">注册</router-link>
       </div>
       <div v-else>
-        <router-link to="/video/1">VideoView</router-link> |
+        <router-link to="/video/7/">VideoView</router-link> |
         <router-link to="/home">VideoHome</router-link> |
         <router-link to="/">Home</router-link> |
         <!--<router-link :to="{ name: 'personal', params:this.$store.state.id }">个人中心</router-link> |-->

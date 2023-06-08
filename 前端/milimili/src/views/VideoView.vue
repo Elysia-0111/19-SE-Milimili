@@ -1,5 +1,5 @@
 <template>
-  <NavigateView></NavigateView>
+  <!--<NavigateView></NavigateView>-->
   <MainView isLogin=true :user="user" :collection="collection"></MainView>
 </template>
 <script>
