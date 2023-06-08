@@ -223,7 +223,7 @@ export default {
                           return
                         }
                         console.log('Registration successful');
-                        this.$message.success("注册成功，3秒后返回登录页面");
+                        this.$message.success("注册成功,3秒后返回登录页面");
                         const timejump = 3;
                         if (!this.timer) {
                             this.count = timejump;

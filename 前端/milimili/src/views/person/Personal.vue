@@ -3,11 +3,11 @@
     <el-container>
       <el-header class="header2">
         <el-row>
-          <el-col :span="1" :offset="1"><router-link class="linkhead" to="../../video/home"><a
+          <el-col :span="1" :offset="1"><router-link class="linkhead" to="../../home"><a
                 class="fonthead">首页</a></router-link></el-col>
-          <el-col :span="1" class="fonthead"><router-link to="../../video/home"><a
+          <el-col :span="1" class="fonthead"><router-link to="../../home"><a
                 class="fonthead">热门</a></router-link></el-col>
-          <el-col :span="1" class="fonthead"><router-link to="../../video/home"><a
+          <el-col :span="1" class="fonthead"><router-link to="../../home"><a
                 class="fonthead">频道</a></router-link></el-col>
           <el-col :span="6" :offset="3">
             <el-input v-model="searchinput" size="small" placeholder="Please input">
@@ -188,19 +188,22 @@ export default {
     this.load();
   },
   watch: {
+    /*
     $route(to, from) {
       if (to.path == `/personal/${this.$store.state.id}`) {
         this.load();
       } else if (to.path == `/personal/${this.$route.params.id}`) {
         this.load();
       }
-    },
+    },*/
   },
   methods: {
     load() {
       let data = new FormData();
       data.append("up_user_id", this.$route.params.id)
       axios.post('http://127.0.0.1:8000/api/up_all_list/', data).then(res => {
+        const user1=res.data.user;
+
       })
         .catch((err) => {
           console.log(err);
