@@ -41,43 +41,42 @@ const routes = [
     component: () => import('../views/person/Personal.vue'),
     children: [
       {
-      path: '/personal/info',
-      name: 'info',
-      component: () => import('../views/person/Info.vue')
-    },
-    {
-      path: '/personal/myarticle',
-      name: 'myarticle',
-      component: () => import('../views/person/MyArticle.vue')
-    },
-    {
-      path: '/personal/mycollect',
-      name: 'mycollect',
-      component: () => import('../views/person/MyCollect.vue')
-    },
-    {
-      path: '/personal/myfan',
-      name: 'myfan',
-      component: () => import('../views/person/MyFanAndFollow.vue')
-    },
-    {
-      path: '/personal/myfollow',
-      name: 'myfollow',
-      component: () => import('../views/person/MyFanAndFollow.vue')
-    },
-    {
-      path: '/personal/personaldia',
-      name: 'personaldia',
-      component: () => import('../views/person/PersonalDia.vue')
-    },
-    
+        path: '/personal/info',
+        name: 'info',
+        component: () => import('../views/person/Info.vue')
+      },
+      {
+        path: '/personal/myarticle',
+        name: 'myarticle',
+        component: () => import('../views/person/MyArticle.vue')
+      },
+      {
+        path: '/personal/mycollect',
+        name: 'mycollect',
+        component: () => import('../views/person/MyCollect.vue')
+      },
+      {
+        path: '/personal/myfan',
+        name: 'myfan',
+        component: () => import('../views/person/MyFan.vue')
+      },
+      {
+        path: '/personal/myfollow',
+        name: 'myfollow',
+        component: () => import('../views/person/MyFollow.vue')
+      },
+      {
+        path: '/personal/personaldia',
+        name: 'personaldia',
+        component: () => import('../views/person/PersonalDia.vue')
+      },
     ]
   },
   {
-      path: '/personal/upload',
-      name: 'personaldia',
-      component: () => import('../views/person/UpLoad.vue')
-    },
+    path: '/personal/upload',
+    name: 'personaldia',
+    component: () => import('../views/person/UpLoad.vue')
+  },
   {
     path: '/home',
     name: 'videohome',
@@ -150,6 +149,46 @@ const routes = [
     name: 'usersearchup',
     component: () => import('../views/video/search/UserSearch/UserSearchUp.vue')
   }
+  /*{
+    //path: '/newsuser/personal/:id',
+    path: '/personal',
+    component: r => require.ensure([], () => r(require('@/views/person/Personal')), 'personal'),
+    //meta: {
+    //  requireLogin: true
+    //},
+    children: [
+      {
+        // path: '/personal/info/:id',
+        //path: '/newsuser/personal/info/:id',
+        path: '/personal/info',
+        name:'info',
+        component: r => require.ensure([], () => r(require('@/views/person/Info')), 'info')
+      },
+      {
+        //path:'/newsuser/personal/myarticle/:id',
+        path:'/personal/myarticle',
+        name:'myarticle',
+        component: r => require.ensure([], () => r(require('@/views/person/MyArticle')), 'myarticle')
+      },
+      {
+        //path:'/newsuser/personal/mycollect/:id',
+        path:'/personal/mycollect',
+        name:'mycollect',
+        component: r => require.ensure([], () => r(require('@/views/person/MyCollect')), 'mycollect')
+      },
+      {
+        //path:'/newsuser/personal/myfan/:id',
+        path:'/personal/myfan',
+        name:'myfan',
+        component: r => require.ensure([], () => r(require('@/views/person/MyFanAndFollow')), 'myfan')
+      },
+      {
+        path:'/personal/myfollow',
+        name:'myfollow',
+        component: r => require.ensure([], () => r(require('@/views/person/MyFanAndFollow')), 'myfollow')
+      }
+  ]
+}*/
 ]
 
 const router = createRouter({

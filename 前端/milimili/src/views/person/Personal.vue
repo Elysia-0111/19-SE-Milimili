@@ -1,6 +1,5 @@
 <template>
   <div class="personal">
-
     <div class="PersonTop">
       <div class="PersonTop_img">
         <img :src="this.avatar" @click="editavatar" />
@@ -50,6 +49,33 @@
           <div slot="header" class="clearfix">
             <span class="person_body_list" style="border-bottom: none">个人中心</span>
           </div>
+          <!-- <div
+              class="person_body_list"
+              v-for="(item, index) in person_body_list"
+              :key="index"
+            >
+              <router-link :to="{ name: item.name, params: item.params }">{{
+                item.label
+              }}</router-link>
+            </div> -->
+          <el-menu router active-text-color="#00c3ff" class="el-menu-vertical-demo">
+
+            <el-menu-item index="myarticle" :route="{ name: 'myarticle' }">
+              <i class="el-icon-edit-outline"></i>
+              <span slot="title">上传视频</span>
+            </el-menu-item>
+            <el-menu-item index="mycollect" :route="{ name: 'mycollect' }">
+              <i class="el-icon-document"></i>
+              <span slot="title">收藏</span>
+            </el-menu-item>
+            <el-menu-item index="myfan" :route="{ name: 'myfan', query: { userid: input } }">
+              <i class="el-icon-tableware"></i>
+              <span slot="title">粉丝</span>
+            </el-menu-item>
+            <el-menu-item index="myfollow" :route="{ name: 'myfollow', query: { userid: input } }">
+              <i class="el-icon-circle-plus-outline"></i>
+              <span slot="title">关注</span>
+            </el-menu-item>
             <div v-if="this.id != this.input">
               <div v-if="followuser.includes(this.input)">
                 <el-menu-item @click="unfollow(this.input)">
@@ -76,12 +102,14 @@
       </div>
       <div class="person_body_right">
         <a>{{ this.signature }}</a>
+        <router-view></router-view>
       </div>
     </div>
-    <div v-if="x === 1"><personal-dia ref="dia" @flesh="reload" /></div>
   </div>
   <el-backtop></el-backtop>
 </template>
+  
+
     
 
 <script>
@@ -96,7 +124,7 @@ export default {
     return {
       id: 0,
       avatar: "",
-      nickname: "lulu",
+      nickname: "",
       v: 1,
       design: "",
       follownum: 0,
@@ -146,13 +174,12 @@ export default {
       console.log(this.input)
   },
   watch: {
-    $route(to, from) {
-        
+    $route() {
+      //this.$emit("flesh");
     },
   },
   methods: {
-    load() {
-
+    edit() {
     },
     editnickname() {
       this.$prompt('请输入昵称', '提示', {

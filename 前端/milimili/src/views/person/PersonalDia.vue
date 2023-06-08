@@ -1,15 +1,11 @@
 <template>
-  <div>
-      <el-dialog
-  title="修改个人信息"
-  :visible.sync="dialogVisible"
-  width="60%"
-  :before-close="handleClose">
+  <span>修改个人信息</span>
+  <!-- Form -->
   <el-form :model="form" :rules="rules" ref="form" label-width="150px">
       <div class="updateinfo">
   <div class="left">
       <el-form-item label="头像" prop="avatar">
-            <img style="width:150px;height:110px" :src="form.avatar"/>
+              <img style="width:150px;height:110px" src="form.avatar"/>
           </el-form-item>
                     <el-form-item label="账号密码" prop="password">
             <el-input v-model="form.password"></el-input>
@@ -53,7 +49,7 @@
           <el-form-item label="职业" prop="work">
             <el-input v-model="form.work"></el-input>
           </el-form-item>
-                    <el-form-item label="个性签名" prop="design">
+            <el-form-item label="个性签名" prop="design">
             <el-input v-model="form.design"></el-input>
           </el-form-item>
           <el-form-item label="手机号码" prop="mobilePhoneNumber">
@@ -63,20 +59,16 @@
   </div>
   </el-form>
   <span slot="footer" class="dialog-footer">
-    <el-button @click="handleClose">取 消</el-button>
-    <el-button type="primary" @click="submit">提 交</el-button>
+      <el-button @click="dialogVisible = false">取 消</el-button>
+      <el-button type="primary" @click="dialogVisible = false">提 交</el-button>
   </span>
-</el-dialog>
-  </div>
 </template>
 
 <script>
 
 export default {
-  name: "PersonalDia",
   data() {
     return {
-      dialogVisible: false,
       form: {
         avatar: "",
         password: "",
@@ -101,24 +93,6 @@ export default {
         ],
       },
     };
-  },
-  mounted() {
-    this.load();
-  },
-  methods: {
-    open() {
-      this.dialogVisible = true;
-    },
-    load() {
-      
-    },
-    submit() {
-      
-    },
-    handleClose() {
-      this.dialogVisible = false;
-      this.$emit("flesh");
-    },
   },
 };
 </script>
