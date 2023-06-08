@@ -113,7 +113,7 @@ DATABASES = {
         'NAME': 'backend_demo',
         'USER': 'root',
         'PASSWORD': '2000227',
-        'HOST': 'localhost',
+        'HOST': '127.0.0.1',
         'PORT': '3306',
     }
 }

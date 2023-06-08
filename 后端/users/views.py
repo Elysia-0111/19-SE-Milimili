@@ -7,7 +7,7 @@ from users.models import *
 from videos import views
 import re
 
-userid = 1
+userid = 0
 
 
 def create_code(random_length=6):
