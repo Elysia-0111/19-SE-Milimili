@@ -1,37 +1,37 @@
 <template>
     <div class="login">
-        <div v-if="this.$store.state.isLogin == false">
-            <div class="container">
-                <div class="main">
-                    <!-- 整个注册盒子 -->
-                    <div class="loginbox">
-                        <!-- 左侧的注册盒子 -->
-                        <div class="loginbox-in">
-                            <div class="userbox">
-                                <el-avatar :size="30"> user </el-avatar>
-                                <input v-model="username" class="user" id="user" placeholder="用户名">
-                            </div>
-                            <br>
-                            <div class="pwdbox">
-                                <el-avatar :size="30"> pwd </el-avatar>
-                                <input v-model="password" class="pwd" id="password" type="password" placeholder="密码">
-                            </div>
-                            <br>
-                            <el-button type="primary" @click="loginUser">登录</el-button> |
-                            <router-link to="/register"><el-button class="register_btn"
-                                    type="success">注册</el-button></router-link>
+        <!-- <div v-if="this.$store.state.isLogin == false"> -->
+        <div class="container">
+            <div class="main">
+                <!-- 整个注册盒子 -->
+                <div class="loginbox">
+                    <!-- 左侧的注册盒子 -->
+                    <div class="loginbox-in">
+                        <div class="userbox">
+                            <el-avatar :size="30"> user </el-avatar>
+                            <input v-model="username" class="user" id="user" placeholder="用户名">
                         </div>
-                        <!-- 右侧的注册盒子 -->
-                        <div class="background">
-                            <div class="title">Welcome to MiLiMiLi</div>
+                        <br>
+                        <div class="pwdbox">
+                            <el-avatar :size="30"> pwd </el-avatar>
+                            <input v-model="password" class="pwd" id="password" type="password" placeholder="密码">
                         </div>
+                        <br>
+                        <el-button type="primary" @click="loginUser">登录</el-button> |
+                        <router-link to="/register"><el-button class="register_btn"
+                                type="success">注册</el-button></router-link>
+                    </div>
+                    <!-- 右侧的注册盒子 -->
+                    <div class="background">
+                        <div class="title">Welcome to MiLiMiLi</div>
                     </div>
                 </div>
             </div>
         </div>
-        <div v-else>
+        <!-- </div> -->
+        <!-- <div v-else>
             <el-button type="info" @click="this.$store.commit('logout')">退出登录</el-button>
-        </div>
+        </div> -->
     </div>
 </template>
 <style>
@@ -209,8 +209,17 @@ export default {
             let data = new FormData();
             data.append("username", this.username)
             data.append("password", this.password)
-            axios.post('/api/login', data)
+            axios.post('http://127.0.0.1:8000/api/login/', data)
                 .then(response => {
+                    const result = response.data.result;
+                    if (result === -1) {
+                        alert("用户不存在，请前往注册界面注册")
+                        return
+                    }
+                    else if (result === 0) {
+                        alert("用户名或者密码错误")
+                        return
+                    }
                     // 注册成功后的处理逻辑
                     this.$message.success("登录成功，3秒后进入主页");
                     const timejump = 3;
@@ -226,6 +235,10 @@ export default {
                                 this.timer = null;
                                 //跳转的页面写在此处
                                 this.$router.push({ path: '/home' });
+                                this.$store.commit('login')
+                                console.log(this.$store.state.isLogin)
+                                sessionStorage.setItem('isLogin', true)
+                                console.log(sessionStorage.getItem('isLogin'))
                             }
                         }, 1000)
                     }

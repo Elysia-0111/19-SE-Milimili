@@ -1,24 +1,57 @@
 from django.db.models import Q
 from django.http import JsonResponse
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render
 from users.models import *
 import time
 from users.views import userid
-from django.conf import settings
+from utils.Bucket import Bucket
+from video.settings import *
+import os
+import json
+from django.core import serializers
+
+
+def page_video_id(request):
+    if request.method == 'GET':
+        videos = Video.objects.all()
+        video_list = []
+        for video in videos:
+            a = video.to_dic()
+            video_list.append(a)
+        result = {'result': 1, 'message': r"查询成功！", "video": video_list}
+
+        return JsonResponse(result)
+    else:
+        result = {'result': 0, 'message': r"请求方式错误！"}
+        return JsonResponse(result)
+
+
+# def page_video_id(request):
+#     if request.method == 'POST':
+#         videos = Video.objects.all
+#         video_list = []
+#         for video in videos:
+#             a = video.to_simple_dic()
+#             video_list.append(a)
+#         result = {'result': 1, 'message': r"查询成功！", "video": video_list}
+
+#         return JsonResponse(result)
+#     else:
+#         result = {'result': 0, 'message': r"请求方式错误！"}
+#         return JsonResponse(result)
 
 
 def home(request):
-    videos = Video.objects.all().order_by('-upload_time')
+    videos = Video.objects.all().order_by('upload_date')
     return render(request, 'home.html', {'videos': videos})
 
 
 def upload_video(request):
-    method = request.method
-    if method == 'POST':
-        try:
-            user_id = userid
+    if request.method == 'POST':
+        user_id = request.POST.get('id', '')
+        if user_id != 0:
             user = User.objects.get(id=user_id)
-        except Exception as e:
+        else:
             result = {'result': 0, 'message': r"请先登录!"}
             return JsonResponse(result)
 
@@ -57,8 +90,6 @@ def upload_video(request):
 
             video.avatar_path = video.avatar.url
             video.save()
-            result = {'result': 1, 'message': r"上传成功！"}
-            return JsonResponse(result)
 
         # 处理上传视频
         video_upload = request.FILES.get("video", None)
@@ -71,7 +102,7 @@ def upload_video(request):
             Video.objects.get(id=video_id).delete()
             result = {'result': 0, 'message': r"请上传视频！"}
             return JsonResponse(result)
-        if video_upload.size > 1024 * 1024 * 100:
+        if video_upload.size > 1024 * 1024 * 1024:
             if video.video_path != '':
                 # 删除封面
                 video.avatar.delete()
@@ -86,36 +117,31 @@ def upload_video(request):
         # 保存到本地
         video.video = video_upload
         video.save()
-
+        bucket = Bucket()
         # 上传
-        video.isAudit = 0
-        video.video_path = video.video.url
+        video.video_path = bucket.get_video_url(video_upload.name)
         video.save()
 
-        with open(video.video_path, 'wb') as f:
-            for chunk in video.chunks():
-                f.write(chunk)
-
-        result = {'result': 1, 'message': r"视频上传成功，正在审核！"}
-        for i in range(1, 6):
-            tag = eval('tag' + str(i))
-            if tag != '':
-                try:
-                    tag_info = Tag.objects.get(tag=tag)
-                    tag_info.count += 1
-                    tag_info.save()
-                except Exception:
-                    Tag.objects.create(tag=tag)
-        return JsonResponse(result)
-    else:
-        try:
-            user_id = userid
-            user = User.objects.get(id=user_id)
-        except Exception as e:
-            result = {'result': 0, 'message': r"请先登录!"}
+        bucket = Bucket()
+        upload_result = bucket.upload_file(video_upload.name)
+        if upload_result == -1:
+            result = {'result': 0, 'message': r"上传失败！"}
+            os.remove(os.path.join(BASE_DIR, "media/" + video_upload.name))
             return JsonResponse(result)
-        tag_list = list(Tag.objects.all().values())
-        result = {'result': 1, 'message': r"获取标签集成功", 'tag_list': tag_list}
+        else:
+            for i in range(1, 6):
+                tag = eval('tag' + str(i))
+                if tag != '':
+                    try:
+                        tag_info = Tag.objects.get(tag=tag)
+                        tag_info.count += 1
+                        tag_info.save()
+                    except Exception:
+                        Tag.objects.create(tag=tag)
+            result = {'result': 1, 'message': r"上传成功！"}
+            return JsonResponse(result)
+    else:
+        result = {'result': 0, 'message': r"请求方式错误！"}
         return JsonResponse(result)
 
 
@@ -187,7 +213,8 @@ def complain_video(request):
         if len(title) == 0 or len(description) == 0:
             result = {'result': 0, 'message': r"投诉的标题和主体不能为空！"}
             return JsonResponse(result)
-        VideoComplain.objects.create(title=title, description=description, user_id=user_id, video_id=video_id)
+        VideoComplain.objects.create(
+            title=title, description=description, user_id=user_id, video_id=video_id)
         video = Video.objects.get(id=video_id)
 
         result = {'result': 1, 'message': r"投诉视频成功！", "user": user.to_dic()}
@@ -200,21 +227,39 @@ def complain_video(request):
 
 # 视频列表
 def trending(request):
-    videos = Video.objects.all().order_by('-upload_time')[:10]
+    videos = Video.objects.all().order_by('upload_date')[:10]
     return render(request, 'trending.html', {'videos': videos})
 
 
 # 查询
 def search(request):
-    query = request.GET.get('query')
-    videos = Video.objects.filter(Q(title__icontains=query) |
-                                  Q(zone__icontains=query) |
-                                  Q(tag1__icontains=query) |
-                                  Q(tag2__icontains=query) |
-                                  Q(tag3__icontains=query) |
-                                  Q(tag4__icontains=query) |
-                                  Q(tag5__icontains=query))
-    return render(request, 'search.html', {'videos': videos})
+    if request.method == 'POST':
+        type = request.POST.get('type')
+        query = request.POST.get('query')
+        if type == 'video':
+            videos = Video.objects.filter(Q(title__icontains=query) |
+                                          Q(zone__icontains=query) |
+                                          Q(tag1__icontains=query) |
+                                          Q(tag2__icontains=query) |
+                                          Q(tag3__icontains=query) |
+                                          Q(tag4__icontains=query) |
+                                          Q(tag5__icontains=query))
+            video_list = []
+            for video in videos:
+                a = video.to_dic()
+                video_list.append(a)
+            result = {'result': 1, 'message': r"查询成功！", "video": video_list}
+        if type == 'user':
+            users = User.objects.filter(Q(nickname__icontains=query))
+            user_list = []
+            for user in users:
+                a = user.to_simple_dic()
+                user_list.append(a)
+            result = {'result': 1, 'message': r"查询成功！", "user": user_list}
+        return JsonResponse(result)
+    else:
+        result = {'result': 0, 'message': r"请求方式错误！"}
+        return JsonResponse(result)
 
 
 def get_like_videos_list(user_id):
@@ -243,25 +288,28 @@ def get_like_list(request):
 
 
 # 点赞
-def like_video(request):
+def like_video(request, video_id):
     if request.method == 'POST':
+        data = json.loads(request.body)
         try:
-            user_id = request.POST.get('user_id')
+            user_id = data.get('user_id')
             user = User.objects.get(id=user_id)
         except Exception as e:
             result = {'result': 0, 'message': r"请先登录!"}
             return JsonResponse(result)
 
-        video_id = request.POST.get('video_id', '')
+        video_id = int(video_id)
 
         if Video_like_list.objects.filter(user_id=user_id, video_id=video_id).exists():
-            Video_like_list.objects.get(user_id=user_id, video_id=video_id).delete()
+            Video_like_list.objects.get(
+                user_id=user_id, video_id=video_id).delete()
             video = Video.objects.get(id=video_id)
             video.del_like()
             upload_user = video.user
             upload_user.del_like()
+            is_like = 0
             result = {'result': 1, 'message': r"取消成功！", "user": user.to_dic(),
-                      "like_list": get_like_videos_list(user_id)
+                      "like_list": get_like_videos_list(user_id), 'video_info': video.to_dic(), 'is_like': is_like
                       }
             return JsonResponse(result)
         else:
@@ -270,9 +318,10 @@ def like_video(request):
             video.add_like()
             upload_user = video.user
             upload_user.add_like()
+            is_like = 1
 
             result = {'result': 1, 'message': r"点赞成功！", "user": user.to_dic(),
-                      "like_list": get_like_videos_list(user_id)}
+                      "like_list": get_like_videos_list(user_id), 'video_info': video.to_dic(), 'is_like': is_like}
             return JsonResponse(result)
 
     else:
@@ -283,7 +332,7 @@ def like_video(request):
 def like_list(request):
     if request.method == 'POST':
         try:
-            user_id = userid
+            user_id = request.POST.get('user_id')
             user = User.objects.get(id=user_id)
         except Exception as e:
             result = {'result': 0, 'message': r"请先登录!"}
@@ -298,14 +347,15 @@ def like_list(request):
 
 
 def get_comment_list(video_id):
-    return [x.to_dic() for x in Video.objects.get(id=video_id).videocomment_set.all()]
+    return [x.to_dic() for x in Video.objects.get(id=video_id).comment_set.all()]
 
 
 def get_video_comment(video_id, user_id):
     if user_id != 0:
         user = User.objects.get(id=user_id)
         # 用户点赞的评论
-        comment_like_dict = {x.comment_id: 1 for x in UserToComment_like.objects.filter(user_id=user_id)}
+        comment_like_dict = {
+            x.comment_id: 1 for x in UserToComment_like.objects.filter(user_id=user_id)}
 
     # 当前视频所有所有评论
     comment_list = get_comment_list(video_id=video_id)
@@ -335,34 +385,38 @@ def get_video_comment(video_id, user_id):
             child_list = comment_child_dict[root_id]
         else:
             child_list = []
-        result_list.append({'comment_root': comment_root, 'child_list': child_list})
+        result_list.append(
+            {'comment_root': comment_root, 'child_list': child_list})
     return result_list
 
 
 # 添加评论
-def add_comment(request):
+def add_comment(request, video_id):
     if request.method == 'POST':
+        data = json.loads(request.body)
         try:
-            user_id = userid
+            user_id = data.get('user_id')
             user = User.objects.get(id=user_id)
         except Exception as e:
             result = {'result': 0, 'message': r"请先登录!"}
             return JsonResponse(result)
 
-        video_id = request.POST.get('video_id', '')
+        video_id = int(video_id)
         video = Video.objects.get(id=video_id)
         username = user.username
-        content = request.POST.get('content', '')
+
+        content = data.get('content', '')
         if len(content) == 0:
             result = {'result': 0, 'message': r"评论不能为空！"}
             return JsonResponse(result)
-        comment = Comment.objects.create(username=username, user_id=user_id, content=content, video_id=video_id)
+        comment = Comment.objects.create(
+            username=username, user_id=user_id, content=content, video_id=video_id)
         comment.root_id = comment.id
         comment.save()
         comment_list = get_video_comment(video_id, user_id)
         result = {'result': 1, 'message': r"评论成功！", "user": user.to_dic(),
                   "comment": comment_list,
-                  "comment_num": len(video.videocomment_set.filter(video_id=video_id))}
+                  "comment_num": len(video.comment_set.filter(video_id=video_id))}
         return JsonResponse(result)
     else:
         result = {'result': 0, 'message': r"发生错误！"}
@@ -395,7 +449,7 @@ def del_comment(request):
         comment_list = get_video_comment(video_id, user_id)
         result = {'result': 1, 'message': r"删除评论成功！", "user": user.to_dic(),
                   "comment": comment_list,
-                  "comment_num": len(video.videocomment_set.filter(video_id=video_id))}
+                  "comment_num": len(video.comment_set.filter(video_id=video_id))}
         return JsonResponse(result)
     else:
         result = {'result': 0, 'message': r"发生错误！"}
@@ -431,7 +485,7 @@ def reply_comment(request):
         comment_list = get_video_comment(video_id, user_id)
         result = {'result': 1, 'message': r"回复评论成功！", "user": user.to_dic(),
                   "comment": comment_list,
-                  "comment_num": len(video.videocomment_set.filter(video_id=video_id))}
+                  "comment_num": len(video.comment_set.filter(video_id=video_id))}
         return JsonResponse(result)
     else:
         result = {'result': 0, 'message': r"发生错误！"}
@@ -459,22 +513,24 @@ def like_comment(request):
         video = comment.video
         video_id = video.id
         if UserToComment_like.objects.filter(user_id=user_id, comment_id=comment_id).exists():
-            UserToComment_like.objects.get(user_id=user_id, comment_id=comment_id).delete()
+            UserToComment_like.objects.get(
+                user_id=user_id, comment_id=comment_id).delete()
             comment.del_like()
             comment_list = get_video_comment(video_id, user_id)
             result = {'result': 1, 'message': r"取消点赞成功！", "user": user.to_dic(),
                       "comment": comment_list,
-                      "comment_num": len(video.videocomment_set.filter(video_id=video_id))}
+                      "comment_num": len(video.comment_set.filter(video_id=video_id))}
             return JsonResponse(result)
         else:
             # 添加点赞记录
-            UserToComment_like.objects.create(user_id=user_id, comment_id=comment_id, root_id=comment.root_id)
+            UserToComment_like.objects.create(
+                user_id=user_id, comment_id=comment_id, root_id=comment.root_id)
             comment.add_like()
             comment_list = get_video_comment(video_id, user_id)
 
             result = {'result': 1, 'message': r"点赞评论成功！", "user": user.to_dic(),
                       "comment": comment_list,
-                      "comment_num": len(video.videocomment_set.filter(video_id=video_id))}
+                      "comment_num": len(video.comment_set.filter(video_id=video_id))}
             return JsonResponse(result)
 
     else:
@@ -508,12 +564,13 @@ def video_page(request, video_id):
             result = {'result': 1, 'message': r"获取视频信息成功！", 'video_info': video_info.to_dic(),
                       'is_like': is_like,
                       'comment_list': comment_list,
-                      "comment_num": len(video_info.videocomment_set.filter(video_id=video_id)),
+                      "comment_num": len(video_info.comment_set.filter(video_id=video_id)),
                       }
             return JsonResponse(result)
         # 用户情况  需要添加历史记录,但是需要先需要判断是否已存在该记录
         if UserToHistory.objects.filter(user_id=user_id, video_id=video_id).exists():
-            UserToHistory.objects.filter(user_id=user_id, video_id=video_id).delete()
+            UserToHistory.objects.filter(
+                user_id=user_id, video_id=video_id).delete()
         # 添加历史记录
         UserToHistory.objects.create(user_id=user_id, video_id=video_id)
 
@@ -525,7 +582,7 @@ def video_page(request, video_id):
                   'is_like': is_like,
                   'video_info': video_info.to_dic(),
                   'comment_list': comment_list,
-                  "comment_num": len(video_info.videocomment_set.filter(video_id=video_id)),
+                  "comment_num": len(video_info.comment_set.filter(video_id=video_id)),
                   }
     else:
         result = {'result': 0, 'message': r"请求方式错误！"}

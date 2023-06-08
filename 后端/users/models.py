@@ -6,6 +6,9 @@ from django.conf import settings
 class VideoUploadForm(forms.Form):
     video = forms.FileField(label='选择视频')
 
+    class Meta:
+        db_table = 'VideoUploadForm'
+
 
 class User(models.Model):
     username = models.CharField('用户名', max_length=30)
@@ -30,7 +33,8 @@ class User(models.Model):
     created_time = models.DateTimeField('创建时间', auto_now_add=True)
     updated_time = models.DateTimeField('更新时间', auto_now=True)
 
-    complain_time = models.DecimalField('投诉时间', max_digits=12, decimal_places=2, default=0.0)
+    complain_time = models.DecimalField(
+        '投诉时间', max_digits=12, decimal_places=2, default=0.0)
 
     def to_simple_dic(self):
         return {
@@ -40,6 +44,10 @@ class User(models.Model):
             'fan_num': self.fan_num,
             'video_num': self.video_num,
             'created_time': self.created_time,
+            'nickname': self.nickname,
+            'like_num': self.like_num,
+            'follow_num': self.follow_num,
+            'signature': self.signature
         }
 
     def to_dic(self):
@@ -132,25 +140,40 @@ class UserToFan(models.Model):
     user_id = models.IntegerField(verbose_name='主体', default=0)
     fan_id = models.IntegerField(verbose_name='粉丝', default=0)
 
+    class Meta:
+        db_table = 'UserToFan'
+
 
 # 查看个人关注
 class UserToFollow(models.Model):
     user_id = models.IntegerField(verbose_name='主体', default=0)
     follow_id = models.IntegerField(verbose_name='关注的up主', default=0)
 
+    class Meta:
+        db_table = 'UserToFollow'
+
 
 class Tag(models.Model):
     tag = models.CharField(verbose_name='标签集合', max_length=64)
     count = models.IntegerField(verbose_name='选用此标签的视频数量', default=0)
 
+    class Meta:
+        db_table = 'Tag'
+
 
 class Zone(models.Model):
     zone = models.CharField(verbose_name='分区', max_length=64)
+
+    class Meta:
+        db_table = 'Zone'
 
 
 class Video_like_list(models.Model):
     user_id = models.IntegerField(verbose_name='用户id', default=0)
     video_id = models.IntegerField(verbose_name='点赞的视频id', default=0)
+
+    class Meta:
+        db_table = 'Video_like_list'
 
 
 class UserToHistory(models.Model):
@@ -160,6 +183,7 @@ class UserToHistory(models.Model):
 
     class Meta:
         ordering = ['-created_time']
+        db_table = 'UserToHistory'
 
     def to_dic(self):
         return {
@@ -175,8 +199,8 @@ class Video(models.Model):
     avatar_path = models.CharField('封面路径', max_length=256, default='')
     video_path = models.CharField('视频路径', max_length=256, default='')
 
-    like_num = models.IntegerField(verbose_name='点赞数', )
-    view_num = models.IntegerField('浏览量', default=0)
+    like_num = models.IntegerField(verbose_name='点赞数', default=0)
+    view_num = models.IntegerField(verbose_name='浏览量', default=0)
     collect_num = models.IntegerField(verbose_name='收藏数', default=0)
 
     zone = models.CharField('专区', max_length=32, default='')
@@ -185,10 +209,12 @@ class Video(models.Model):
     tag3 = models.CharField('标签3', max_length=32, default='')
     tag4 = models.CharField('标签4', max_length=32, default='')
     tag5 = models.CharField('标签5', max_length=32, default='')
-    user = models.ForeignKey(User, verbose_name='所属用户', on_delete=models.CASCADE)
+    user = models.ForeignKey(User, verbose_name='所属用户',
+                             on_delete=models.CASCADE)
     upload_date = models.DateTimeField('上传时间', auto_now_add=True)
 
-    isAudit = models.IntegerField('状态', default=0)  # 0 - 待审核   1 - 审核通过    2 - 未通过   3 - 被管理员手动改为审核
+    # 0 - 待审核   1 - 审核通过    2 - 未通过   3 - 被管理员手动改为审核
+    isAudit = models.IntegerField('状态', default=0)
 
     def to_dic(self):
         tag_list = []
@@ -247,8 +273,10 @@ class VideoComplain(models.Model):
     title = models.CharField('标题', max_length=64)
     description = models.TextField('描述')
     user_id = models.IntegerField(verbose_name='投诉人员编号', default=0)
-    video = models.ForeignKey(Video, verbose_name='所属视频', on_delete=models.CASCADE, default=None)
-    verify_result = models.IntegerField(verbose_name='投诉结果', default=0)  # 0 - 正处于投诉状态，  1 - 投诉不成功   2 - 投诉成功
+    video = models.ForeignKey(
+        Video, verbose_name='所属视频', on_delete=models.CASCADE, default=None)
+    # 0 - 正处于投诉状态，  1 - 投诉不成功   2 - 投诉成功
+    verify_result = models.IntegerField(verbose_name='投诉结果', default=0)
 
     def to_dic(self):
         return {
@@ -259,20 +287,30 @@ class VideoComplain(models.Model):
             'video': self.video.to_simple_dic(),
         }
 
+    class Meta:
+        db_table = 'VideoComplain'
+
 
 class UserToFollow(models.Model):
     user_id = models.IntegerField(verbose_name='主体', default=0)
     follow_id = models.IntegerField(verbose_name='关注的up主', default=0)
+
+    class Meta:
+        db_table = 'UserToFollow'
 
 
 class Like(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     video = models.ForeignKey(Video, on_delete=models.CASCADE)
 
+    class Meta:
+        db_table = 'Like'
+
 
 class Comment(models.Model):
     username = models.CharField('用户名', max_length=30)
-    video = models.ForeignKey(Video, verbose_name='所属视频', on_delete=models.CASCADE)
+    video = models.ForeignKey(
+        Video, verbose_name='所属视频', on_delete=models.CASCADE)
     content = models.TextField('评论内容')
     comment_time = models.DateTimeField(auto_now_add=True)
     like_num = models.IntegerField(verbose_name='点赞数', default=0)
@@ -295,7 +333,7 @@ class Comment(models.Model):
     def to_dic(self):
         return {
             'id': self.id,
-            'username': self.user,
+            'username': self.username,
             'user_id': self.user_id,
             'avatar_url': User.objects.get(id=self.user_id).avatar_url,
             'content': self.content,
@@ -326,6 +364,9 @@ class UserToComment_like(models.Model):
     comment_id = models.IntegerField(verbose_name='点赞的评论', default=0)
     root_id = models.IntegerField(verbose_name='点赞的根评论', default=0)
 
+    class Meta:
+        db_table = 'UserToComment_like'
+
 
 class Notification(models.Model):
     TYPE_CHOICES = (
@@ -343,11 +384,19 @@ class Notification(models.Model):
     def __str__(self):
         return f"{self.user}'s {self.type} notification"
 
+    class Meta:
+        db_table = 'Notification'
+
 
 # 投诉
 class Complaint(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    video = models.ForeignKey(Video, on_delete=models.CASCADE, null=True, blank=True)
-    comment = models.ForeignKey(Comment, on_delete=models.CASCADE, null=True, blank=True)
+    video = models.ForeignKey(
+        Video, on_delete=models.CASCADE, null=True, blank=True)
+    comment = models.ForeignKey(
+        Comment, on_delete=models.CASCADE, null=True, blank=True)
     text = models.TextField()
     time = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = 'Complaint'

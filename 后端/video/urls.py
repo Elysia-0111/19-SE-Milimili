@@ -12,12 +12,14 @@ urlpatterns = [
     path('api/trending/', views.trending, name='trending'),
     path('api/search/', views.search, name='search'),
     path('api/like-list', views.like_list),
-    path('api/add-comment', views.add_comment),
+    path('api/add-comment/<str:video_id>/', views.add_comment),
+    path('api/like-video/<str:video_id>/', views.like_video),
     path('api/del-comment', views.del_comment),
     path('api/reply-comment', views.reply_comment),
     path('api/like-comment', views.like_comment),
     path('api/detail/<str:video_id>', views.video_page),
     path('api/', include('users.urls')),
+    path('api/page_video_id/', views.page_video_id)
 ]
 
 if settings.DEBUG:

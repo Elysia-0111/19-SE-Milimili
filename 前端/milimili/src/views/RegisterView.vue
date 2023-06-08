@@ -214,8 +214,13 @@ export default {
                 let data = new FormData();
                 data.append("username", this.username)
                 data.append("password", this.password)
-                axios.post('/api/register', data)
+                axios.post('http://127.0.0.1:8000/api/register/', data)
                     .then(response => {
+                        const result = response.data.result;
+                        if (result === 0) {
+                            alert("用户已存在，请重新注册")
+                            return
+                        }
                         // 注册成功后的处理逻辑
                         console.log('Registration successful');
                         this.$message.success("注册成功，3秒后返回登录页面");
