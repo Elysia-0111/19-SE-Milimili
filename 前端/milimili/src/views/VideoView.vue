@@ -1,6 +1,6 @@
 <template>
   <!--<NavigateView></NavigateView>-->
-  <MainView isLogin=true :user="user" :collection="collection"></MainView>
+  <MainView></MainView>
 </template>
 <script>
 import NavigateView from '../components/NavigateView.vue'
@@ -23,35 +23,7 @@ export default {
       if (newValue) { this.getCollection() }
     }
   },
-  methods: {
-    getCollection () {
-      fetch('https://kotokawa-akira-mywife.site/web/api/collection/getCollectionByUid/' + this.user.id, { method: 'get' })
-        .then(res => {
-          return res.json()
-        }).then(data => {
-          this.collection = data
-        })
-    },
-    getLoginInfo () {
-      fetch('https://kotokawa-akira-mywife.site/web/api/account/getLoginInfo', { method: 'get', credentials: 'include' })
-        .then(res => {
-          return res.json()
-        }).then(data => {
-          if (data.success === 'true') {
-            fetch('https://kotokawa-akira-mywife.site/web/api/account/selectOneById/' + data.uid, { method: 'get' })
-              .then(res => {
-                return res.json()
-              }).then(data => {
-                this.user = data
-                this.isLogin = true
-              })
-          }
-        })
-    }
-  },
-  created () {
-    this.getLoginInfo()
-  }
+  methods: {}
 }
 </script>
 

@@ -224,6 +224,7 @@ export default {
                                 this.show = true;
                                 clearInterval(this.timer);
                                 this.timer = null;
+                                this.$store.state.isLogin = true;
                                 //跳转的页面写在此处
                                 this.$router.push({ path: '/home' });
                             }

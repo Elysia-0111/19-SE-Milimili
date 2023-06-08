@@ -1,7 +1,7 @@
 <template>
   <el-container>
     <el-header>
-      <div v-if="this.$store.state.isLogin == false">
+      <div v-if="this.$store.state.isLogin === false">
         <router-link to="/video/home">VideoHome</router-link> |
         <router-link to="/">Home</router-link> |
         <!--<router-link to="/homepage">个人中心</router-link> |-->

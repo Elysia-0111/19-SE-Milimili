@@ -35,8 +35,8 @@
           </el-image>
         </a>
         <a href="http://localhost:8080/personal" target="_blank">
-          <div class="video-info-uper-name">
-            {{ video['user_id'] }}
+          <div class="video-info-uper-name" >
+            {{ user.username }}
           </div>
         </a>
       </div>
@@ -85,7 +85,7 @@
               </el-image>
             </a>
             <a href="'http://localhost:8080/personal'" target="_blank">
-              <div class="options-img-name">{{ video['user_id'] }}</div>
+              <div class="options-img-name">{{ user.username }}</div>
             </a>
           </div>
         </div>
@@ -283,10 +283,8 @@ export default {
   },
   data() {
     return {
-      isLogin: true,
-      user:{
-        id: 1
-      },
+      user: {},
+      isLogin: this.$store.state.isLogin,
       video: {},
       player: {},
       videoList: [],
@@ -430,6 +428,7 @@ export default {
         console.log(data.is_like)
         //this.comments = data.comment_list;
         this.isLiked = data.is_like;
+        this.user = this.video.user
       });
     },
     currentChange(index, value) {
@@ -466,12 +465,6 @@ export default {
       this.userNames[index] = userName;
     },
     replyForVideo() {
-      if (!this.isLogin) {
-        ElMessageBox.alert('登录后即可发布评论', '提示', {
-          confirmButtonText: "确定"
-        });
-        return;
-      }
       if (this.replyVideo === "") return;
       this.addComment(this.replyVideo);
       this.replyVideo = "";
@@ -527,7 +520,7 @@ export default {
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          user_id: 1
+          user_id: this.user.id
         }),
         })
         .then(res => {
@@ -553,7 +546,7 @@ export default {
             return video.id == this.video.id;
           });
         });
-        fetch('https://kotokawa-akira-mywife.site/web/api/collection/removeFromCollection', {
+        fetch('', {
           method: "post",
           headers: {
             "Content-Type": "application/json"
@@ -571,7 +564,7 @@ export default {
       } else this.dialogVisible = true;
     },
     addCollection(Name) {
-      fetch('https://kotokawa-akira-mywife.site/web/api/collection/addToCollection', {
+      fetch('', {
         method: "post",
         headers: {
           "Content-Type": "application/json"
