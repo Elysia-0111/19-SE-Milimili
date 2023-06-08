@@ -209,7 +209,7 @@ export default {
             let data = new FormData();
             data.append("username", this.username)
             data.append("password", this.password)
-            axios.post('/api/login', data)
+            axios.post('http://127.0.0.1:8000/api/login/', data)
                 .then(response => {
                     // 注册成功后的处理逻辑
                     this.$message.success("登录成功，3秒后进入主页");
